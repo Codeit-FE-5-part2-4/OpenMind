@@ -1,3 +1,9 @@
+header > .ArrowButton {
+    position: absolute;
+    top: 45px;
+    right: 130px;
+}
+
 .ArrowButton {
     display: flex;
     align-items: center;
@@ -10,4 +16,31 @@
     border-radius: 8px;
     border: 1px solid var(--brownColor400);
     padding: 12px 24px;
+}
+
+@media (max-width: 1199px) {
+    /* 타블렛 */
+    header > .ArrowButton {
+        top: 44px;
+        right: 50px;
+    }
+}
+
+@media (max-width: 767px) {
+    /* 모바일 */
+
+    header > .ArrowButton {
+        top: 202px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .ArrowButton {
+        max-width: 126px;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: 1.28571428571;
+        gap: 4px;
+        justify-content: space-between;
+    }
 }
