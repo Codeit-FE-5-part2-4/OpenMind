@@ -1,0 +1,25 @@
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.profileImage {
+  width: 136px;
+  border-radius: 50%;
+}
+
+.profileUserName {
+  font-size: 32px;
+  font-family: Pretendard, sans-serif;
+}
+
+.shareButtonBox {
+  display: flex;
+  gap: 12px;
+}
+
+.shareButton {
+  width: 40px;
+}
