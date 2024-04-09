@@ -1,0 +1,27 @@
+.BoxButton {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.375;
+    color: var(--grayscaleColor100);
+    background: var(--brownColor400);
+    border: 2px solid var(--brownColor400);
+    border-radius: 8px;
+    padding: 10px 24px;
+}
+
+.BoxButton:hover {
+    border: 2px solid var(--brownColor500);
+}
+
+.BoxButton:active {
+    background: var(--brownColor500);
+    border: 1px solid var(--brownColor500);
+}
+
+.BoxButton:disabled,
+.BoxButton[disabled] {
+    color: var(--grayscaleColor100);
+    background: var(--brownColor300);
+}

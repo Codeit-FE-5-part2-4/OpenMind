@@ -1,7 +1,7 @@
 import styles from "./BoxButton.module.css";
 
-function BoxButton() {
-    return <button>BoxButton</button>;
+function BoxButton({ text }) {
+    return <button className={styles.BoxButton}>{text}</button>;
 }
 
 export default BoxButton;
