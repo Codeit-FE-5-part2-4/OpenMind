@@ -1,0 +1,47 @@
+.cardWrapper {
+  display: block;
+  padding: 20px;
+  text-decoration: none;
+  border: 1px solid var(--grayscaleColor400);
+  border-radius: 16px;
+}
+
+.profileSection {
+  color: var(--grayscaleColor600);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 28px;
+}
+
+.profileImage {
+  width: 60px;
+  height: 60px;
+}
+
+.profileName {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.infoSection {
+  color: var(--grayscaleColor400);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.375;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+}
+
+.infoIcon {
+  width: 18px;
+  height: 18px;
+}

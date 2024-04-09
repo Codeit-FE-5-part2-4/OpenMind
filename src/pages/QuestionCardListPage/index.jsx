@@ -1,4 +1,7 @@
 import QuestionCardList from "../../components/QuestionCardList/QuestionCardList";
+import "../../assets/styles/reset.css";
+import "../../assets/styles/global.css";
+import Pagination from "../../components/Pagination/Pagination";
 
 function QuestionCardListPage() {
   return (
@@ -7,9 +10,7 @@ function QuestionCardListPage() {
         <button>정렬</button>
       </div>
       <QuestionCardList />
-      <ol>
-        <li>페이지네이션</li>
-      </ol>
+      <Pagination />
     </section>
   );
 }
