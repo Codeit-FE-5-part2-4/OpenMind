@@ -1,0 +1,13 @@
+.ArrowButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.375;
+    color: var(--brownColor400);
+    background: var(--brownColor100);
+    border-radius: 8px;
+    border: 1px solid var(--brownColor400);
+    padding: 12px 24px;
+}
