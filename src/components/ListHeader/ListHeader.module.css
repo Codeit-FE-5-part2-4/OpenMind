@@ -1,1 +1,17 @@
-  
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 1199px) {
+  .header {
+    margin: 0 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+}

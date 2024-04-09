@@ -1,5 +1,7 @@
+import QuestionCardListPage from "./pages/QuestionCardListPage/QuestionCardListPage";
+
 function App() {
-  return <div className="App"></div>;
+  return <QuestionCardListPage />;
 }
 
 export default App;

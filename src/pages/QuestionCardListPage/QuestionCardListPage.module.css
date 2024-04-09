@@ -1,0 +1,48 @@
+body {
+  background-color: var(--Grayscale-20, #f9f9f9);
+}
+
+.container {
+  margin: 40px auto;
+  max-width: 940px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  margin: 46px auto 30px;
+}
+
+h1 {
+  color: var(--Grayscale-60, #000);
+  margin: 0 auto 12px;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Pretendard;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@media (max-width: 1199px) {
+  .container {
+    margin: 40px 32px;
+    max-width: 886px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 40px 24px;
+    align-items: center;
+  }
+  .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+}
