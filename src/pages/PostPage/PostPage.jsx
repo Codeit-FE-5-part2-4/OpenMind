@@ -7,7 +7,7 @@ export default function PostPage() {
     <div className={styles.container}>
       <h1>
         <span className={styles.blind}>Openmind</span>
-        <img src={logoImage} alt="openmind" />
+        <img className={styles.logoImage} src={logoImage} alt="openmind" />
       </h1>
       <PostProfile />
     </div>
