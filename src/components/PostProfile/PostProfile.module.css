@@ -8,11 +8,19 @@
 .profileImage {
   width: 136px;
   border-radius: 50%;
+
+  @media (max-width: 767px) {
+    width: 104px;
+  }
 }
 
 .profileUserName {
   font-size: 32px;
   font-family: Pretendard, sans-serif;
+
+  @media (max-width: 767px) {
+    font-size: 24px;
+  }
 }
 
 .shareButtonBox {

@@ -4,10 +4,16 @@
   align-items: flex-start;
   gap: 32px;
   padding: 32px;
+  width: 652px;
   border-radius: 16px;
-  width: 684px;
   background-color: var(--grayscaleColor100);
   box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
+
+  @media (max-width: 767px) {
+    width: 295px;
+    padding: 24px;
+    gap: 24px;
+  }
 }
 
 .questionInfo {
@@ -22,6 +28,12 @@
 
 .answererName {
   font-size: 18px;
+  line-height: 24px;
+
+  @media (max-width: 767px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
 }
 
 .createdAt {
@@ -32,6 +44,7 @@
 
 .questionContent {
   font-size: 18px;
+  line-height: 24px;
 }
 
 .answerContainer {
@@ -41,7 +54,13 @@
 
 .userProfileImage {
   width: 48px;
+  height: 48px;
   border-radius: 50%;
+
+  @media (max-width: 767px) {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .answer {
@@ -59,6 +78,7 @@
 
 .answerContent {
   font-size: 16px;
+  line-height: 22px;
 }
 
 .answerRejected {

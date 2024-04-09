@@ -1,13 +1,12 @@
 .container {
-  background-color: var(--grayscaleColor200);
   padding: 50px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url(../../assets/images/postpage_bg.png);
-  background-position: center top;
+
+  background: var(--grayscaleColor200) url(../../assets/images/postpage_bg.png)
+    center top no-repeat;
   background-size: 1200px 234px;
-  background-repeat: no-repeat;
   width: 100%;
 }
 
@@ -22,4 +21,9 @@
 .logoImage {
   width: 170px;
   height: 67px;
+
+  @media (max-width: 767px) {
+    width: 124px;
+    height: 49px;
+  }
 }
