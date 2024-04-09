@@ -1,6 +1,7 @@
 import likeIcon from "../../assets/images/icon/likeIcon.svg";
 import dislikeIcon from "../../assets/images/icon/dislikeIcon.svg";
 import styles from "./QuestionCard.module.css";
+import getTimeDifference from "../../utils/getTimeDifference";
 
 export default function QuestionCard({ question, AnswererProfile }) {
   const answerStatusMsg = {
@@ -8,9 +9,15 @@ export default function QuestionCard({ question, AnswererProfile }) {
     notAnswered: "미답변",
   };
 
-  let answerStatusStyle = question.answer
-    ? styles.isAnswered
-    : styles.notAnswered;
+  const questionCreatedAgo = getTimeDifference(new Date(question.createdAt));
+
+  let answerCreatedAgo;
+  let answerStatusStyle = styles.notAnswered;
+  if (question.answer) {
+    answerStatusStyle = styles.isAnswered;
+    answerCreatedAgo = getTimeDifference(new Date(question.answer.createdAt));
+  }
+
   answerStatusStyle += " ";
   answerStatusStyle += styles.answerStatus;
   return (
@@ -21,24 +28,32 @@ export default function QuestionCard({ question, AnswererProfile }) {
           : answerStatusMsg.notAnswered}
       </span>
       <div className={styles.questionInfo}>
-        <span className={styles.createdAt}>{question.createdAt}</span>
+        <span className={styles.createdAt}>{questionCreatedAgo}</span>
         <p className={styles.questionTitle}>{question.content}</p>
       </div>
-      <div className={styles.answerContainer}>
-        <img
-          className={styles.userProfileImage}
-          src={AnswererProfile.imageSource}
-        />
-        <div className={styles.answer}>
-          <div className={styles.answerInfo}>
-            <span className={styles.answererName}>{AnswererProfile.name}</span>
-            <span className={styles.createdAt}>
-              {question.answer.createdAt}
-            </span>
+
+      {question.answer && (
+        <div className={styles.answerContainer}>
+          <img
+            className={styles.userProfileImage}
+            src={AnswererProfile.imageSource}
+          />
+          <div className={styles.answer}>
+            <div className={styles.answerInfo}>
+              <span className={styles.answererName}>
+                {AnswererProfile.name}
+              </span>
+              <span className={styles.createdAt}>{answerCreatedAgo}</span>
+            </div>
+            {question.answer.isRejected ? (
+              <span className={styles.answerRejected}>답변거절</span>
+            ) : (
+              <p className={styles.answerContent}>{question.answer.content}</p>
+            )}
           </div>
-          <p className={styles.answerContent}>{question.answer.content}</p>
         </div>
-      </div>
+      )}
+
       <div className={styles.judgeAnswerContainer}>
         <div className={styles.judge}>
           <img src={likeIcon} />
