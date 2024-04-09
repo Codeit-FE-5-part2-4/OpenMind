@@ -8,6 +8,8 @@
 
   border: 1px solid var(--brownColor300);
   background-color: var(--brownColor100);
+
+  margin-top: 54px;
 }
 
 .questionCount {

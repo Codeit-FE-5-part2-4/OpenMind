@@ -19,6 +19,7 @@ export default function PostPage() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.background}></div>
       <h1>
         <span className={styles.blind}>Openmind</span>
         <img className={styles.logoImage} src={logoImage} alt="openmind" />
