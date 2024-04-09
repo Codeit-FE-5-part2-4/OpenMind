@@ -47,7 +47,7 @@
   height: 18px;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 767px) {
   .profileImage {
     width: 48px;
     height: 48px;

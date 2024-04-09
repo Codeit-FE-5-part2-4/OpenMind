@@ -13,7 +13,7 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 767px) {
   .listContainer {
     grid-template-columns: 1fr 1fr;
     gap: 16px;

@@ -12,7 +12,7 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 767px) {
   .listPageContainer {
     padding: 0 24px 39px 24px;
   }
