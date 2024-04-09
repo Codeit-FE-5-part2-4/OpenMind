@@ -4,7 +4,7 @@ function FloatingButton({ text, size }) {
     return (
         <button
             className={`${styles.FloatingButton} ${
-                size === "large" ? styles.FloatingButtonLarge : null
+                size === "large" ? styles.FloatingButtonLarge : ""
             }`}
         >
             {text}
