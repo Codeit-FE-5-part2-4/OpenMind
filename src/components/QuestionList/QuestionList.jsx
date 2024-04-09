@@ -4,7 +4,7 @@ import styles from "./QuestionList.module.css";
 
 export default function QuestionList({ questions, AnswererProfile }) {
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.questionCount}>
         <img src={speechBubble} />
         <span>{`${questions.length}개의 질문이 있습니다.`}</span>

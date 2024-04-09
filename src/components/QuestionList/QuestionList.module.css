@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid var(--brownColor300);
+  background-color: var(--brownColor100);
+}
+
+.questionCount {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
