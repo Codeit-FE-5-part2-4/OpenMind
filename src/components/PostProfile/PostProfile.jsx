@@ -14,7 +14,7 @@ export default function PostProfile(params) {
   return (
     <div className={styles.profileContainer}>
       <img className={styles.profileImage} src={mockProfile.imageSource} />
-      <span>{mockProfile.name}</span>
+      <span className={styles.profileUserName}>{mockProfile.name}</span>
       <ul className={styles.shareButtonBox}>
         {Icons.map((item, index) => (
           <li key={index}>

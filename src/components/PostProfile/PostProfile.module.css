@@ -10,6 +10,11 @@
   border-radius: 50%;
 }
 
+.profileUserName {
+  font-size: 32px;
+  font-family: Pretendard, sans-serif;
+}
+
 .shareButtonBox {
   display: flex;
   gap: 12px;
