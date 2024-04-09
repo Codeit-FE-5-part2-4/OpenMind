@@ -1,4 +1,5 @@
 .cardWrapper {
+  background-color: var(--grayscaleColor100);
   display: block;
   padding: 20px;
   text-decoration: none;
@@ -44,4 +45,21 @@
 .infoIcon {
   width: 18px;
   height: 18px;
+}
+
+@media (max-width: 375px) {
+  .profileImage {
+    width: 48px;
+    height: 48px;
+  }
+
+  .profileName {
+    font-size: 18px;
+    line-height: 1.33333;
+  }
+
+  .infoSection {
+    font-size: 14px;
+    line-height: 1.28571;
+  }
 }

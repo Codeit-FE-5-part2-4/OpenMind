@@ -1,26 +1,28 @@
+import styles from "./Pagination.module.css";
+
 function Pagination() {
   return (
-    <ol>
+    <ol className={styles.paginationWrapper}>
       <li>
-        <button>&lt;</button>
+        <button className={styles.paginationArrow}>&lt;</button>
       </li>
       <li>
-        <button>1</button>
+        <button className={styles.paginationButton}>1</button>
       </li>
       <li>
-        <button>2</button>
+        <button className={styles.paginationButton}>2</button>
       </li>
       <li>
-        <button>3</button>
+        <button className={styles.paginationButton}>3</button>
       </li>
       <li>
-        <button>4</button>
+        <button className={styles.paginationButton}>4</button>
       </li>
       <li>
-        <button>5</button>
+        <button className={styles.paginationButton}>5</button>
       </li>
       <li>
-        <button>&gt;</button>
+        <button className={styles.paginationArrow}>&gt;</button>
       </li>
     </ol>
   );

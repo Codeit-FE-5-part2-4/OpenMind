@@ -2,10 +2,11 @@ import QuestionCardList from "../../components/QuestionCardList/QuestionCardList
 import "../../assets/styles/reset.css";
 import "../../assets/styles/global.css";
 import Pagination from "../../components/Pagination/Pagination";
+import styles from "./QuestionCardListPage.module.css";
 
 function QuestionCardListPage() {
   return (
-    <section>
+    <section className={styles.listPageContainer}>
       <div>
         <button>정렬</button>
       </div>
