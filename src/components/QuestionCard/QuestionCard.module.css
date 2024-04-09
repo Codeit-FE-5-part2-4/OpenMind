@@ -1,0 +1,91 @@
+.questionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  padding: 32px;
+  border-radius: 16px;
+  width: 684px;
+  background-color: var(--grayscaleColor100);
+  box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
+}
+
+.questionInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.questionTitle {
+  font-size: 18px;
+}
+
+.answererName {
+  font-size: 18px;
+}
+
+.createdAt {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--grayscaleColor400);
+}
+
+.questionContent {
+  font-size: 18px;
+}
+
+.answerContainer {
+  display: flex;
+  gap: 12px;
+}
+
+.userProfileImage {
+  width: 48px;
+  border-radius: 50%;
+}
+
+.answer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.answerInfo {
+  display: flex;
+  gap: 8px;
+}
+
+.answerContent {
+  font-size: 16px;
+}
+
+.judgeAnswerContainer {
+  display: flex;
+  width: 100%;
+  gap: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--grayscaleColor300);
+}
+
+.judge {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.isAnswered {
+  color: var(--brownColor400);
+  border: 1px solid var(--brownColor400);
+}
+
+.notAnswered {
+  color: var(--grayscaleColor400);
+  border: 1px solid var(--grayscaleColor400);
+}
+
+.answerStatus {
+  padding: 4px 12px;
+  background-color: var(--grayscaleColor100);
+  border-radius: 8px;
+}
