@@ -10,7 +10,6 @@ function QuestionCardListPage() {
         <div className={styled.title}>
           <h1>누구에게 질문할까요?</h1>
           <SortList />
-          {}
         </div>
       </section>
     </div>
