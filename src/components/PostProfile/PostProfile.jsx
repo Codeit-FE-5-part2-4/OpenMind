@@ -1,4 +1,3 @@
-import { mockProfile } from "./mockdata";
 import styles from "./PostProfile.module.css";
 import faceBookImage from "../../assets/images/shareicon/Facebook.svg";
 import kakaoImage from "../../assets/images/shareicon/Kakao.svg";
@@ -10,11 +9,11 @@ const Icons = [
   { altMessage: "link to kakao", imgSource: kakaoImage },
 ];
 
-export default function PostProfile(params) {
+export default function PostProfile({ userProfile }) {
   return (
     <div className={styles.profileContainer}>
-      <img className={styles.profileImage} src={mockProfile.imageSource} />
-      <span className={styles.profileUserName}>{mockProfile.name}</span>
+      <img className={styles.profileImage} src={userProfile.imageSource} />
+      <span className={styles.profileUserName}>{userProfile.name}</span>
       <ul className={styles.shareButtonBox}>
         {Icons.map((item, index) => (
           <li key={index}>
