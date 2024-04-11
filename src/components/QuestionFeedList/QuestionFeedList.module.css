@@ -32,3 +32,9 @@
     margin: 106px;
   }
 }
+
+.questionList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

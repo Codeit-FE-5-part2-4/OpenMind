@@ -79,9 +79,7 @@ export default function QuestionFeedCard({
               </span>
               <span className={styles.createdAt}>{answerCreatedAgo}</span>
             </div>
-            <div>
-              <TextAreaForm buttonText="답변 완료" />
-            </div>
+            <TextAreaForm buttonText="답변 완료" />
           </div>
         </div>
       )}

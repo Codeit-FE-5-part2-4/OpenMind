@@ -16,7 +16,7 @@ export default function QuestionFeedList({
       </div>
 
       {questions.length > 0 ? (
-        <ul>
+        <ul className={styles.questionList}>
           {questions.map((question) => {
             return (
               <li key={question.id}>
