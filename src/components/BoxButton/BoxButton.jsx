@@ -1,7 +1,7 @@
-import styles from "./BoxButton.module.css";
+// import styles from "./BoxButton.module.css";
 
 function BoxButton() {
-    return <button>BoxButton</button>;
+  return <button>BoxButton</button>;
 }
 
 export default BoxButton;
