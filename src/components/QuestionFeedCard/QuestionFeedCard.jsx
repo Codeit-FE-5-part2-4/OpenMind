@@ -3,7 +3,7 @@ import dislikeIcon from '../../assets/images/icon/dislikeIcon.svg';
 import styles from './QuestionFeedCard.module.css';
 import getTimeDifference from '../../utils/getTimeDifference';
 import moreKebab from '../../assets/images/MoreKebab.svg';
-import TextAreaForm from '../TextAreaForm/TextAreaForm';
+import AnswerContainer from './AnswerContainer';
 
 export default function QuestionFeedCard({
   question,
@@ -44,44 +44,17 @@ export default function QuestionFeedCard({
         <p className={styles.questionTitle}>{question.content}</p>
       </div>
 
-      {question.answer ? (
-        <div className={styles.answerContainer}>
-          <img
-            className={styles.userProfileImage}
-            src={AnswererProfile.imageSource}
-            alt={AnswererProfile.name}
-          />
-          <div className={styles.answer}>
-            <div className={styles.answerInfo}>
-              <span className={styles.answererName}>
-                {AnswererProfile.name}
-              </span>
-              <span className={styles.createdAt}>{answerCreatedAgo}</span>
-            </div>
-            {question.answer.isRejected ? (
-              <span className={styles.answerRejected}>답변거절</span>
-            ) : (
-              <p className={styles.answerContent}>{question.answer.content}</p>
-            )}
-          </div>
-        </div>
-      ) : (
-        <div className={styles.answerContainer}>
-          <img
-            className={styles.userProfileImage}
-            src={AnswererProfile.imageSource}
-            alt={AnswererProfile.name}
-          />
-          <div className={styles.answer}>
-            <div className={styles.answerInfo}>
-              <span className={styles.answererName}>
-                {AnswererProfile.name}
-              </span>
-              <span className={styles.createdAt}>{answerCreatedAgo}</span>
-            </div>
-            <TextAreaForm buttonText="답변 완료" />
-          </div>
-        </div>
+      {question.answer && (
+        <AnswerContainer
+          AnswererProfile={AnswererProfile}
+          answerCreatedAgo={answerCreatedAgo}
+          isRejected={question.answer.isRejected}
+          answerContent={question.answer.content}
+          isAnswered={true}
+        />
+      )}
+      {!question.answer && isAnswerPage && (
+        <AnswerContainer AnswererProfile={AnswererProfile} isAnswered={false} />
       )}
 
       <div className={styles.judgeAnswerContainer}>
