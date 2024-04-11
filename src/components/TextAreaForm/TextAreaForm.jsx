@@ -1,23 +1,30 @@
+import React, { useState } from 'react';
 import styles from './TextAreaForm.module.css';
 
 export default function TextAreaForm({
-  value,
   placeholder,
-  onChange,
   buttonOnclick,
-  buttonDisabled,
+  buttonText,
 }) {
+  const [textValue, setTextValue] = useState('');
+
+  const handleTextareaChange = (event) => {
+    setTextValue(event.target.value);
+  };
+
+  const isTextareaEmpty = textValue.trim() === '';
+
   return (
     <>
       <textarea
         type="text"
         className={styles.textArea}
         placeholder={placeholder}
-        value={value}
-        onChange={onChange}
+        value={textValue}
+        onChange={handleTextareaChange}
       />
-      <button onClick={buttonOnclick} disabled={buttonDisabled}>
-        질문 보내기
+      <button onClick={buttonOnclick} disabled={isTextareaEmpty}>
+        {buttonText}
       </button>
     </>
   );

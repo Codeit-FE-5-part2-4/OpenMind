@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import speechBubble from '../../assets/images/Messages.svg';
 import styles from './QuestionModal.module.css';
 import TextAreaForm from '../TextAreaForm/TextAreaForm';
@@ -8,14 +7,6 @@ export default function QuestionModal({
   sendQuestion,
   answererProfile,
 }) {
-  const [questionText, setQuestionText] = useState('');
-
-  const handleQuestionChange = (event) => {
-    setQuestionText(event.target.value);
-  };
-
-  const isQuestionEmpty = questionText.trim() === '';
-
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalContainerBar}>
@@ -38,10 +29,7 @@ export default function QuestionModal({
         </div>
 
         <TextAreaForm
-          value={questionText}
-          onChange={handleQuestionChange}
           buttonOnclick={sendQuestion}
-          buttonDisabled={isQuestionEmpty}
           placeholder="질문을 입력해주세요"
           buttonText="질문 보내기"
         />
