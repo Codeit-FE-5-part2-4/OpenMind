@@ -32,6 +32,7 @@
   padding: 6px 16px;
   gap: 8px;
   color: var(--grayscaleColor500);
+  background-color: #fff;
 
   &:hover {
     background-color: var(--grayscaleColor200);

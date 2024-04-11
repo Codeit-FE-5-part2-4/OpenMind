@@ -13,9 +13,19 @@ export default function QuestionFeedCard({
   isAnswerPage,
 }) {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleDropdownToggleClick = () => {
     setShowDropdown(!showDropdown);
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setShowDropdown(false);
+  };
+
+  const handleEditFinish = () => {
+    setIsEditing(false);
   };
 
   const answerStatusMessages = {
@@ -42,13 +52,17 @@ export default function QuestionFeedCard({
       <div className={styles.answerStatusBar}>
         <span className={answerStatusStyle}>{answerStatusMsg}</span>
         {isAnswerPage && (
-          <button
-            onClick={handleDropdownToggleClick}
-            className={styles.kebabButton}
-          >
-            <img src={moreKebab} alt="더보기" />
-            {showDropdown && <FeedCardDropDown />}
-          </button>
+          <div className={styles.kebabButtonContainer}>
+            <button
+              onClick={handleDropdownToggleClick}
+              className={styles.kebabButton}
+            >
+              <img src={moreKebab} alt="더보기" />
+            </button>
+            {showDropdown && (
+              <FeedCardDropDown editStartOnclick={handleEditClick} />
+            )}
+          </div>
         )}
       </div>
       <div className={styles.questionInfo}>
@@ -63,6 +77,8 @@ export default function QuestionFeedCard({
           isRejected={question.answer.isRejected}
           answerContent={question.answer.content}
           isAnswered={true}
+          isEditing={isEditing}
+          editFinishOnClick={handleEditFinish}
         />
       )}
       {!question.answer && isAnswerPage && (

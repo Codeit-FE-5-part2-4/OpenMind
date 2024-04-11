@@ -5,8 +5,9 @@ export default function TextAreaForm({
   placeholder,
   buttonOnclick,
   buttonText,
+  initialText = '',
 }) {
-  const [textValue, setTextValue] = useState('');
+  const [textValue, setTextValue] = useState(initialText);
 
   const handleTextareaChange = (event) => {
     setTextValue(event.target.value);

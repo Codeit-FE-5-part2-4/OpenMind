@@ -7,6 +7,8 @@ export default function AnswerContainer({
   isRejected,
   answerContent,
   isAnswered,
+  isEditing,
+  editFinishOnClick,
 }) {
   return (
     <div className={styles.answerContainer}>
@@ -22,12 +24,19 @@ export default function AnswerContainer({
             <span className={styles.createdAt}>{answerCreatedAgo}</span>
           )}
         </div>
-        {isAnswered && isRejected ? (
+        {!isEditing && isAnswered && isRejected ? (
           <span className={styles.answerRejected}>답변거절</span>
         ) : (
-          <p className={styles.answerContent}>{answerContent}</p>
+          !isEditing && <p className={styles.answerContent}>{answerContent}</p>
         )}
-        {!isAnswered && (
+        {isAnswered && isEditing && (
+          <TextAreaForm
+            buttonText="수정완료"
+            initialText={answerContent}
+            buttonOnclick={editFinishOnClick}
+          />
+        )}
+        {!isAnswered && !isEditing && (
           <TextAreaForm
             placeholder="답변을 입력해주세요"
             buttonText="답변완료"

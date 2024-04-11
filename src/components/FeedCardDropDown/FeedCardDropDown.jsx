@@ -1,10 +1,10 @@
 import styles from './FeedCardDropDown.module.css';
 
-export default function FeedCardDropDown(params) {
+export default function FeedCardDropDown({ editStartOnclick }) {
   return (
     <ul className={styles.dropdownList}>
       <li>
-        <button className={styles.dropdownElement}>
+        <button className={styles.dropdownElement} onClick={editStartOnclick}>
           <div className={styles.dropdownElementEditIcon}></div>
           <span className={styles.dropdownElementText}>수정하기</span>
         </button>
