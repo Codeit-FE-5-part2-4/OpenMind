@@ -1,7 +1,22 @@
-import "./Main.css";
+import BoxButton from "../../components/BoxButton/BoxButton";
+import styles from "./Main.module.css";
+import logoImg from "../../assets/images/logo.png";
+import NameInput from "../../components/NameInput/NameInput";
+import MainHeader from "../../components/MainHeader/MainHeader";
 
 function Main() {
-    return <div>Main</div>;
+    return (
+        <main className={styles.mainWrap}>
+            <MainHeader />
+            <h1 className={styles.logo}>
+                <img src={logoImg} alt="" />
+            </h1>
+            <div className={styles.mainConBox}>
+                <NameInput placeholder={"이름을 입력하세요"} />
+                <BoxButton text={"질문 받기"} />
+            </div>
+        </main>
+    );
 }
 
 export default Main;
