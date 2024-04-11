@@ -36,11 +36,11 @@
 .closeButton {
   width: 28px;
   height: 28px;
-  background-image: url("../../assets/images/Close.svg");
+  background-image: url('../../assets/images/Close.svg');
 
   &:hover {
     background-color: var(--redColor);
-    background-image: url("../../assets/images/CloseWhite.svg");
+    background-image: url('../../assets/images/CloseWhite.svg');
   }
 }
 
