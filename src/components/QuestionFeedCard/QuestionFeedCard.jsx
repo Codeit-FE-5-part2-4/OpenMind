@@ -3,6 +3,7 @@ import dislikeIcon from '../../assets/images/icon/dislikeIcon.svg';
 import styles from './QuestionFeedCard.module.css';
 import getTimeDifference from '../../utils/getTimeDifference';
 import moreKebab from '../../assets/images/MoreKebab.svg';
+import TextAreaForm from '../TextAreaForm/TextAreaForm';
 
 export default function QuestionFeedCard({
   question,
@@ -79,8 +80,7 @@ export default function QuestionFeedCard({
               <span className={styles.createdAt}>{answerCreatedAgo}</span>
             </div>
             <div>
-              <textarea></textarea>
-              <button>답변완료</button>
+              <TextAreaForm buttonText="답변 완료" />
             </div>
           </div>
         </div>
