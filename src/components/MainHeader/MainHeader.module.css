@@ -1,0 +1,23 @@
+.MainHeader button {
+    position: absolute;
+    top: 45px;
+    right: 130px;
+}
+
+@media (max-width: 1199px) {
+    /* 타블렛 */
+    .MainHeader button {
+        top: 44px;
+        right: 50px;
+    }
+}
+
+@media (max-width: 767px) {
+    /* 모바일 */
+
+    .MainHeader button {
+        top: 202px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
