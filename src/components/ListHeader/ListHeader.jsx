@@ -2,7 +2,7 @@ import styles from "./ListHeader.module.css";
 import HomeButton from "../HomeButton/HomeButton";
 import BoxButton from "../BoxButton/BoxButton";
 
-function QuestionCardListPageHeader() {
+function ListHeader() {
   return (
     <header className={styles.header}>
       <HomeButton size="M" />
@@ -11,4 +11,4 @@ function QuestionCardListPageHeader() {
   );
 }
 
-export default QuestionCardListPageHeader;
+export default ListHeader;
