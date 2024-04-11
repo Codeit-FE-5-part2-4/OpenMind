@@ -11,7 +11,7 @@ export default function QuestionFeedList({
   return (
     <div className={styles.container}>
       <div className={styles.questionCount}>
-        <img src={speechBubble} />
+        <img src={speechBubble} alt="말풍선" />
         <span>{`${questions.length}개의 질문이 있습니다.`}</span>
       </div>
       {questions.length > 0 ? (
@@ -30,7 +30,11 @@ export default function QuestionFeedList({
         </ul>
       ) : (
         <div className={styles.questionCardEmpty}>
-          <img className={styles.questionEmptyImage} src={emptyIcon} />
+          <img
+            className={styles.questionEmptyImage}
+            src={emptyIcon}
+            alt="질문없음"
+          />
         </div>
       )}
     </div>
