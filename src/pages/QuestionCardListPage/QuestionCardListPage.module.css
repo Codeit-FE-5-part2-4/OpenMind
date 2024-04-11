@@ -1,20 +1,23 @@
-body {
-  background-color: var(--Grayscale-20, #f9f9f9);
+@import "../../assets/styles/global.css";
+main {
+  margin: 0;
+  background-color: var(--grayscaleColor200);
 }
 
 .container {
-  margin: 40px auto;
+  margin: 0 auto;
+  padding: 40px 0;
   max-width: 940px;
 }
 
 .title {
   display: flex;
   flex-direction: column;
-  margin: 46px auto 30px;
+  margin: 46px 0 30px;
 }
 
 h1 {
-  color: var(--Grayscale-60, #000);
+  color: #000;
   margin: 0 auto 12px;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
@@ -28,7 +31,6 @@ h1 {
 @media (max-width: 1199px) {
   .container {
     max-width: 100vw;
-    margin: 40px 0;
   }
   section {
     margin: 0 32px;
@@ -38,7 +40,7 @@ h1 {
 /* 모바일 사이즈 */
 @media (max-width: 768px) {
   .container {
-    margin: 40px 24px;
+    margin: 0 24px;
     align-items: center;
   }
   .title {

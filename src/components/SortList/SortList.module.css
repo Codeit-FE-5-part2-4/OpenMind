@@ -1,3 +1,5 @@
+@import "../../assets/styles/global.css";
+
 .sortMenu {
   position: relative;
   margin: 0;
@@ -18,8 +20,8 @@
   gap: 4px;
   font-size: 14px;
   border-radius: 8px;
-  border: 1px solid var(--Grayscale-60, #000);
-  background: var(--Grayscale-10, #fff);
+  border: 1px solid #000;
+  background: var(--grayscaleColor100);
 }
 
 .selectSortButton img {
@@ -36,15 +38,15 @@
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  border: 1px solid var(--Grayscale-30, #cfcfcf);
-  background: var(--Grayscale-10, #fff);
+  border: 1px solid var(--grayscaleColor300);
+  background: var(--grayscaleColor100);
   box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
 }
 
 .alignButton {
   background: none;
   border: none;
-  color: var(--Grayscale-50, #515151);
+  color: var(--grayscaleColor500);
   font-family: Pretendard;
   padding: 6px 16px;
   font-size: 14px;
@@ -54,5 +56,5 @@
 }
 
 .alignButton:hover {
-  color: var(--Blue-50, #1877f2);
+  color: var(--blueColor);
 }

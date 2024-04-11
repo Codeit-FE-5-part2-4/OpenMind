@@ -1,4 +1,3 @@
-import styled from "./HomeButton.module.css";
 import Logo from "../../assets/images/logo.png";
 
 function HomeButton({ size }) {
@@ -22,7 +21,7 @@ function HomeButton({ size }) {
   const Size = SIZE[size];
 
   return (
-    <a href="/" className={styled.homeButton}>
+    <a href="/">
       <img
         src={Logo}
         style={{ width: `${Size.width}px`, height: `${Size.height}px` }}

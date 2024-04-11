@@ -1,31 +1,30 @@
 import { useState } from "react";
-import styled from "./SortList.module.css";
+import styles from "./SortList.module.css";
 import arrowUp from "../../assets/images/icon/Arrow-up.svg";
 import arrowDown from "../../assets/images/icon/Arrow-down.svg";
 
 function SortList() {
-  const [view, setView] = useState(false); // 드롭다운 토글 useState
+  const [viewDropdown, setViewDropdown] = useState(false); // 드롭다운 토글 useState
   const [title, setTitle] = useState("최신순"); //제목 useState
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
 
+  const dropdownToggle = () => {
+    setViewDropdown(!viewDropdown);
+    viewDropdown ? setArrowDirection(arrowDown) : setArrowDirection(arrowUp); // 드롭다운 페이지 활성화시 ↑ 비활성화시 ↓
+  };
+
   return (
-    <ul className={styled.sortMenu}>
+    <ul className={styles.sortMenu}>
       <li>
-        <button
-          className={styled.selectSortButton}
-          onClick={() => {
-            setView(!view);
-            view ? setArrowDirection(arrowDown) : setArrowDirection(arrowUp); // 드롭다운 페이지 활성화시 ↑ 비활성화시 ↓
-          }}
-        >
+        <button className={styles.selectSortButton} onClick={dropdownToggle}>
           {title}
           <img src={arrowDirection} alt={arrowDirection} />
         </button>
       </li>
-      {view && (
-        <li className={styled.alignButtons}>
+      {viewDropdown && (
+        <li className={styles.alignButtons}>
           <button
-            className={styled.alignButton}
+            className={styles.alignButton}
             onClick={() => {
               setTitle("이름순");
             }}
@@ -33,7 +32,7 @@ function SortList() {
             이름순
           </button>
           <button
-            className={styled.alignButton}
+            className={styles.alignButton}
             onClick={() => {
               setTitle("최신순");
             }}
