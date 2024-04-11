@@ -1,4 +1,4 @@
-import QuestionCardListPage from "./pages/QuestionCardListPage/QuestionCardListPage";
+import QuestionCardListPage from "./pages/QuestionCardListPage/index";
 
 function App() {
   return <QuestionCardListPage />;
