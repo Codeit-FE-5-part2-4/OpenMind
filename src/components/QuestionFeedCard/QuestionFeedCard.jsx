@@ -32,9 +32,11 @@ export default function QuestionFeedCard({
     <div className={styles.questionCard}>
       <div className={styles.answerStatusBar}>
         <span className={answerStatusStyle}>{answerStatusMsg}</span>
-        <button>
-          <img src={moreKebab} alt="더보기" />
-        </button>
+        {isAnswerPage && (
+          <button>
+            <img src={moreKebab} alt="더보기" />
+          </button>
+        )}
       </div>
       <div className={styles.questionInfo}>
         <span className={styles.createdAt}>{questionCreatedAgo}</span>
