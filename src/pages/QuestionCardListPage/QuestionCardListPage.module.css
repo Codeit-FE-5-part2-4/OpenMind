@@ -1,22 +1,24 @@
-@import "../../assets/styles/global.css";
-main {
-  margin: 0;
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   background-color: var(--grayscaleColor200);
 }
 
-.container {
-  margin: 0 auto;
-  padding: 40px 0;
+.contentContainer {
+  width: 100%;
   max-width: 940px;
 }
 
-.title {
+.titleAndSortBox {
   display: flex;
   flex-direction: column;
   margin: 46px 0 30px;
 }
 
-h1 {
+.title {
   color: #000;
   margin: 0 auto 12px;
   font-feature-settings: "clig" off, "liga" off;
@@ -27,28 +29,33 @@ h1 {
   line-height: normal;
 }
 
+.listAndPaginationBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* 태블릿 사이즈 */
-@media (max-width: 1199px) {
-  .container {
-    max-width: 100vw;
-  }
-  section {
-    margin: 0 32px;
+@media (max-width: 1200px) {
+  .pageContainer {
+    padding: 0 32px;
   }
 }
 
 /* 모바일 사이즈 */
 @media (max-width: 768px) {
-  .container {
-    margin: 0 24px;
+  .pageContainer {
+    padding: 0 24px;
     align-items: center;
   }
-  .title {
+
+  .titleAndSortBox {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
-  h1 {
+
+  .title {
     margin: 0;
     font-size: 24px;
   }
