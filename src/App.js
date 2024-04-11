@@ -1,17 +1,18 @@
 import "./assets/styles/global.css";
 import "./assets/styles/reset.css";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./pages/main/Main";
+import QuestionCardListPage from "./pages/QuestionCardListPage/";
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Main />} />
-            </Routes>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/list" element={<QuestionCardListPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
