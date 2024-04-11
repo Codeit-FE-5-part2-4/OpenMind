@@ -1,11 +1,7 @@
-import QuestionCardListPage from "./pages/QuestionCardListPage";
+import QuestionCardListPage from "./pages/QuestionCardListPage/QuestionCardListPage";
 
 function App() {
-  return (
-    <div className="App">
-      <QuestionCardListPage />
-    </div>
-  );
+  return <QuestionCardListPage />;
 }
 
 export default App;
