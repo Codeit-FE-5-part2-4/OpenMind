@@ -1,12 +1,12 @@
 import styles from "./ListHeader.module.css";
 import HomeButton from "../HomeButton/HomeButton";
-import BoxButton from "../BoxButton/BoxButton";
+import ArrowButton from "../ArrowButton/ArrowButton";
 
 function ListHeader() {
   return (
     <header className={styles.header}>
       <HomeButton size="M" />
-      <BoxButton />
+      <ArrowButton text="답변하러가기" />
     </header>
   );
 }
