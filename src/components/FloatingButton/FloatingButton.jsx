@@ -1,15 +1,12 @@
 import styles from "./FloatingButton.module.css";
+import classNames from "classnames";
 
 function FloatingButton({ text, size }) {
-    return (
-        <button
-            className={`${styles.FloatingButton} ${
-                size === "large" ? styles.FloatingButtonLarge : ""
-            }`}
-        >
-            {text}
-        </button>
-    );
+    const buttonClass = classNames(styles.FloatingButton, {
+        [styles.FloatingButtonLarge]: size === "large",
+    });
+
+    return <button className={buttonClass}>{text}</button>;
 }
 
 export default FloatingButton;
