@@ -14,11 +14,12 @@ export default function QuestionFeedList({
         <img src={speechBubble} alt="말풍선" />
         <span>{`${questions.length}개의 질문이 있습니다.`}</span>
       </div>
+
       {questions.length > 0 ? (
         <ul>
           {questions.map((question) => {
             return (
-              <li>
+              <li key={question.id}>
                 <QuestionFeedCard
                   question={question}
                   AnswererProfile={AnswererProfile}
