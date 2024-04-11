@@ -1,12 +1,12 @@
-import likeIcon from "../../assets/images/icon/likeIcon.svg";
-import dislikeIcon from "../../assets/images/icon/dislikeIcon.svg";
-import styles from "./QuestionCard.module.css";
-import getTimeDifference from "../../utils/getTimeDifference";
+import likeIcon from '../../assets/images/icon/likeIcon.svg';
+import dislikeIcon from '../../assets/images/icon/dislikeIcon.svg';
+import styles from './QuestionFeedCard.module.css';
+import getTimeDifference from '../../utils/getTimeDifference';
 
-export default function QuestionCard({ question, AnswererProfile }) {
+export default function QuestionFeedCard({ question, AnswererProfile }) {
   const answerStatusMsg = {
-    isAnswered: "답변완료",
-    notAnswered: "미답변",
+    isAnswered: '답변완료',
+    notAnswered: '미답변',
   };
 
   const questionCreatedAgo = getTimeDifference(new Date(question.createdAt));
@@ -18,7 +18,7 @@ export default function QuestionCard({ question, AnswererProfile }) {
     answerCreatedAgo = getTimeDifference(new Date(question.answer.createdAt));
   }
 
-  answerStatusStyle += " ";
+  answerStatusStyle += ' ';
   answerStatusStyle += styles.answerStatus;
   return (
     <div className={styles.questionCard}>

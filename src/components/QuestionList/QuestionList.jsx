@@ -1,7 +1,7 @@
-import speechBubble from "../../assets/images/icon/speechBubble.svg";
-import QuestionCard from "../QuestionCard/QuestionCard";
-import styles from "./QuestionList.module.css";
-import emptyIcon from "../../assets/images/icon/emptyIcon.svg";
+import speechBubble from '../../assets/images/icon/speechBubble.svg';
+import QuestionFeedCard from '../QuestionCard/QuestionFeedCard';
+import styles from './QuestionList.module.css';
+import emptyIcon from '../../assets/images/icon/emptyIcon.svg';
 
 export default function QuestionList({ questions, AnswererProfile }) {
   return (
@@ -15,7 +15,7 @@ export default function QuestionList({ questions, AnswererProfile }) {
           {questions.map((question) => {
             return (
               <li>
-                <QuestionCard
+                <QuestionFeedCard
                   question={question}
                   AnswererProfile={AnswererProfile}
                 />
