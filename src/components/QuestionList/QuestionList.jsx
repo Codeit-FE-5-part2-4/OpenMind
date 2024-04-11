@@ -1,6 +1,7 @@
 import speechBubble from "../../assets/images/icon/speechBubble.svg";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./QuestionList.module.css";
+import emptyIcon from "../../assets/images/icon/emptyIcon.svg";
 
 export default function QuestionList({ questions, AnswererProfile }) {
   return (
@@ -9,18 +10,24 @@ export default function QuestionList({ questions, AnswererProfile }) {
         <img src={speechBubble} />
         <span>{`${questions.length}개의 질문이 있습니다.`}</span>
       </div>
-      <ul>
-        {questions.map((question) => {
-          return (
-            <li>
-              <QuestionCard
-                question={question}
-                AnswererProfile={AnswererProfile}
-              />
-            </li>
-          );
-        })}
-      </ul>
+      {questions.length > 0 ? (
+        <ul>
+          {questions.map((question) => {
+            return (
+              <li>
+                <QuestionCard
+                  question={question}
+                  AnswererProfile={AnswererProfile}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <div className={styles.questionCardEmpty}>
+          <img className={styles.questionEmptyImage} src={emptyIcon} />
+        </div>
+      )}
     </div>
   );
 }

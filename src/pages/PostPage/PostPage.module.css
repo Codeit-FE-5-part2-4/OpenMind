@@ -1,14 +1,24 @@
 .container {
-  background-color: var(--grayscaleColor200);
   padding: 50px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url(../../assets/images/postpage_bg.png);
-  background-position: center top;
-  background-size: 1200px 234px;
-  background-repeat: no-repeat;
+  position: relative;
   width: 100%;
+  background: var(--grayscaleColor200);
+}
+
+.background {
+  position: absolute;
+  background: var(--grayscaleColor100) url(../../assets/images/postpage_bg.png)
+    center top no-repeat;
+  height: 234px;
+  width: 100%;
+  margin-top: -50px;
+
+  @media (max-width: 767px) {
+    height: 177px;
+  }
 }
 
 .blind {
@@ -22,4 +32,19 @@
 .logoImage {
   width: 170px;
   height: 67px;
+
+  @media (max-width: 767px) {
+    width: 124px;
+    height: 49px;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }

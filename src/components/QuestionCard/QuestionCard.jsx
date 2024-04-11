@@ -22,6 +22,7 @@ export default function QuestionCard({ question, AnswererProfile }) {
   answerStatusStyle += styles.answerStatus;
   return (
     <div className={styles.questionCard}>
+      {}
       <span className={answerStatusStyle}>
         {question.answer
           ? answerStatusMsg.isAnswered
