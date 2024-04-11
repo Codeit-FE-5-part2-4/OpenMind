@@ -1,0 +1,19 @@
+.listPageContainer {
+  background-color: var(--grayscaleColor200);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 130px 97px 130px;
+}
+
+@media (max-width: 1200px) {
+  .listPageContainer {
+    padding: 0 32px 97px 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  .listPageContainer {
+    padding: 0 24px 39px 24px;
+  }
+}

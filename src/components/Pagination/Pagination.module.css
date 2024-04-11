@@ -1,0 +1,22 @@
+.paginationWrapper {
+  display: flex;
+}
+
+.paginationButton,
+.paginationArrow {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--grayscaleColor400);
+  text-align: center;
+}
+
+.paginationButton:hover,
+.paginationArrow:hover,
+.paginationButton:focus {
+  color: var(--brownColor400);
+}
