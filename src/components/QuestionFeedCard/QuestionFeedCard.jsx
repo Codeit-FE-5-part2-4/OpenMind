@@ -2,8 +2,13 @@ import likeIcon from '../../assets/images/icon/likeIcon.svg';
 import dislikeIcon from '../../assets/images/icon/dislikeIcon.svg';
 import styles from './QuestionFeedCard.module.css';
 import getTimeDifference from '../../utils/getTimeDifference';
+import moreKebab from '../../assets/images/MoreKebab.svg';
 
-export default function QuestionFeedCard({ question, AnswererProfile }) {
+export default function QuestionFeedCard({
+  question,
+  AnswererProfile,
+  isAnswerPage,
+}) {
   const answerStatusMessages = {
     isAnswered: '답변완료',
     notAnswered: '미답변',
@@ -25,8 +30,12 @@ export default function QuestionFeedCard({ question, AnswererProfile }) {
   answerStatusStyle += styles.answerStatus;
   return (
     <div className={styles.questionCard}>
-      {}
-      <span className={answerStatusStyle}>{answerStatusMsg}</span>
+      <div className={styles.answerStatusBar}>
+        <span className={answerStatusStyle}>{answerStatusMsg}</span>
+        <button>
+          <img src={moreKebab} alt="더보기" />
+        </button>
+      </div>
       <div className={styles.questionInfo}>
         <span className={styles.createdAt}>{questionCreatedAgo}</span>
         <p className={styles.questionTitle}>{question.content}</p>

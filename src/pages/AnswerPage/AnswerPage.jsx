@@ -17,6 +17,7 @@ export default function AnswerPage(params) {
       <QuestionFeedList
         questions={mockQuestions}
         AnswererProfile={mockProfile}
+        isAnswerPage={true}
       />
     </div>
   );

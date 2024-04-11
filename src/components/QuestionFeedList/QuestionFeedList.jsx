@@ -3,7 +3,11 @@ import QuestionFeedCard from '../QuestionFeedCard/QuestionFeedCard';
 import styles from './QuestionFeedList.module.css';
 import emptyIcon from '../../assets/images/icon/emptyIcon.svg';
 
-export default function QuestionFeedList({ questions, AnswererProfile }) {
+export default function QuestionFeedList({
+  questions,
+  AnswererProfile,
+  isAnswerPage = false,
+}) {
   return (
     <div className={styles.container}>
       <div className={styles.questionCount}>
@@ -18,6 +22,7 @@ export default function QuestionFeedList({ questions, AnswererProfile }) {
                 <QuestionFeedCard
                   question={question}
                   AnswererProfile={AnswererProfile}
+                  isAnswerPage={isAnswerPage}
                 />
               </li>
             );
