@@ -4,10 +4,13 @@ import styles from './QuestionFeedCard.module.css';
 import getTimeDifference from '../../utils/getTimeDifference';
 
 export default function QuestionFeedCard({ question, AnswererProfile }) {
-  const answerStatusMsg = {
+  const answerStatusMessages = {
     isAnswered: '답변완료',
     notAnswered: '미답변',
   };
+  const answerStatusMsg = question.answer
+    ? answerStatusMessages.isAnswered
+    : answerStatusMessages.notAnswered;
 
   const questionCreatedAgo = getTimeDifference(new Date(question.createdAt));
 
@@ -23,11 +26,7 @@ export default function QuestionFeedCard({ question, AnswererProfile }) {
   return (
     <div className={styles.questionCard}>
       {}
-      <span className={answerStatusStyle}>
-        {question.answer
-          ? answerStatusMsg.isAnswered
-          : answerStatusMsg.notAnswered}
-      </span>
+      <span className={answerStatusStyle}>{answerStatusMsg}</span>
       <div className={styles.questionInfo}>
         <span className={styles.createdAt}>{questionCreatedAgo}</span>
         <p className={styles.questionTitle}>{question.content}</p>
@@ -38,6 +37,7 @@ export default function QuestionFeedCard({ question, AnswererProfile }) {
           <img
             className={styles.userProfileImage}
             src={AnswererProfile.imageSource}
+            alt={AnswererProfile.name}
           />
           <div className={styles.answer}>
             <div className={styles.answerInfo}>
@@ -57,11 +57,11 @@ export default function QuestionFeedCard({ question, AnswererProfile }) {
 
       <div className={styles.judgeAnswerContainer}>
         <div className={styles.judge}>
-          <img src={likeIcon} />
+          <img src={likeIcon} alt="좋아요버튼" />
           <span>{`좋아요 ${question.like}`}</span>
         </div>
         <div className={styles.judge}>
-          <img src={dislikeIcon} />
+          <img src={dislikeIcon} alt="싫어요버튼" />
           <span>{`싫어요 ${question.dislike}`}</span>
         </div>
       </div>
