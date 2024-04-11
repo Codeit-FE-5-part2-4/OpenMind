@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: column;
   margin: 46px 0 30px;
+  gap: 12px;
 }
 
 .title {
@@ -40,6 +41,11 @@
   .pageContainer {
     padding: 0 32px;
   }
+  .titleBox {
+    display: flex;
+    justify-content: space-between;
+    margin: 47px 0 0;
+  }
 }
 
 /* 모바일 사이즈 */
@@ -53,6 +59,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin: 52px 0 0;
   }
 
   .title {
