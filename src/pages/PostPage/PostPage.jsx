@@ -1,10 +1,10 @@
-import { useState } from "react";
-import logoImage from "../../assets/images/logo.png";
-import PostProfile from "../../components/PostProfile/PostProfile";
-import QuestionList from "../../components/QuestionList/QuestionList";
-import styles from "./PostPage.module.css";
-import { mockProfile, mockQuestions } from "./mockdata";
-import QuestionModal from "../../components/QuestionModal/QuestionModal";
+import { useState } from 'react';
+import logoImage from '../../assets/images/logo.png';
+import PostProfile from '../../components/PostProfile/PostProfile';
+import QuestionFeedList from '../../components/QuestionFeedList/QuestionFeedList';
+import styles from './PostPage.module.css';
+import { mockProfile, mockQuestions } from './mockdata';
+import QuestionModal from '../../components/QuestionModal/QuestionModal';
 
 export default function PostPage() {
   const [showModal, setShowModal] = useState(false);
@@ -25,7 +25,10 @@ export default function PostPage() {
         <img className={styles.logoImage} src={logoImage} alt="openmind" />
       </h1>
       <PostProfile userProfile={mockProfile} />
-      <QuestionList questions={mockQuestions} AnswererProfile={mockProfile} />
+      <QuestionFeedList
+        questions={mockQuestions}
+        AnswererProfile={mockProfile}
+      />
       {showModal && (
         <>
           <QuestionModal

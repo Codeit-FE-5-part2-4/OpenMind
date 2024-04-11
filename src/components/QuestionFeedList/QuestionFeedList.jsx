@@ -1,9 +1,9 @@
 import speechBubble from '../../assets/images/icon/speechBubble.svg';
-import QuestionFeedCard from '../QuestionCard/QuestionFeedCard';
-import styles from './QuestionList.module.css';
+import QuestionFeedCard from '../QuestionFeedCard/QuestionFeedCard';
+import styles from './QuestionFeedList.module.css';
 import emptyIcon from '../../assets/images/icon/emptyIcon.svg';
 
-export default function QuestionList({ questions, AnswererProfile }) {
+export default function QuestionFeedList({ questions, AnswererProfile }) {
   return (
     <div className={styles.container}>
       <div className={styles.questionCount}>
