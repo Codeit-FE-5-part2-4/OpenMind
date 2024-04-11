@@ -41,7 +41,7 @@ export default function QuestionFeedCard({
         <p className={styles.questionTitle}>{question.content}</p>
       </div>
 
-      {question.answer && (
+      {question.answer ? (
         <div className={styles.answerContainer}>
           <img
             className={styles.userProfileImage}
@@ -60,6 +60,26 @@ export default function QuestionFeedCard({
             ) : (
               <p className={styles.answerContent}>{question.answer.content}</p>
             )}
+          </div>
+        </div>
+      ) : (
+        <div className={styles.answerContainer}>
+          <img
+            className={styles.userProfileImage}
+            src={AnswererProfile.imageSource}
+            alt={AnswererProfile.name}
+          />
+          <div className={styles.answer}>
+            <div className={styles.answerInfo}>
+              <span className={styles.answererName}>
+                {AnswererProfile.name}
+              </span>
+              <span className={styles.createdAt}>{answerCreatedAgo}</span>
+            </div>
+            <div>
+              <textarea></textarea>
+              <button>답변완료</button>
+            </div>
           </div>
         </div>
       )}
