@@ -43,7 +43,7 @@
 }
 
 /* 모바일 사이즈 */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .pageContainer {
     padding: 0 24px;
     align-items: center;
