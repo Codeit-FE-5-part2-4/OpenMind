@@ -22,8 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-<<<<<<< HEAD
-App.js
-index.js
-=======
->>>>>>> 9bb18ecb921eacdb0f48e5acc29c572c0f30c184
+src/App.js
+src/index.js
+src/pages/PostPage/mockdata.js
