@@ -1,4 +1,3 @@
-import "./ArrowButton.module.css";
 import arrowIcon from "../../assets/images/icon/arrow-right.svg";
 import styles from "./ArrowButton.module.css";
 
