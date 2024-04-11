@@ -1,0 +1,73 @@
+.kebabIcon {
+  width: 26px;
+  height: 26px;
+}
+
+.dropdownContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.dropdownList {
+  position: absolute;
+  top: 26px;
+  right: 0;
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 68px;
+  border: 1px solid var(--grayscaleColor300);
+  box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
+  border-radius: 8px;
+  padding: 4px 0;
+}
+
+.dropdownElement {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 16px;
+  gap: 8px;
+  color: var(--grayscaleColor500);
+
+  &:hover {
+    background-color: var(--grayscaleColor200);
+    color: var(--grayscaleColor600);
+
+    cursor: pointer;
+
+    .dropdownElementEditIcon {
+      background-image: url(../../assets/images/icon/FeedEditIconOnHover.svg);
+    }
+    .dropdownElementDeleteIcon {
+      background-image: url(../../assets/images/icon/FeedDeleteIconOnHover.svg);
+    }
+  }
+}
+
+.dropdownElementEditIcon,
+.dropdownElementDeleteIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.dropdownElementEditIcon {
+  background-repeat: no-repeat;
+  background-position-y: -1px;
+  background-image: url(../../assets/images/icon/FeedEditIcon.svg);
+}
+
+.dropdownElementDeleteIcon {
+  background-repeat: no-repeat;
+  background-position-y: -1.5px;
+  background-image: url(../../assets/images/icon/FeedDeleteIcon.svg);
+}
+
+.dropdownElementText {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}

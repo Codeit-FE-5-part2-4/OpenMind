@@ -126,3 +126,10 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.kebabButton {
+  position: relative;
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -4,12 +4,20 @@ import styles from './QuestionFeedCard.module.css';
 import getTimeDifference from '../../utils/getTimeDifference';
 import moreKebab from '../../assets/images/MoreKebab.svg';
 import AnswerContainer from './AnswerContainer';
+import { useState } from 'react';
+import FeedCardDropDown from '../FeedCardDropDown/FeedCardDropDown';
 
 export default function QuestionFeedCard({
   question,
   AnswererProfile,
   isAnswerPage,
 }) {
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleDropdownToggleClick = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   const answerStatusMessages = {
     isAnswered: '답변완료',
     notAnswered: '미답변',
@@ -34,8 +42,12 @@ export default function QuestionFeedCard({
       <div className={styles.answerStatusBar}>
         <span className={answerStatusStyle}>{answerStatusMsg}</span>
         {isAnswerPage && (
-          <button>
+          <button
+            onClick={handleDropdownToggleClick}
+            className={styles.kebabButton}
+          >
             <img src={moreKebab} alt="더보기" />
+            {showDropdown && <FeedCardDropDown />}
           </button>
         )}
       </div>
