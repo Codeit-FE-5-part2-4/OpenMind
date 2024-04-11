@@ -5,8 +5,6 @@ import ListHeader from "../../components/ListHeader/ListHeader";
 import SortList from "../../components/SortList/SortList";
 import Pagination from "../../components/Pagination/Pagination";
 import styles from "./QuestionCardListPage.module.css";
-import SortList from "../../components/SortList/SortList";
-import ListHeader from "../../components/ListHeader/ListHeader";
 
 function QuestionCardListPage() {
   return (
