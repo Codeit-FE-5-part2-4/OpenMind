@@ -26,10 +26,10 @@
 import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./QuestionCardList.module.css";
 
-function QuestionCardList({ feeds }) {
+function QuestionCardList({ sortedFeeds }) {
   return (
     <ul className={styles.listContainer}>
-      {feeds?.map((feed, id) => (
+      {sortedFeeds?.map((feed, id) => (
         <li key={id}>
           <QuestionCard feed={feed} />
         </li>
