@@ -33,7 +33,6 @@ function Main() {
   //서브밋
   const onSubmitForm = (e) => {
     e.preventDefault();
-    handleNameSubmit();
     setValue("");
   };
 
