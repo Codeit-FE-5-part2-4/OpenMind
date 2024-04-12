@@ -6,7 +6,6 @@ import styles from "./PostPage.module.css";
 import "../../components/FloatingButton/FloatingButton.module.css";
 import { mockProfile, mockQuestions } from "./mockdata";
 import QuestionModal from "../../components/QuestionModal/QuestionModal";
-import classNames from "classnames";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 
 export default function PostPage() {
