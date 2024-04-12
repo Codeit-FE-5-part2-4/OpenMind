@@ -27,10 +27,14 @@ import { useCallback, useEffect, useState } from "react";
 
 function QuestionCardList() {
   const [feeds, setFeeds] = useState([]);
+  let limit = 8;
+  let offset = 0;
 
-  async function getSubjects() {
+  async function getSubjects({ limit, offset }) {
     const response = await (
-      await fetch("https://openmind-api.vercel.app/5-4/subjects/")
+      await fetch(
+        `https://openmind-api.vercel.app/5-4/subjects/?limit=${limit}&offset=${offset}`
+      )
     ).json();
 
     if (!response) return console.error("요청이 실패했습니다.");
@@ -42,12 +46,12 @@ function QuestionCardList() {
 
   const displaySubjects = useCallback(async () => {
     try {
-      const newFeeds = await getSubjects();
+      const newFeeds = await getSubjects(limit, offset);
       setFeeds(newFeeds);
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [limit, offset]);
 
   useEffect(() => {
     displaySubjects();
