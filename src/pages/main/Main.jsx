@@ -16,7 +16,7 @@ function Main() {
     try {
       const nameData = await postUserInfo(value);
       if (!nameData || !nameData.id) {
-        throw new Error("Invalid data format");
+        throw new Error("이름을 입력해 주세요.");
       }
       const { id } = nameData;
       navigate(`post/${id}/answer`);
