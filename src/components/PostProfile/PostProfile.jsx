@@ -5,6 +5,7 @@ import kakaoImage from "../../assets/images/shareicon/Kakao.svg";
 import linkShareImage from "../../assets/images/shareicon/Link.svg";
 import { shareKakao } from "../../utils/shareKakao";
 import { useEffect } from "react";
+import { shareFacebook } from "../../utils/shareFacebook";
 
 const POST_BASE_URL = "https://openmind-api.vercel.app/5-4/post";
 
@@ -28,8 +29,12 @@ export default function PostProfile({ userProfile }) {
       imgSource: linkShareImage,
       onClick: handleCopyLinkClipBoard,
     },
-    { altMessage: "link to facebook", imgSource: faceBookImage },
     { altMessage: "link to kakao", imgSource: kakaoImage, onClick: shareKakao },
+    {
+      altMessage: "link to facebook",
+      imgSource: faceBookImage,
+      onClick: shareFacebook,
+    },
   ];
 
   useEffect(() => {
