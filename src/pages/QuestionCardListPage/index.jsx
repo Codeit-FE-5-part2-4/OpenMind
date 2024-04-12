@@ -1,12 +1,10 @@
 import QuestionCardList from "../../components/QuestionCardList/QuestionCardList";
-import "../../assets/styles/reset.css";
-import "../../assets/styles/global.css";
 import ListHeader from "../../components/ListHeader/ListHeader";
 import arrowUp from "../../assets/images/icon/Arrow-up.svg";
 import arrowDown from "../../assets/images/icon/Arrow-down.svg";
 import Pagination from "../../components/Pagination/Pagination";
 import styles from "./QuestionCardListPage.module.css";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { List } from "./mockDatas";
 
 function QuestionCardListPage() {
@@ -32,6 +30,38 @@ function QuestionCardListPage() {
     setViewDropdown(!viewDropdown);
     viewDropdown ? setArrowDirection(arrowDown) : setArrowDirection(arrowUp); // 드롭다운 페이지 활성화시 ↑ 비활성화시 ↓
   };
+
+function QuestionCardListPage() {
+  const [feeds, setFeeds] = useState([]);
+  const [limit, setLimit] = useState(8);
+  const [currentOffset, setCurrentOffset] = useState(0);
+
+  async function getSubjects({ limit, offset }) {
+    const response = await (
+      await fetch(
+        `https://openmind-api.vercel.app/5-4/subjects/?limit=${limit}&offset=${offset}`
+      )
+    ).json();
+
+    if (!response) return console.error("요청이 실패했습니다.");
+
+    const { results, count } = response;
+
+    return { results, count };
+  }
+
+  const displaySubjects = useCallback(async () => {
+    try {
+      const newFeeds = await getSubjects(limit, currentOffset);
+      setFeeds(newFeeds);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [limit, currentOffset]);
+
+  useEffect(() => {
+    displaySubjects();
+  }, [displaySubjects]);
 
   return (
     <div className={styles.pageContainer}>
@@ -68,7 +98,7 @@ function QuestionCardListPage() {
           </ul>
         </div>
         <div className={styles.listAndPaginationBox}>
-          <QuestionCardList lists={sortList} />
+          <QuestionCardList feeds={feeds} />
           <Pagination />
         </div>
       </section>
