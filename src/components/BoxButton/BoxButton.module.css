@@ -23,4 +23,5 @@
 .BoxButton:disabled {
   color: var(--grayscaleColor100);
   background: var(--brownColor300);
+  border: 2px solid var(--brownColor300);
 }

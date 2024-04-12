@@ -4,6 +4,7 @@ import "./assets/styles/global.css";
 import "./assets/styles/reset.css";
 import Main from "./pages/Main/Main";
 import QuestionCardListPage from "./pages/QuestionCardListPage";
+import PostPage from "./pages/PostPage/PostPage";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/list" element={<QuestionCardListPage />} />
+        <Route path="/post" element={<PostPage />} />
       </Routes>
     </BrowserRouter>
   );
