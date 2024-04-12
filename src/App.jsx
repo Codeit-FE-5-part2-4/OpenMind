@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./assets/styles/global.css";
 import "./assets/styles/reset.css";
-import Main from "./pages/main/Main";
+import Main from "./pages/Main/Main";
 import QuestionCardListPage from "./pages/QuestionCardListPage";
 
 function App() {
