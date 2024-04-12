@@ -2,16 +2,16 @@ import speechBubble from "../../assets/images/icon/speech-bubble.svg";
 import testCatProfile from "../../assets/images/test-cat-profile.png";
 import styles from "./QuestionCard.module.css";
 
-function QuestionCard() {
+function QuestionCard({ list }) {
   return (
     <a href="/" className={styles.cardWrapper}>
       <div className={styles.profileSection}>
         <img
           className={styles.profileImage}
-          src={testCatProfile}
+          src={list.imageSource}
           alt="프로필 사진"
         />
-        <h2 className={styles.profileName}>이름</h2>
+        <h2 className={styles.profileName}>{list.name}</h2>
       </div>
       <div className={styles.infoSection}>
         <div className={styles.infoItem}>
