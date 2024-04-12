@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import styles from './TextAreaForm.module.css';
+import React, { useState } from "react";
+import styles from "./TextAreaForm.module.css";
+import BoxButton from "../BoxButton/BoxButton";
 
 export default function TextAreaForm({
   placeholder,
   buttonOnclick,
   buttonText,
-  initialText = '',
+  initialText = "",
 }) {
   const [textValue, setTextValue] = useState(initialText);
 
@@ -13,7 +14,7 @@ export default function TextAreaForm({
     setTextValue(event.target.value);
   };
 
-  const isTextareaEmpty = textValue.trim() === '';
+  const isTextareaEmpty = textValue.trim() === "";
 
   return (
     <>
@@ -24,9 +25,11 @@ export default function TextAreaForm({
         value={textValue}
         onChange={handleTextareaChange}
       />
-      <button onClick={buttonOnclick} disabled={isTextareaEmpty}>
-        {buttonText}
-      </button>
+      <BoxButton
+        text={buttonText}
+        onClick={buttonOnclick}
+        disabled={isTextareaEmpty}
+      />
     </>
   );
 }
