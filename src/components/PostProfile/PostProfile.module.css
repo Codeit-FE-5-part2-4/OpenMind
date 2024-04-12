@@ -47,7 +47,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  position: absolute;
+  position: fixed;
   bottom: 60px;
   opacity: 0; /* 초기에는 투명하게 설정 */
   transition: opacity 0.5s ease-in-out; /* 서서히 나타나고 사라지도록 설정 */
