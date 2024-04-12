@@ -31,4 +31,7 @@
 
 .shareButton {
   width: 40px;
+  &:hover {
+    cursor: pointer;
+  }
 }

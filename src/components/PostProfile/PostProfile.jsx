@@ -12,7 +12,11 @@ const Icons = [
 export default function PostProfile({ userProfile }) {
   return (
     <div className={styles.profileContainer}>
-      <img className={styles.profileImage} src={userProfile.imageSource} />
+      <img
+        className={styles.profileImage}
+        src={userProfile.imageSource}
+        alt={userProfile.name}
+      />
       <span className={styles.profileUserName}>{userProfile.name}</span>
       <ul className={styles.shareButtonBox}>
         {Icons.map((item, index) => (
@@ -26,18 +30,3 @@ export default function PostProfile({ userProfile }) {
     </div>
   );
 }
-
-/* const linkShareIcon = {
-  altMessage: "copy link",
-  imgSource: linkShareImage,
-};
-
-const faceBookIcon = {
-  altMessage: "link to facebook",
-  imgSource: faceBookImage,
-};
-
-const kakaoIcon = {
-  altMessage: "link to kakao",
-  imgSource: kakaoImage,
-}; */
