@@ -31,4 +31,28 @@
 
 .shareButton {
   width: 40px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.toast {
+  background: var(--grayscaleColor600);
+  color: var(--grayscaleColor100);
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 12px 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  position: fixed;
+  bottom: 60px;
+  opacity: 0; /* 초기에는 투명하게 설정 */
+  transition: opacity 0.5s ease-in-out; /* 서서히 나타나고 사라지도록 설정 */
+}
+
+.toast.show {
+  opacity: 1; /* 토스트 메시지가 표시될 때 투명도를 조정하여 나타남 */
 }
