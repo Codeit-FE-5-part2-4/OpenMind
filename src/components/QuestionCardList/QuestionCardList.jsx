@@ -2,6 +2,7 @@
  * TODO:
  * -[x] 리스트 데이터로 매핑하여 렌더링하기
  * -[x] api 요청과 유사하게 mock 데이터로 로직 검사
+ * -[x] 리스트는 프롭을 받아 렌더링만 담당하게끔 하여 로직과 ui를 분리
  * -[] 페이지네이션 한다면 태블릿 사이즈일 때 9개가 되야하므로 이정도 고려
  * {
   count*	integer required - 서브젝트 총 갯수
@@ -23,40 +24,8 @@
 
 import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./QuestionCardList.module.css";
-import { useCallback, useEffect, useState } from "react";
 
-function QuestionCardList() {
-  const [feeds, setFeeds] = useState([]);
-  let limit = 8;
-  let offset = 0;
-
-  async function getSubjects({ limit, offset }) {
-    const response = await (
-      await fetch(
-        `https://openmind-api.vercel.app/5-4/subjects/?limit=${limit}&offset=${offset}`
-      )
-    ).json();
-
-    if (!response) return console.error("요청이 실패했습니다.");
-
-    const { results } = response;
-
-    return results;
-  }
-
-  const displaySubjects = useCallback(async () => {
-    try {
-      const newFeeds = await getSubjects(limit, offset);
-      setFeeds(newFeeds);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [limit, offset]);
-
-  useEffect(() => {
-    displaySubjects();
-  }, [displaySubjects]);
-
+function QuestionCardList({ feeds }) {
   return (
     <ul className={styles.listContainer}>
       {feeds?.map((feed, id) => (
