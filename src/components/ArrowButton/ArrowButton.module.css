@@ -1,32 +1,46 @@
 .ArrowButton {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.375;
-    color: var(--brownColor400);
-    background: var(--brownColor100);
-    border-radius: 8px;
-    border: 1px solid var(--brownColor400);
-    padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.375;
+  color: var(--brownColor400);
+  background: var(--brownColor100);
+  border-radius: 8px;
+  border: 1px solid var(--brownColor400);
+  padding: 11px 24px;
+}
+
+.ArrowButton:hover {
+  outline: 1px solid var(--brownColor400);
+}
+
+.ArrowButton:active {
+  background: var(--brownColor200);
+  outline: 1px solid var(--brownColor400);
+}
+
+.ArrowButton:disabled {
+  color: var(--brownColor100);
+  border: 1px solid var(--brownColor300);
 }
 
 @media (max-width: 767px) {
-    /* 모바일 */
+  /* 모바일 */
 
-    .mainHeader .ArrowButton {
-        top: 202px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
+  .mainHeader .ArrowButton {
+    top: 202px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
-    .ArrowButton {
-        max-width: 126px;
-        padding: 8px 12px;
-        font-size: 14px;
-        line-height: 1.28571428571;
-        gap: 4px;
-        justify-content: space-between;
-    }
+  .ArrowButton {
+    max-width: 126px;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.28571428571;
+    gap: 4px;
+    justify-content: space-between;
+  }
 }
