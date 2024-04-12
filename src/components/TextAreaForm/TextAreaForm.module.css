@@ -1,0 +1,14 @@
+.textArea {
+  flex-grow: 1;
+  padding: 16px;
+  background-color: var(--grayscaleColor200);
+  border-radius: 8px;
+  border: none;
+  min-height: 150px;
+  height: auto;
+  resize: none;
+
+  &:focus {
+    outline: 1px solid var(--brownColor400);
+  }
+}
