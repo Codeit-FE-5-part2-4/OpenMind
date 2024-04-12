@@ -29,19 +29,19 @@ function QuestionCardListPage() {
 
     if (!response) return console.error("요청이 실패했습니다.");
 
-    const { results, count } = response;
+    const { results, count, next, previous } = response;
 
-    return { results, count };
+    return { results, count, next, previous };
   }
 
   const displaySubjects = useCallback(async () => {
     try {
       const newFeeds = await getSubjects(limit, currentOffset);
-      const { results } = newFeeds;
+      const { results, next, previous } = newFeeds;
       const sortFeeds = await results.sort((a, b) =>
         b[sort] < a[sort] ? -1 : b[sort] > a[sort] ? 1 : 0
       );
-      console.table(sortFeeds);
+      console.log(next, previous);
       setSortedFeeds(sortFeeds);
     } catch (error) {
       console.error(error);
