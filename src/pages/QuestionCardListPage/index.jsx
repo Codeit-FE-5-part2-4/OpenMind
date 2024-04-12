@@ -7,8 +7,8 @@ import { useCallback, useEffect, useState } from "react";
 
 function QuestionCardListPage() {
   const [feeds, setFeeds] = useState([]);
-  let limit = 8;
-  let offset = 0;
+  const [limit, setLimit] = useState(8);
+  const [currentOffset, setCurrentOffset] = useState(0);
 
   async function getSubjects({ limit, offset }) {
     const response = await (
@@ -19,19 +19,19 @@ function QuestionCardListPage() {
 
     if (!response) return console.error("요청이 실패했습니다.");
 
-    const { results } = response;
+    const { results, count } = response;
 
-    return results;
+    return { results, count };
   }
 
   const displaySubjects = useCallback(async () => {
     try {
-      const newFeeds = await getSubjects(limit, offset);
+      const newFeeds = await getSubjects(limit, currentOffset);
       setFeeds(newFeeds);
     } catch (error) {
       console.error(error);
     }
-  }, [limit, offset]);
+  }, [limit, currentOffset]);
 
   useEffect(() => {
     displaySubjects();
