@@ -1,34 +1,34 @@
 .FloatingButton {
-    font-size: 15px;
-    line-height: 1.6667;
-    font-weight: 400;
-    padding: 5px 24px;
-    text-align: center;
-    border-radius: 200px;
-    border: none;
-    background: var(--brownColor400);
-    color: var(--grayscaleColor100);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  font-size: 15px;
+  line-height: 1.6667;
+  font-weight: 400;
+  padding: 5px 24px;
+  text-align: center;
+  border-radius: 200px;
+  border: none;
+  background: var(--brownColor400);
+  color: var(--grayscaleColor100);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .FloatingButtonLarge {
-    width: 208px;
-    font-size: 20px;
-    line-height: 1.25;
-    padding: 14.5px 24px;
+  width: 208px;
+  font-size: 20px;
+  line-height: 1.25;
+  padding: 14.5px 24px;
 }
 
 @media (max-width: 767px) {
-    /* 모바일 */
-    .FloatingButton {
-        font-size: 10px;
-        line-height: 25px;
-        padding: 0 17.5px;
-    }
-    .FloatingButtonLarge {
-        font-size: 20px;
-        width: 123px;
-        line-height: 1.25;
-        padding: 14.5px 24px;
-    }
+  /* 모바일 */
+  .FloatingButton {
+    font-size: 10px;
+    line-height: 25px;
+    padding: 0 17.5px;
+  }
+  .FloatingButtonLarge {
+    font-size: 20px;
+    width: 123px;
+    line-height: 1.25;
+    padding: 14.5px 24px;
+  }
 }
