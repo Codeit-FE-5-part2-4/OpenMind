@@ -16,12 +16,15 @@ export default function getTimeDifference(createdDate, intervals = INTERVALS) {
   const currentDate = new Date();
   const timeDifference = currentDate - createdDate;
 
-  for (const interval of intervals) {
+  let result = '방금 전';
+  intervals.some((interval) => {
     const value = Math.floor(timeDifference / interval.divisor);
     if (value >= 1) {
-      return `${value} ${interval.label}전`;
+      result = `${value} ${interval.label}전`;
+      return true;
     }
-  }
+    return false;
+  });
 
-  return '방금 전';
+  return result;
 }
