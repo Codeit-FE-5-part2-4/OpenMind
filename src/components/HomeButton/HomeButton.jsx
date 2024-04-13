@@ -1,4 +1,5 @@
 import Logo from "../../assets/images/logo.png";
+import { Link } from "react-router-dom";
 
 function HomeButton({ size }) {
   const SIZE = {
@@ -21,13 +22,13 @@ function HomeButton({ size }) {
   const Size = SIZE[size];
 
   return (
-    <a href="/">
+    <Link to="/">
       <img
         src={Logo}
         style={{ width: `${Size.width}px`, height: `${Size.height}px` }}
         alt="로고 이미지"
       />
-    </a>
+    </Link>
   );
 }
 

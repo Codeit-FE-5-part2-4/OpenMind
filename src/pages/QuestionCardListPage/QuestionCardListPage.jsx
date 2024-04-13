@@ -13,8 +13,21 @@ function QuestionCardListPage() {
   const [title, setTitle] = useState("최신순"); //제목 useState
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
   const [sortedFeeds, setSortedFeeds] = useState([]);
-  /* const [limit, setLimit] = useState(8);
+/*const [limit, setLimit] = useState(() => (window.innerWidth <= 870 ? 6 : 8)); // 브라우저 너비를 감지하여 870px이하에서 6개
+  const [width, setWidth] = useState(window.innerWidth); // 브라우저 너비 감지 useState
   const [currentOffset, setCurrentOffset] = useState(0); */
+  /**윈도우 객체를 받아서 width에 저장하는 함수 */
+//   const handleResize = () => {
+//     setWidth(window.innerWidth);
+//     if (window.innerWidth <= 870) {
+//       setLimit(6);
+//     } else setLimit(8);
+//   };
+
+//   useEffect(() => {
+//     window.addEventListener("resize", handleResize);
+//   }, [width]);
+  
 
   let limit = 8;
   let currentOffset = 0;
@@ -23,6 +36,7 @@ function QuestionCardListPage() {
     setViewDropdown(!viewDropdown);
     viewDropdown ? setArrowDirection(arrowDown) : setArrowDirection(arrowUp); // 드롭다운 페이지 활성화시 ↑ 비활성화시 ↓
   };
+
 
   const displaySubjects = useCallback(async () => {
     try {
