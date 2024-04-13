@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import styles from "./TextAreaForm.module.css";
 import BoxButton from "../BoxButton/BoxButton";
-import postQuestion from "../../utils/postQuestion";
 
 export default function TextAreaForm({
   placeholder,
   buttonOnclick,
   buttonText,
   initialText = "",
-  answererProfile,
 }) {
   const [textValue, setTextValue] = useState(initialText);
 
