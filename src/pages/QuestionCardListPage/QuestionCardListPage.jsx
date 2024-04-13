@@ -1,68 +1,58 @@
 import QuestionCardList from "../../components/QuestionCardList/QuestionCardList";
 import ListHeader from "../../components/ListHeader/ListHeader";
-import arrowUp from "../../assets/images/icon/Arrow-up.svg";
-import arrowDown from "../../assets/images/icon/Arrow-down.svg";
 import Pagination from "../../components/Pagination/Pagination";
 import styles from "./QuestionCardListPage.module.css";
 import { useCallback, useEffect, useState } from "react";
 import { getSubjects } from "../../utils/listPageApi/getSubjects";
 import { useSearchParams } from "react-router-dom";
+import SortList from "../../components/SortList/SortList";
+
+const INITIALQUERY = {
+  limit: 8,
+  offset: 0,
+  sort: "time",
+};
 
 function QuestionCardListPage() {
-  const [sort, setSort] = useState("createdAt"); // 정렬기준 설정 useState
-  const [viewDropdown, setViewDropdown] = useState(false); // 드롭다운 토글 useState
-  const [title, setTitle] = useState("최신순"); //제목 useState
-  const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
   const [sortedFeeds, setSortedFeeds] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams(INITIALQUERY);
 
-  const listQueryParams = {
-    limit: 8,
-    offset: 0,
-    sort: "time",
+  const handleSortList = (e) => {
+    e.preventDefault();
+
+    const currentSortValue = e.target.name;
+
+    updateSearchParams("sort", currentSortValue);
   };
 
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const updateSearch = useCallback(
+  const updateSearchParams = useCallback(
     (key, value) => {
-      const newParams = new URLSearchParams(searchParams);
-      newParams.set(key, value);
-      setSearchParams(newParams);
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.set(key, value);
+
+      setSearchParams(newSearchParams);
     },
     [searchParams, setSearchParams]
   );
 
-  const dropdownToggle = () => {
-    setViewDropdown(!viewDropdown);
-    viewDropdown ? setArrowDirection(arrowDown) : setArrowDirection(arrowUp); // 드롭다운 페이지 활성화시 ↑ 비활성화시 ↓
-  };
-
-  const displaySubjects = useCallback(async () => {
+  const displaySubjects = useCallback(async ({ limit, offset, sort }) => {
     try {
-      const newFeeds = await getSubjects();
+      const newFeeds = await getSubjects({ limit, offset, sort });
       const { results } = newFeeds;
-      const sortFeeds = await results.sort((a, b) =>
-        b[sort] < a[sort] ? -1 : b[sort] > a[sort] ? 1 : 0
-      );
-      updateSearch("sort", "time");
-      setSortedFeeds(sortFeeds);
+
+      setSortedFeeds(results);
     } catch (error) {
       console.error(error);
     }
-  }, [sort, updateSearch]);
-
-  const handleSortByNameClick = () => {
-    setSort("name");
-    setTitle("이름순");
-  };
-  const handleNewestClick = () => {
-    setSort("createdAt");
-    setTitle("최신순");
-  };
+  }, []);
 
   useEffect(() => {
-    displaySubjects();
-  }, [displaySubjects]);
+    const limit = searchParams.get("limit");
+    const offset = searchParams.get("offset");
+    const sort = searchParams.get("sort");
+
+    displaySubjects({ limit, offset, sort });
+  }, [displaySubjects, searchParams, updateSearchParams]);
 
   return (
     <div className={styles.pageContainer}>
@@ -70,33 +60,7 @@ function QuestionCardListPage() {
         <ListHeader />
         <div className={styles.titleAndSortBox}>
           <h1 className={styles.title}>누구에게 질문할까요?</h1>
-          <ul className={styles.sortMenu}>
-            <li>
-              <button
-                className={styles.selectSortButton}
-                onClick={dropdownToggle}
-              >
-                {title}
-                <img src={arrowDirection} alt={arrowDirection} />
-              </button>
-            </li>
-            {viewDropdown && (
-              <li className={styles.alignButtons}>
-                <button
-                  className={styles.alignButton}
-                  onClick={handleSortByNameClick}
-                >
-                  이름순
-                </button>
-                <button
-                  className={styles.alignButton}
-                  onClick={handleNewestClick}
-                >
-                  최신순
-                </button>
-              </li>
-            )}
-          </ul>
+          <SortList onClick={handleSortList} />
         </div>
         <div className={styles.listAndPaginationBox}>
           <QuestionCardList sortedFeeds={sortedFeeds} />
