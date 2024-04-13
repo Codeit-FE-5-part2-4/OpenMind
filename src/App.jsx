@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/list" element={<QuestionCardListPage />} />
-        <Route path="/post" element={<PostPage id="5009" />} />
+        <Route path="/post" element={<PostPage id="5010" />} />
       </Routes>
     </BrowserRouter>
   );
