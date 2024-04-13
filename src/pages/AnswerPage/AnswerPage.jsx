@@ -7,6 +7,7 @@ import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import getSubjectInfo from "../../utils/postpageAPI/getSubjectInfo";
 import getSubjectQuestion from "../../utils/postpageAPI/getSubjectQuestion";
 import { useParams } from "react-router-dom";
+import deleteFeed from "../../utils/answerpageAPI/deleteFeed";
 
 export default function AnswerPage() {
   const { id } = useParams();
@@ -39,7 +40,7 @@ export default function AnswerPage() {
       <PostProfile userProfile={userProfile} />
       <div className={styles.QuestionFeedContainer}>
         <div className={styles.FloatingButtonAtRightSide}>
-          <FloatingButton text="삭제하기" />
+          <FloatingButton text="삭제하기" onClick={deleteFeed} />
         </div>
         <QuestionFeedList
           questions={userQuestions}
