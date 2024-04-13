@@ -96,11 +96,28 @@
   border-top: 1px solid var(--grayscaleColor300);
 }
 
+.judgeAnswerWrapper {
+  display: flex;
+  gap: 6px;
+}
+
 .judge {
   align-items: center;
   display: flex;
   gap: 6px;
   font-size: 14px;
+}
+
+.reactionTextDefault {
+  color: var(--grayscaleColor400);
+}
+
+.likeText {
+  color: var(--blueColor);
+}
+
+.dislikeText {
+  color: var(--grayscaleColor600);
 }
 
 .isAnswered {
