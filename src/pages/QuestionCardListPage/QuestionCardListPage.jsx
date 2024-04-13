@@ -12,8 +12,11 @@ function QuestionCardListPage() {
   const [title, setTitle] = useState("최신순"); //제목 useState
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
   const [sortedFeeds, setSortedFeeds] = useState([]);
-  const [limit, setLimit] = useState(8);
-  const [currentOffset, setCurrentOffset] = useState(0);
+  /* const [limit, setLimit] = useState(8);
+  const [currentOffset, setCurrentOffset] = useState(0); */
+
+  let limit = 8;
+  let currentOffset = 0;
 
   const dropdownToggle = () => {
     setViewDropdown(!viewDropdown);
