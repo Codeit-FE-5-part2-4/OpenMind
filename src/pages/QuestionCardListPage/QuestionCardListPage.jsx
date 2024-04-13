@@ -6,6 +6,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import styles from "./QuestionCardListPage.module.css";
 import { useCallback, useEffect, useState } from "react";
 import { getSubjects } from "../../utils/listPageApi/getSubjects";
+import { useSearchParams } from "react-router-dom";
 
 function QuestionCardListPage() {
   const [sort, setSort] = useState("createdAt"); // 정렬기준 설정 useState
@@ -13,11 +14,23 @@ function QuestionCardListPage() {
   const [title, setTitle] = useState("최신순"); //제목 useState
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
   const [sortedFeeds, setSortedFeeds] = useState([]);
-  /* const [limit, setLimit] = useState(8);
-  const [currentOffset, setCurrentOffset] = useState(0); */
 
-  let limit = 8;
-  let currentOffset = 0;
+  const listQueryParams = {
+    limit: 8,
+    offset: 0,
+    sort: "time",
+  };
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const updateSearch = useCallback(
+    (key, value) => {
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set(key, value);
+      setSearchParams(newParams);
+    },
+    [searchParams, setSearchParams]
+  );
 
   const dropdownToggle = () => {
     setViewDropdown(!viewDropdown);
@@ -26,17 +39,17 @@ function QuestionCardListPage() {
 
   const displaySubjects = useCallback(async () => {
     try {
-      const newFeeds = await getSubjects(limit, currentOffset);
-      const { results, next, previous } = newFeeds;
+      const newFeeds = await getSubjects();
+      const { results } = newFeeds;
       const sortFeeds = await results.sort((a, b) =>
         b[sort] < a[sort] ? -1 : b[sort] > a[sort] ? 1 : 0
       );
-      console.log(next, previous);
+      updateSearch("sort", "time");
       setSortedFeeds(sortFeeds);
     } catch (error) {
       console.error(error);
     }
-  }, [limit, currentOffset, sort]);
+  }, [sort, updateSearch]);
 
   const handleSortByNameClick = () => {
     setSort("name");
