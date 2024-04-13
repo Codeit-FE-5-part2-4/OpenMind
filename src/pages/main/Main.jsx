@@ -16,7 +16,7 @@ function Main() {
     try {
       const nameData = await postUserInfo(value);
       if (!nameData || !nameData.id) {
-        throw new Error("이름을 입력해 주세요.");
+        throw new Error("Invalid data format");
       }
       const { id } = nameData;
       navigate(`post/${id}/answer`);
@@ -33,6 +33,7 @@ function Main() {
   //서브밋
   const onSubmitForm = (e) => {
     e.preventDefault();
+    handleNameSubmit();
     setValue("");
   };
 
