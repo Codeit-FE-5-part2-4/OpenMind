@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./assets/styles/global.css";
 import "./assets/styles/reset.css";
 import Main from "./pages/Main/Main";
-import QuestionCardListPage from "./pages/QuestionCardListPage";
+import QuestionCardListPage from "./pages/QuestionCardListPage/QuestionCardListPage";
 import PostPage from "./pages/PostPage/PostPage";
 
 function App() {
