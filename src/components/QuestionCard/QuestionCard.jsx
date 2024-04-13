@@ -1,11 +1,12 @@
 import speechBubble from "../../assets/images/icon/speech-bubble.svg";
 import styles from "./QuestionCard.module.css";
+import { Link } from "react-router-dom";
 
 function QuestionCard({ feed }) {
-  const { name, imageSource, questionCount } = feed;
+  const { name, imageSource, questionCount, id } = feed;
 
   return (
-    <a href="/" className={styles.cardWrapper}>
+    <Link href={`/post/${id}`} className={styles.cardWrapper}>
       <div className={styles.profileSection}>
         <img
           className={styles.profileImage}
@@ -21,7 +22,7 @@ function QuestionCard({ feed }) {
         </div>
         <div>{questionCount}</div>
       </div>
-    </a>
+    </Link>
   );
 }
 

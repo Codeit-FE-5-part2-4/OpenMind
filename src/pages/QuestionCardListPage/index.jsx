@@ -13,9 +13,10 @@ function QuestionCardListPage() {
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
   const [sortedFeeds, setSortedFeeds] = useState([]);
   const [currentOffset, setCurrentOffset] = useState(0);
-  const [limit, setLimit] = useState(() => (window.innerWidth <= 870 ? 6 : 8));
-  const [width, setWidth] = useState(window.innerWidth);
+  const [limit, setLimit] = useState(() => (window.innerWidth <= 870 ? 6 : 8)); // 브라우저 너비를 감지하여 870px이하에서 6개
+  const [width, setWidth] = useState(window.innerWidth); // 브라우저 너비 감지 useState
 
+  /**윈도우 객체를 받아서 width에 저장하는 함수 */
   const handleResize = () => {
     setWidth(window.innerWidth);
     if (window.innerWidth <= 870) {
