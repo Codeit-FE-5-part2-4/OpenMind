@@ -1,19 +1,22 @@
-import likeIcon from '../../assets/images/icon/likeIcon.svg';
-import dislikeIcon from '../../assets/images/icon/dislikeIcon.svg';
-import styles from './QuestionFeedCard.module.css';
-import getTimeDifference from '../../utils/getTimeDifference';
-import moreKebab from '../../assets/images/MoreKebab.svg';
-import AnswerContainer from './AnswerContainer';
-import { useState } from 'react';
-import FeedCardDropDown from '../FeedCardDropDown/FeedCardDropDown';
+import likeIcon from "../../assets/images/icon/likeIcon.svg";
+import dislikeIcon from "../../assets/images/icon/dislikeIcon.svg";
+import styles from "./QuestionFeedCard.module.css";
+import getTimeDifference from "../../utils/getTimeDifference";
+import moreKebab from "../../assets/images/MoreKebab.svg";
+import AnswerContainer from "./AnswerContainer";
+import { useCallback, useEffect, useState } from "react";
+import FeedCardDropDown from "../FeedCardDropDown/FeedCardDropDown";
+import postReaction from "../../utils/postReaction";
 
 export default function QuestionFeedCard({
   question,
   AnswererProfile,
   isAnswerPage,
 }) {
+  const [currentQuestion, setCurrentQuestion] = useState(question);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [reaction, setReaction] = useState("");
 
   const handleDropdownToggleClick = () => {
     setShowDropdown(!showDropdown);
@@ -28,9 +31,36 @@ export default function QuestionFeedCard({
     setIsEditing(false);
   };
 
+  const handleLikeButtonClick = () => {
+    setReaction("like");
+  };
+
+  const handleDisLikeButtonClick = () => {
+    setReaction("dislike");
+  };
+
+  const handleReactionSubmit = useCallback(
+    async (newReaction) => {
+      try {
+        let result = await postReaction(newReaction, question.id);
+        setCurrentQuestion(result);
+      } catch (error) {
+        console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
+      }
+      setReaction("");
+    },
+    [question.id]
+  );
+
+  useEffect(() => {
+    if (reaction !== "") {
+      handleReactionSubmit(reaction);
+    }
+  }, [reaction, handleReactionSubmit]);
+
   const answerStatusMessages = {
-    isAnswered: '답변완료',
-    notAnswered: '미답변',
+    isAnswered: "답변완료",
+    notAnswered: "미답변",
   };
   const answerStatusMsg = question.answer
     ? answerStatusMessages.isAnswered
@@ -45,8 +75,9 @@ export default function QuestionFeedCard({
     answerCreatedAgo = getTimeDifference(new Date(question.answer.createdAt));
   }
 
-  answerStatusStyle += ' ';
+  answerStatusStyle += " ";
   answerStatusStyle += styles.answerStatus;
+
   return (
     <div className={styles.questionCard}>
       <div className={styles.answerStatusBar}>
@@ -86,13 +117,25 @@ export default function QuestionFeedCard({
       )}
 
       <div className={styles.judgeAnswerContainer}>
-        <div className={styles.judge}>
-          <img src={likeIcon} alt="좋아요버튼" />
-          <span>{`좋아요 ${question.like}`}</span>
+        <div className={styles.judgeAnswerWrapper}>
+          <button
+            onClick={handleLikeButtonClick}
+            type="submit"
+            className={styles.judge}
+          >
+            <img src={likeIcon} alt="좋아요버튼" />
+          </button>
+          <span>{`좋아요 ${currentQuestion.like}`}</span>
         </div>
-        <div className={styles.judge}>
-          <img src={dislikeIcon} alt="싫어요버튼" />
-          <span>{`싫어요 ${question.dislike}`}</span>
+        <div className={styles.judgeAnswerWrapper}>
+          <button
+            onClick={handleDisLikeButtonClick}
+            type="submit"
+            className={styles.judge}
+          >
+            <img src={dislikeIcon} alt="싫어요버튼" />
+          </button>
+          <span>{`싫어요 ${currentQuestion.dislike}`}</span>
         </div>
       </div>
     </div>
