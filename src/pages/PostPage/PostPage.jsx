@@ -7,6 +7,7 @@ import "../../components/FloatingButton/FloatingButton.module.css";
 import QuestionModal from "../../components/QuestionModal/QuestionModal";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import getSubjectInfo from "../../utils/postpageAPI/getSubjectInfo";
+import getSubjectQuestion from "../../utils/postpageAPI/getSubjectQuestion";
 
 export default function PostPage({ id }) {
   const [showModal, setShowModal] = useState(false);
@@ -17,7 +18,10 @@ export default function PostPage({ id }) {
   const handleLoad = async () => {
     let result = await getSubjectInfo(id);
     //TODO : try catch
+    //질문 불러오기 api함수
     setUserProfile(result);
+    result = await getSubjectQuestion(id);
+    setUserQuestions(result);
   };
 
   const handleModalOpen = () => {
