@@ -5,6 +5,7 @@ import arrowDown from "../../assets/images/icon/Arrow-down.svg";
 import Pagination from "../../components/Pagination/Pagination";
 import styles from "./QuestionCardListPage.module.css";
 import { useCallback, useEffect, useState } from "react";
+import { getSubjects } from "../../utils/listPageApi/getSubjects";
 
 function QuestionCardListPage() {
   const [sort, setSort] = useState("createdAt"); // 정렬기준 설정 useState
@@ -12,27 +13,16 @@ function QuestionCardListPage() {
   const [title, setTitle] = useState("최신순"); //제목 useState
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
   const [sortedFeeds, setSortedFeeds] = useState([]);
-  const [limit, setLimit] = useState(8);
-  const [currentOffset, setCurrentOffset] = useState(0);
+  /* const [limit, setLimit] = useState(8);
+  const [currentOffset, setCurrentOffset] = useState(0); */
+
+  let limit = 8;
+  let currentOffset = 0;
 
   const dropdownToggle = () => {
     setViewDropdown(!viewDropdown);
     viewDropdown ? setArrowDirection(arrowDown) : setArrowDirection(arrowUp); // 드롭다운 페이지 활성화시 ↑ 비활성화시 ↓
   };
-
-  async function getSubjects({ limit, offset }) {
-    const response = await (
-      await fetch(
-        `https://openmind-api.vercel.app/5-4/subjects/?limit=${limit}&offset=${offset}`
-      )
-    ).json();
-
-    if (!response) return console.error("요청이 실패했습니다.");
-
-    const { results, count, next, previous } = response;
-
-    return { results, count, next, previous };
-  }
 
   const displaySubjects = useCallback(async () => {
     try {
