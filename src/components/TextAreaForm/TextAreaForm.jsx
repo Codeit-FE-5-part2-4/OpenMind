@@ -16,6 +16,11 @@ export default function TextAreaForm({
 
   const isTextareaEmpty = textValue.trim() === "";
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    buttonOnclick(textValue);
+  };
+
   return (
     <>
       <textarea
@@ -27,7 +32,7 @@ export default function TextAreaForm({
       />
       <BoxButton
         text={buttonText}
-        onClick={buttonOnclick}
+        onClick={handleSubmit}
         disabled={isTextareaEmpty}
       />
     </>

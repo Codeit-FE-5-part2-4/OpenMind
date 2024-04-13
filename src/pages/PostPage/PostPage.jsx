@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import styles from "./PostPage.module.css";
 import logoImage from "../../assets/images/logo.png";
 import PostProfile from "../../components/PostProfile/PostProfile";
 import QuestionFeedList from "../../components/QuestionFeedList/QuestionFeedList";
-import styles from "./PostPage.module.css";
-import "../../components/FloatingButton/FloatingButton.module.css";
-import { mockProfile, mockQuestions } from "./mockdata";
-import QuestionModal from "../../components/QuestionModal/QuestionModal";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
+import QuestionModal from "../../components/QuestionModal/QuestionModal";
+import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestions";
 
 export default function PostPage() {
+  const { id } = useParams(); // Access the id from route parameters
   const [showModal, setShowModal] = useState(false);
   const [buttonText, setButtonText] = useState("질문하러 가기");
+  const { userProfile, userQuestions } = useUserProfileAndQuestions(id);
 
   const handleModalOpen = () => {
     setShowModal(true);
@@ -19,6 +21,7 @@ export default function PostPage() {
   const handleModalClose = () => {
     setShowModal(false);
   };
+
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth < 768) {
@@ -29,7 +32,6 @@ export default function PostPage() {
     }
 
     window.addEventListener("resize", handleResize);
-
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
@@ -42,16 +44,16 @@ export default function PostPage() {
         <span className={styles.blind}>Openmind</span>
         <img className={styles.logoImage} src={logoImage} alt="openmind" />
       </h1>
-      <PostProfile userProfile={mockProfile} />
+      <PostProfile userProfile={userProfile} />
       <QuestionFeedList
-        questions={mockQuestions}
-        AnswererProfile={mockProfile}
+        questions={userQuestions}
+        AnswererProfile={userProfile}
       />
       {showModal && (
         <>
           <QuestionModal
             closeModal={handleModalClose}
-            answererProfile={mockProfile}
+            answererProfile={userProfile}
           />
           <div className={styles.overlay}></div>
         </>

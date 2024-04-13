@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./assets/styles/global.css";
 import "./assets/styles/reset.css";
 import Main from "./pages/Main/Main";
-import QuestionCardListPage from "./pages/QuestionCardListPage";
+import QuestionCardListPage from "./pages/QuestionCardListPage/QuestionCardListPage";
 import PostPage from "./pages/PostPage/PostPage";
+import AnswerPage from "./pages/AnswerPage/AnswerPage";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/list" element={<QuestionCardListPage />} />
-        <Route path="/post" element={<PostPage />} />
+        <Route path="/post/:id" element={<PostPage />} />
+        <Route path="/post/:id/answer" element={<AnswerPage />} />
       </Routes>
     </BrowserRouter>
   );

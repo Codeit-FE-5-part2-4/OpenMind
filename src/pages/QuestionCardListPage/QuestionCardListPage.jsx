@@ -5,6 +5,7 @@ import arrowDown from "../../assets/images/icon/Arrow-down.svg";
 import Pagination from "../../components/Pagination/Pagination";
 import styles from "./QuestionCardListPage.module.css";
 import { useCallback, useEffect, useState } from "react";
+import { getSubjects } from "../../utils/listPageApi/getSubjects";
 
 function QuestionCardListPage() {
   const [sort, setSort] = useState("createdAt"); // 정렬기준 설정 useState
@@ -12,44 +13,34 @@ function QuestionCardListPage() {
   const [title, setTitle] = useState("최신순"); //제목 useState
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
   const [sortedFeeds, setSortedFeeds] = useState([]);
-  const [currentOffset, setCurrentOffset] = useState(0);
-  const [limit, setLimit] = useState(() => (window.innerWidth <= 870 ? 6 : 8)); // 브라우저 너비를 감지하여 870px이하에서 6개
+/*const [limit, setLimit] = useState(() => (window.innerWidth <= 870 ? 6 : 8)); // 브라우저 너비를 감지하여 870px이하에서 6개
   const [width, setWidth] = useState(window.innerWidth); // 브라우저 너비 감지 useState
-
+  const [currentOffset, setCurrentOffset] = useState(0); */
   /**윈도우 객체를 받아서 width에 저장하는 함수 */
-  const handleResize = () => {
-    setWidth(window.innerWidth);
-    if (window.innerWidth <= 870) {
-      setLimit(6);
-    } else setLimit(8);
-  };
+//   const handleResize = () => {
+//     setWidth(window.innerWidth);
+//     if (window.innerWidth <= 870) {
+//       setLimit(6);
+//     } else setLimit(8);
+//   };
 
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-  }, [width]);
+//   useEffect(() => {
+//     window.addEventListener("resize", handleResize);
+//   }, [width]);
+  
+
+  let limit = 8;
+  let currentOffset = 0;
 
   const dropdownToggle = () => {
     setViewDropdown(!viewDropdown);
     viewDropdown ? setArrowDirection(arrowDown) : setArrowDirection(arrowUp); // 드롭다운 페이지 활성화시 ↑ 비활성화시 ↓
   };
 
-  async function getSubjects({ limit, offset }) {
-    const response = await (
-      await fetch(
-        `https://openmind-api.vercel.app/5-4/subjects/?limit=${limit}&offset=${offset}`
-      )
-    ).json();
-
-    if (!response) return console.error("요청이 실패했습니다.");
-
-    const { results, count, next, previous } = response;
-
-    return { results, count, next, previous };
-  }
 
   const displaySubjects = useCallback(async () => {
     try {
-      const newFeeds = await getSubjects({ limit }, currentOffset);
+      const newFeeds = await getSubjects(limit, currentOffset);
       const { results, next, previous } = newFeeds;
       const sortFeeds = await results.sort((a, b) =>
         b[sort] < a[sort] ? -1 : b[sort] > a[sort] ? 1 : 0
