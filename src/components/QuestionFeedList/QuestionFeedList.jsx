@@ -1,7 +1,7 @@
-import speechBubble from '../../assets/images/icon/speechBubble.svg';
-import QuestionFeedCard from '../QuestionFeedCard/QuestionFeedCard';
-import styles from './QuestionFeedList.module.css';
-import emptyIcon from '../../assets/images/icon/emptyIcon.svg';
+import speechBubble from "../../assets/images/icon/speechBubble.svg";
+import QuestionFeedCard from "../QuestionFeedCard/QuestionFeedCard";
+import styles from "./QuestionFeedList.module.css";
+import emptyIcon from "../../assets/images/icon/emptyIcon.svg";
 
 export default function QuestionFeedList({
   questions,
