@@ -1,15 +1,16 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router-dom";
+import styles from "./PostPage.module.css";
 import logoImage from "../../assets/images/logo.png";
 import PostProfile from "../../components/PostProfile/PostProfile";
 import QuestionFeedList from "../../components/QuestionFeedList/QuestionFeedList";
-import styles from "./PostPage.module.css";
-import "../../components/FloatingButton/FloatingButton.module.css";
-import QuestionModal from "../../components/QuestionModal/QuestionModal";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
+import QuestionModal from "../../components/QuestionModal/QuestionModal";
 import getSubjectInfo from "../../utils/postpageAPI/getSubjectInfo";
 import getSubjectQuestion from "../../utils/postpageAPI/getSubjectQuestion";
 
-export default function PostPage({ id }) {
+export default function PostPage() {
+  const { id } = useParams(); // Access the id from route parameters
   const [showModal, setShowModal] = useState(false);
   const [buttonText, setButtonText] = useState("질문하러 가기");
   const [userProfile, setUserProfile] = useState({});
@@ -20,7 +21,7 @@ export default function PostPage({ id }) {
       let result = await getSubjectInfo(id);
       setUserProfile(result);
     } catch (error) {
-      console.error("피드 페이지를 가져오는 중에 오류가 발생했습니다:");
+      console.error("피드 페이지를 가져오는 중에 오류가 발생했습니다:", error);
     }
   }, [id]);
 
@@ -29,7 +30,7 @@ export default function PostPage({ id }) {
       let result = await getSubjectQuestion(id);
       setUserQuestions(result);
     } catch (error) {
-      console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
+      console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:", error);
     }
   }, [id]);
 
@@ -45,6 +46,7 @@ export default function PostPage({ id }) {
   const handleModalClose = () => {
     setShowModal(false);
   };
+
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth < 768) {
@@ -58,7 +60,7 @@ export default function PostPage({ id }) {
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [handleLoad, fetchDataAndSetUserProfile, fetchDataAndSetUserQuestions]);
+  }, [handleLoad]);
 
   return (
     <div className={styles.container}>
