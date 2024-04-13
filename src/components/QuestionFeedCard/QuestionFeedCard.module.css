@@ -108,6 +108,18 @@
   font-size: 14px;
 }
 
+.reactionTextDefault {
+  color: var(--grayscaleColor400);
+}
+
+.likeText {
+  color: var(--blueColor);
+}
+
+.dislikeText {
+  color: var(--grayscaleColor600);
+}
+
 .isAnswered {
   color: var(--brownColor400);
   border: 1px solid var(--brownColor400);
