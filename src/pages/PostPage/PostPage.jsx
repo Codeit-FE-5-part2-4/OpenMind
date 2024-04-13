@@ -15,13 +15,27 @@ export default function PostPage({ id }) {
   const [userProfile, setUserProfile] = useState({});
   const [userQuestions, setUserQuestions] = useState([]);
 
+  const fetchDataAndSetUserProfile = async () => {
+    try {
+      let result = await getSubjectInfo(id);
+      setUserProfile(result);
+    } catch (error) {
+      console.error("피드 페이지를 가져오는 중에 오류가 발생했습니다:");
+    }
+  };
+
+  const fetchDataAndSetUserQuestions = async () => {
+    try {
+      let result = await getSubjectQuestion(id);
+      setUserQuestions(result);
+    } catch (error) {
+      console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
+    }
+  };
+
   const handleLoad = async () => {
-    let result = await getSubjectInfo(id);
-    //TODO : try catch
-    //질문 불러오기 api함수
-    setUserProfile(result);
-    result = await getSubjectQuestion(id);
-    setUserQuestions(result);
+    await fetchDataAndSetUserProfile(id);
+    await fetchDataAndSetUserQuestions(id);
   };
 
   const handleModalOpen = () => {
