@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import getSubjectInfo from "../utils/postpageAPI/getSubjectInfo.js";
 import getSubjectQuestion from "../utils/postpageAPI/getSubjectQuestion.js";
+import { useNavigate } from "react-router-dom";
 
 const useUserProfileAndQuestions = (id) => {
   const [userProfile, setUserProfile] = useState({});
   const [userQuestions, setUserQuestions] = useState([]);
+  const navigate = useNavigate();
 
   const fetchDataAndSetUserProfile = useCallback(async () => {
     try {
@@ -12,6 +14,8 @@ const useUserProfileAndQuestions = (id) => {
       setUserProfile(result);
     } catch (error) {
       console.error("피드 페이지를 가져오는 중에 오류가 발생했습니다:", error);
+      navigate("/list");
+      throw error;
     }
   }, [id]);
 
