@@ -6,7 +6,8 @@ import QuestionFeedList from "../../components/QuestionFeedList/QuestionFeedList
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import getSubjectInfo from "../../utils/postpageAPI/getSubjectInfo";
 import getSubjectQuestion from "../../utils/postpageAPI/getSubjectQuestion";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useCallback } from "react";
 import deleteFeed from "../../utils/answerpageAPI/deleteFeed";
 
 export default function AnswerPage() {
@@ -14,21 +15,38 @@ export default function AnswerPage() {
   const [userProfile, setUserProfile] = useState({});
   const [userQuestions, setUserQuestions] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const userProfileData = await getSubjectInfo(id);
-        setUserProfile(userProfileData);
+  const navigate = useNavigate();
+  const handleDeleteClick = async () => {
+    await deleteFeed(userQuestions, userProfile.id);
+    navigate("/list");
+  };
 
-        const userQuestionsData = await getSubjectQuestion(id);
-        setUserQuestions(userQuestionsData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+  const fetchDataAndSetUserProfile = useCallback(async () => {
+    try {
+      let result = await getSubjectInfo(id);
+      setUserProfile(result);
+    } catch (error) {
+      console.error("피드 페이지를 가져오는 중에 오류가 발생했습니다:", error);
     }
-
-    fetchData(); // Call the fetchData function when the component mounts
   }, [id]);
+
+  const fetchDataAndSetUserQuestions = useCallback(async () => {
+    try {
+      let result = await getSubjectQuestion(id);
+      setUserQuestions(result);
+    } catch (error) {
+      console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:", error);
+    }
+  }, [id]);
+
+  const handleLoad = useCallback(async () => {
+    await fetchDataAndSetUserProfile(id);
+    await fetchDataAndSetUserQuestions(id);
+  }, [fetchDataAndSetUserProfile, fetchDataAndSetUserQuestions, id]);
+
+  useEffect(() => {
+    handleLoad();
+  }, [handleLoad]);
 
   return (
     <div className={styles.container}>
@@ -40,7 +58,7 @@ export default function AnswerPage() {
       <PostProfile userProfile={userProfile} />
       <div className={styles.QuestionFeedContainer}>
         <div className={styles.FloatingButtonAtRightSide}>
-          <FloatingButton text="삭제하기" onClick={deleteFeed} />
+          <FloatingButton text="삭제하기" onClick={handleDeleteClick} />
         </div>
         <QuestionFeedList
           questions={userQuestions}
