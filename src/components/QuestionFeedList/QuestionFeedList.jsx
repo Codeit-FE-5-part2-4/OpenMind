@@ -18,7 +18,7 @@ export default function QuestionFeedList({
       <div className={styles.questionCount}>
         <img src={speechBubble} alt="말풍선" />
 
-        <span>{questionCountMsg}</span>
+        <span className={styles.questionCountMsg}>{questionCountMsg}</span>
       </div>
 
       {questions.length > 0 ? (
