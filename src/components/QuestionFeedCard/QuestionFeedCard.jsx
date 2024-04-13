@@ -1,5 +1,7 @@
 import likeIcon from "../../assets/images/icon/likeIcon.svg";
+import likeIconDefault from "../../assets/images/icon/likeIcon-default.svg";
 import dislikeIcon from "../../assets/images/icon/dislikeIcon.svg";
+import dislikeIconDefault from "../../assets/images/icon/dislikeIcon-default.svg";
 import styles from "./QuestionFeedCard.module.css";
 import getTimeDifference from "../../utils/getTimeDifference";
 import moreKebab from "../../assets/images/MoreKebab.svg";
@@ -51,6 +53,16 @@ export default function QuestionFeedCard({
     },
     [question.id]
   );
+
+  const likeIconSrc = currentQuestion.like === 0 ? likeIconDefault : likeIcon;
+  const likeTextSrc =
+    currentQuestion.like === 0 ? styles.reactionTextDefault : styles.likeText;
+  const dislikeIconSrc =
+    currentQuestion.dislike === 0 ? dislikeIconDefault : dislikeIcon;
+  const dislikeTextSrc =
+    currentQuestion.dislike === 0
+      ? styles.reactionTextDefault
+      : styles.dislikeText;
 
   useEffect(() => {
     if (reaction !== "") {
@@ -123,9 +135,11 @@ export default function QuestionFeedCard({
             type="submit"
             className={styles.judge}
           >
-            <img src={likeIcon} alt="좋아요버튼" />
+            <img src={likeIconSrc} alt="좋아요버튼" />
           </button>
-          <span>{`좋아요 ${currentQuestion.like}`}</span>
+          <span
+            className={likeTextSrc}
+          >{`좋아요 ${currentQuestion.like}`}</span>
         </div>
         <div className={styles.judgeAnswerWrapper}>
           <button
@@ -133,9 +147,11 @@ export default function QuestionFeedCard({
             type="submit"
             className={styles.judge}
           >
-            <img src={dislikeIcon} alt="싫어요버튼" />
+            <img src={dislikeIconSrc} alt="싫아요버튼" />
           </button>
-          <span>{`싫어요 ${currentQuestion.dislike}`}</span>
+          <span
+            className={dislikeTextSrc}
+          >{`싫어요 ${currentQuestion.dislike}`}</span>
         </div>
       </div>
     </div>
