@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styles from "./SortList.module.css";
+import styles from "./ListSortModal.module.css";
 import arrowUp from "../../assets/images/icon/Arrow-up.svg";
 import arrowDown from "../../assets/images/icon/Arrow-down.svg";
 
-function SortList({ onClick }) {
+function ListSortModal({ onClick }) {
   const [viewDropdown, setViewDropdown] = useState(false); // 드롭다운 토글 useState
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
 
@@ -43,4 +43,4 @@ function SortList({ onClick }) {
     </div>
   );
 }
-export default SortList;
+export default ListSortModal;

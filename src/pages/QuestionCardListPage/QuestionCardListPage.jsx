@@ -5,7 +5,7 @@ import styles from "./QuestionCardListPage.module.css";
 import { useCallback, useEffect, useState } from "react";
 import { getSubjects } from "../../utils/listPageApi/getSubjects";
 import { useSearchParams } from "react-router-dom";
-import SortList from "../../components/SortList/SortList";
+import ListSortModal from "../../components/ListSortModal/ListSortModal";
 
 const INITIALQUERY = {
   limit: 8,
@@ -60,7 +60,7 @@ function QuestionCardListPage() {
         <ListHeader />
         <div className={styles.titleAndSortBox}>
           <h1 className={styles.title}>누구에게 질문할까요?</h1>
-          <SortList onClick={handleSortList} />
+          <ListSortModal onClick={handleSortList} />
         </div>
         <div className={styles.listAndPaginationBox}>
           <QuestionCardList sortedFeeds={sortedFeeds} />
