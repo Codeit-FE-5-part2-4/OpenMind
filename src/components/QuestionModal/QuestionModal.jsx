@@ -1,12 +1,19 @@
-import speechBubble from '../../assets/images/Messages.svg';
-import styles from './QuestionModal.module.css';
-import TextAreaForm from '../TextAreaForm/TextAreaForm';
+import speechBubble from "../../assets/images/Messages.svg";
+import styles from "./QuestionModal.module.css";
+import TextAreaForm from "../TextAreaForm/TextAreaForm";
+import postQuestion from "../../utils/postQuestion";
 
 export default function QuestionModal({
   closeModal,
-  sendQuestion,
+  // sendQuestion,
   answererProfile,
 }) {
+  const sendQuestion = async (textValue) => {
+    const formData = { content: textValue };
+    const subjectId = answererProfile.id;
+    const response = await postQuestion(formData, subjectId);
+  };
+
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalContainerBar}>
@@ -32,6 +39,7 @@ export default function QuestionModal({
           buttonOnclick={sendQuestion}
           placeholder="질문을 입력해주세요"
           buttonText="질문 보내기"
+          answererProfile={answererProfile}
         />
       </div>
     </div>

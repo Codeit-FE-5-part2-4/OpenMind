@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import styles from "./TextAreaForm.module.css";
 import BoxButton from "../BoxButton/BoxButton";
+import postQuestion from "../../utils/postQuestion";
 
 export default function TextAreaForm({
   placeholder,
   buttonOnclick,
   buttonText,
   initialText = "",
+  answererProfile,
 }) {
   const [textValue, setTextValue] = useState(initialText);
 
@@ -15,6 +17,11 @@ export default function TextAreaForm({
   };
 
   const isTextareaEmpty = textValue.trim() === "";
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    buttonOnclick(textValue);
+  };
 
   return (
     <>
@@ -27,7 +34,7 @@ export default function TextAreaForm({
       />
       <BoxButton
         text={buttonText}
-        onClick={buttonOnclick}
+        onClick={handleSubmit}
         disabled={isTextareaEmpty}
       />
     </>
