@@ -1,7 +1,7 @@
 const BASE_URL = "https://openmind-api.vercel.app/5-4";
 
 export default async function postQuestion(formData, subjectId) {
-  const response = await fetch(`${BASE_URL}/subjects/5010/questions/`, {
+  const response = await fetch(`${BASE_URL}/subjects/${subjectId}/questions/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
