@@ -12,8 +12,20 @@ function QuestionCardListPage() {
   const [title, setTitle] = useState("최신순"); //제목 useState
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
   const [sortedFeeds, setSortedFeeds] = useState([]);
-  const [limit, setLimit] = useState(8);
   const [currentOffset, setCurrentOffset] = useState(0);
+  const [limit, setLimit] = useState(() => (window.innerWidth <= 870 ? 6 : 8));
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+    if (window.innerWidth <= 870) {
+      setLimit(6);
+    } else setLimit(8);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+  }, [width]);
 
   const dropdownToggle = () => {
     setViewDropdown(!viewDropdown);
@@ -36,7 +48,7 @@ function QuestionCardListPage() {
 
   const displaySubjects = useCallback(async () => {
     try {
-      const newFeeds = await getSubjects(limit, currentOffset);
+      const newFeeds = await getSubjects({ limit }, currentOffset);
       const { results, next, previous } = newFeeds;
       const sortFeeds = await results.sort((a, b) =>
         b[sort] < a[sort] ? -1 : b[sort] > a[sort] ? 1 : 0

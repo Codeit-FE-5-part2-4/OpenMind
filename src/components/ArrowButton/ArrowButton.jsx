@@ -11,7 +11,6 @@ function ArrowButton({ text }) {
     switch (text) {
       case "질문하러 가기":
         navigate("/list");
-        localStorage.setItem("id", 2221);
         break;
       case "답변하러가기":
         id === null ? navigate("/") : navigate(`/post/${id}/answer`);
