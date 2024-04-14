@@ -5,6 +5,7 @@ import arrowDown from "../../assets/images/icon/Arrow-down.svg";
 import Pagination from "../../components/Pagination/Pagination";
 import styles from "./QuestionCardListPage.module.css";
 import { useCallback, useEffect, useState } from "react";
+import { getSubjects } from "../../utils/listPageApi/getSubjects";
 
 function QuestionCardListPage() {
   const [sort, setSort] = useState("createdAt"); // 정렬기준 설정 useState
