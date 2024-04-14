@@ -22,9 +22,7 @@ function QuestionCardListPage() {
 
   async function getSubjects({ limit, offset }) {
     const response = await (
-      await fetch(
-        `https://openmind-api.vercel.app/5-4/subjects/?limit=${limit}&offset=${offset}`
-      )
+      await fetch(`https://openmind-api.vercel.app/5-4/subjects/?limit=${limit}&offset=${offset}`)
     ).json();
 
     if (!response) return console.error("요청이 실패했습니다.");
@@ -69,26 +67,17 @@ function QuestionCardListPage() {
           <h1 className={styles.title}>누구에게 질문할까요?</h1>
           <ul className={styles.sortMenu}>
             <li>
-              <button
-                className={styles.selectSortButton}
-                onClick={dropdownToggle}
-              >
+              <button className={styles.selectSortButton} onClick={dropdownToggle}>
                 {title}
                 <img src={arrowDirection} alt={arrowDirection} />
               </button>
             </li>
             {viewDropdown && (
               <li className={styles.alignButtons}>
-                <button
-                  className={styles.alignButton}
-                  onClick={handleSortByNameClick}
-                >
+                <button className={styles.alignButton} onClick={handleSortByNameClick}>
                   이름순
                 </button>
-                <button
-                  className={styles.alignButton}
-                  onClick={handleNewestClick}
-                >
+                <button className={styles.alignButton} onClick={handleNewestClick}>
                   최신순
                 </button>
               </li>
