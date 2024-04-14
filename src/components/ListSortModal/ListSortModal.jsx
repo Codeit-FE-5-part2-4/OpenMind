@@ -3,7 +3,7 @@ import styles from "./ListSortModal.module.css";
 import arrowUp from "../../assets/images/icon/Arrow-up.svg";
 import arrowDown from "../../assets/images/icon/Arrow-down.svg";
 
-function ListSortModal({ onClick }) {
+function ListSortModal({ onClickSort, currentSortValue }) {
   const [viewDropdown, setViewDropdown] = useState(false); // 드롭다운 토글 useState
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
 
@@ -15,7 +15,7 @@ function ListSortModal({ onClick }) {
   return (
     <div className={styles.sortMenu}>
       <button className={styles.selectSortButton} onClick={dropdownToggle}>
-        최신순
+        {currentSortValue === "time" ? "최신순" : "이름순"}
         <img src={arrowDirection} alt={arrowDirection} />
       </button>
       {viewDropdown && (
@@ -24,7 +24,7 @@ function ListSortModal({ onClick }) {
             <button
               name="name"
               className={styles.alignButton}
-              onClick={onClick}
+              onClick={onClickSort}
             >
               이름순
             </button>
@@ -33,7 +33,7 @@ function ListSortModal({ onClick }) {
             <button
               name="time"
               className={styles.alignButton}
-              onClick={onClick}
+              onClick={onClickSort}
             >
               최신순
             </button>

@@ -15,7 +15,19 @@ const INITIALQUERY = {
 
 function QuestionCardListPage() {
   const [sortedFeeds, setSortedFeeds] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams(INITIALQUERY);
+  const [currentSortValue, setCurrentSortValue] = useState();
+  const [nextPage, setNextPage] = useState();
+  const [prevPage, setPrevPage] = useState(null);
+  const [totalPage, setTotalPage] = useState();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const getQueryParams = (url) => {
+    const urlObj = new URL(url);
+    return {
+      limit: urlObj.searchParams.get("limit"),
+      offset: urlObj.searchParams.get("offset"),
+    };
+  }; // api요청으로 받은 다음 페이지와 이전 페이지의 스트링 타입 url에서 key를 받아주는 함수
 
   const handleSortList = (e) => {
     e.preventDefault();
@@ -23,7 +35,30 @@ function QuestionCardListPage() {
     const currentSortValue = e.target.name;
 
     updateSearchParams("sort", currentSortValue);
-  };
+  }; // 모달창의 버튼에 해당하는 값에 따라 sort값을 바꿔 정렬 렌더링의 트리거가 되주는 함수
+
+  const handlePageChange = useCallback(
+    async (url) => {
+      if (!url) return;
+
+      try {
+        const { limit, offset } = getQueryParams(url);
+        const newFeeds = await getSubjects({
+          limit: parseInt(limit, 10),
+          offset: parseInt(offset, 10),
+          sort: currentSortValue,
+        });
+
+        setSortedFeeds(newFeeds.results);
+        setNextPage(newFeeds.next);
+        setPrevPage(newFeeds.previous);
+        console.log(`Loaded page with limit: ${limit} and offset: ${offset}`);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [currentSortValue]
+  ); // api요청으로 받은 다음 페이지와 이전 페이지의 url로 페이지네이션 컴포넌트로 동작을 전달하는 함수
 
   const updateSearchParams = useCallback(
     (key, value) => {
@@ -33,25 +68,33 @@ function QuestionCardListPage() {
       setSearchParams(newSearchParams);
     },
     [searchParams, setSearchParams]
-  );
+  ); // 쿼리파라미터를 설정해주는 함수
 
-  const displaySubjects = useCallback(async ({ limit, offset, sort }) => {
+  const displaySubjects = useCallback(async () => {
+    const limit = searchParams.get("limit") || INITIALQUERY.limit;
+    const offset = searchParams.get("offset") || INITIALQUERY.offset;
+    const sort = searchParams.get("sort") || INITIALQUERY.sort;
+
     try {
-      const newFeeds = await getSubjects({ limit, offset, sort });
-      const { results } = newFeeds;
+      const currentFeeds = await getSubjects({
+        limit,
+        offset,
+        sort,
+      });
+      const { results, next, previous, count } = currentFeeds;
 
       setSortedFeeds(results);
+      setNextPage(next);
+      setPrevPage(previous);
+      setTotalPage(Math.ceil(count / 8));
+      setCurrentSortValue(sort);
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [searchParams]); // api요청의 결과값을 렌더링해주는 함수
 
   useEffect(() => {
-    const limit = searchParams.get("limit");
-    const offset = searchParams.get("offset");
-    const sort = searchParams.get("sort");
-
-    displaySubjects({ limit, offset, sort });
+    displaySubjects();
   }, [displaySubjects, searchParams, updateSearchParams]);
 
   return (
@@ -60,11 +103,19 @@ function QuestionCardListPage() {
         <ListHeader />
         <div className={styles.titleAndSortBox}>
           <h1 className={styles.title}>누구에게 질문할까요?</h1>
-          <ListSortModal onClick={handleSortList} />
+          <ListSortModal
+            onClickSort={handleSortList}
+            currentSortValue={currentSortValue}
+          />
         </div>
         <div className={styles.listAndPaginationBox}>
           <QuestionCardList sortedFeeds={sortedFeeds} />
-          <Pagination />
+          <Pagination
+            onNext={() => handlePageChange(nextPage)}
+            onPrev={() => handlePageChange(prevPage)}
+            totalPage={totalPage}
+          />
+          {/** 기본적으로 각 페이지당 8개 */}
         </div>
       </section>
     </div>
