@@ -4,7 +4,11 @@ import PostProfile from "../../components/PostProfile/PostProfile";
 import QuestionFeedList from "../../components/QuestionFeedList/QuestionFeedList";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import { useParams, useNavigate } from "react-router-dom";
-import deleteFeed from "../../utils/answerpageAPI/deleteFeed";
+import {
+  deleteAll,
+  deleteSingleAnswer,
+  deleteSingleQuestion,
+} from "../../utils/answerpageAPI/deleteAPI";
 import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestions";
 
 export default function AnswerPage() {
@@ -12,9 +16,17 @@ export default function AnswerPage() {
   const { userProfile, userQuestions, updateUserQuestions } =
     useUserProfileAndQuestions(id);
   const navigate = useNavigate();
-  const handleDeleteClick = async () => {
-    await deleteFeed(userQuestions, userProfile.id);
+
+  // 질문자 계정, 해당 질문자에게 달린 질문들, 해당 질문자가 작성한 답변들 일괄 삭제
+  const handleDeleteAllClick = async () => {
+    await deleteAll(userQuestions, userProfile.id);
     navigate("/list");
+  };
+
+  // 개별 질문, 해당 질문에 달린 답변들 삭제
+  const handleDeleteQuestionClick = async (question) => {
+    await deleteSingleAnswer(question);
+    await deleteSingleQuestion(question);
   };
 
   return (
@@ -27,12 +39,13 @@ export default function AnswerPage() {
       <PostProfile userProfile={userProfile} />
       <div className={styles.QuestionFeedContainer}>
         <div className={styles.FloatingButtonAtRightSide}>
-          <FloatingButton text="삭제하기" onClick={handleDeleteClick} />
+          <FloatingButton text="삭제하기" onClick={handleDeleteAllClick} />
         </div>
         <QuestionFeedList
           questions={userQuestions}
           AnswererProfile={userProfile}
           isAnswerPage={true}
+          onDelete={handleDeleteQuestionClick}
           updateQuestions={updateUserQuestions}
         />
       </div>
