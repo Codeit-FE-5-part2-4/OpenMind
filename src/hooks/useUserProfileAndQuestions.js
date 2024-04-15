@@ -37,7 +37,7 @@ const useUserProfileAndQuestions = (id) => {
     handleLoad();
   }, [handleLoad]);
 
-  return { userProfile, userQuestions };
+  return { userProfile, userQuestions, setUserQuestions };
 };
 
 export { useUserProfileAndQuestions };
