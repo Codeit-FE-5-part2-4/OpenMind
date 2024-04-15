@@ -7,8 +7,8 @@ function QuestionCard({ feed }) {
 
   let userName = "";
 
-  if (name.length > 10) {
-    userName = name.slice(0, 10) + "...";
+  if (name.length > 8) {
+    userName = name.slice(0, 8) + "...";
   } else userName = name;
 
   return (
