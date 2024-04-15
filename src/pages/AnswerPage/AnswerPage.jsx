@@ -4,11 +4,7 @@ import PostProfile from "../../components/PostProfile/PostProfile";
 import QuestionFeedList from "../../components/QuestionFeedList/QuestionFeedList";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  deleteAll,
-  deleteSingleAnswer,
-  deleteSingleQuestion,
-} from "../../utils/answerpageAPI/deleteAPI";
+import { deleteAll } from "../../utils/answerpageAPI/deleteAPI";
 import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestions";
 
 export default function AnswerPage() {
@@ -21,12 +17,6 @@ export default function AnswerPage() {
   const handleDeleteAllClick = async () => {
     await deleteAll(userQuestions, userProfile.id);
     navigate("/list");
-  };
-
-  // 개별 질문, 해당 질문에 달린 답변들 삭제
-  const handleDeleteQuestionClick = async (question) => {
-    await deleteSingleAnswer(question);
-    await deleteSingleQuestion(question);
   };
 
   return (
@@ -45,7 +35,6 @@ export default function AnswerPage() {
           questions={userQuestions}
           AnswererProfile={userProfile}
           isAnswerPage={true}
-          onDelete={handleDeleteQuestionClick}
           updateQuestions={updateUserQuestions}
         />
       </div>

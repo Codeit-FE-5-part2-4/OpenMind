@@ -8,18 +8,18 @@ import moreKebab from "../../assets/images/MoreKebab.svg";
 import AnswerContainer from "./AnswerContainer";
 import { useCallback, useEffect, useState } from "react";
 import FeedCardDropDown from "../FeedCardDropDown/FeedCardDropDown";
-
 import postReaction from "../../utils/postpageAPI/postReaction";
 import createAnswer from "../../utils/answerpageAPI/createAnswer";
-import { editableInputTypes } from "@testing-library/user-event/dist/utils";
 import editAnswer from "../../utils/answerpageAPI/editAnswer";
-
+import {
+  deleteSingleAnswer,
+  deleteSingleQuestion,
+} from "../../utils/answerpageAPI/deleteAPI";
 
 export default function QuestionFeedCard({
   question,
   AnswererProfile,
   isAnswerPage,
-  onDelete,
   updateQuestions,
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(question);
@@ -67,6 +67,13 @@ export default function QuestionFeedCard({
     },
     [question.id]
   );
+
+  // 개별 질문, 해당 질문에 달린 답변들 삭제
+  const handleDeleteQuestionClick = async (question) => {
+    await deleteSingleAnswer(question);
+    await deleteSingleQuestion(question);
+    await updateQuestions();
+  };
 
   const likeIconSrc = currentQuestion.like === 0 ? likeIconDefault : likeIcon;
   const likeTextSrc =
@@ -120,7 +127,7 @@ export default function QuestionFeedCard({
               <FeedCardDropDown
                 editStartOnclick={handleEditClick}
                 question={question}
-                onDelete={onDelete}
+                onDelete={handleDeleteQuestionClick}
               />
             )}
           </div>
