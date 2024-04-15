@@ -66,3 +66,12 @@
   right: 24px;
   bottom: 24px;
 }
+
+.headerContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}

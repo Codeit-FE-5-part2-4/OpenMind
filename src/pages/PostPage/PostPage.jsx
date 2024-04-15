@@ -40,10 +40,12 @@ export default function PostPage() {
   return (
     <div className={styles.container}>
       <div className={styles.background}></div>
-      <h1>
-        <span className={styles.blind}>Openmind</span>
-        <img className={styles.logoImage} src={logoImage} alt="openmind" />
-      </h1>
+      <div className={styles.headerContainer}>
+        <h1>
+          <span className={styles.blind}>Openmind</span>
+          <img className={styles.logoImage} src={logoImage} alt="openmind" />
+        </h1>
+      </div>
       <PostProfile userProfile={userProfile} />
       <QuestionFeedList
         questions={userQuestions}
