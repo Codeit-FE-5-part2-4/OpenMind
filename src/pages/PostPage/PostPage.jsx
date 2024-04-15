@@ -7,7 +7,7 @@ import QuestionFeedList from "../../components/QuestionFeedList/QuestionFeedList
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import QuestionModal from "../../components/QuestionModal/QuestionModal";
 import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestions";
-import postQuestion from "../../utils/postQuestion";
+import postQuestion from "../../utils/postpageAPI/postQuestion";
 
 export default function PostPage() {
   const { id } = useParams(); // Access the id from route parameters
