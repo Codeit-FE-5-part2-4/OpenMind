@@ -33,10 +33,8 @@ const useUserProfileAndQuestions = (id) => {
     await fetchDataAndSetUserQuestions(id);
   }, [fetchDataAndSetUserProfile, fetchDataAndSetUserQuestions, id]);
 
-  const updateUserQuestions = (question) => {
-    setUserQuestions((prevItems) => {
-      return [question, ...prevItems];
-    });
+  const updateUserQuestions = () => {
+    fetchDataAndSetUserQuestions();
   };
 
   useEffect(() => {

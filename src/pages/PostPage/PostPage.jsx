@@ -29,7 +29,7 @@ export default function PostPage() {
     const subjectId = id;
     const response = await postQuestion(formData, subjectId);
     handleModalClose();
-    updateUserQuestions(response);
+    updateUserQuestions();
     console.log(userQuestions);
   };
 
