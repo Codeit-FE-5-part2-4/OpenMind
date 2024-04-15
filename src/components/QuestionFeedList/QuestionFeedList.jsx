@@ -8,6 +8,7 @@ export default function QuestionFeedList({
   AnswererProfile,
   isAnswerPage = false,
   onDelete,
+  updateQuestions,
 }) {
   const questionCountMsg =
     questions.length > 0
@@ -32,6 +33,7 @@ export default function QuestionFeedList({
                   isAnswerPage={isAnswerPage}
                   question={question}
                   onDelete={onDelete}
+                  updateQuestions={updateQuestions}
                 />
               </li>
             );

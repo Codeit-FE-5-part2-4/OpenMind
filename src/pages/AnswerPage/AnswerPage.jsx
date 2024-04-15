@@ -13,7 +13,8 @@ import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestio
 
 export default function AnswerPage() {
   const { id } = useParams();
-  const { userProfile, userQuestions } = useUserProfileAndQuestions(id);
+  const { userProfile, userQuestions, updateUserQuestions } =
+    useUserProfileAndQuestions(id);
   const navigate = useNavigate();
 
   // 질문자 계정, 해당 질문자에게 달린 질문들, 해당 질문자가 작성한 답변들 일괄 삭제
@@ -45,6 +46,7 @@ export default function AnswerPage() {
           AnswererProfile={userProfile}
           isAnswerPage={true}
           onDelete={handleDeleteQuestionClick}
+          updateQuestions={updateUserQuestions}
         />
       </div>
     </div>

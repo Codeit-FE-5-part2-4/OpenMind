@@ -20,7 +20,7 @@ function QuestionCard({ feed }) {
           <img className={styles.infoIcon} src={speechBubble} alt="말풍선" />
           <div>받은 질문</div>
         </div>
-        <div>{questionCount}</div>
+        <div>{questionCount}개</div>
       </div>
     </Link>
   );

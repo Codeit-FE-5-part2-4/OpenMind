@@ -5,15 +5,9 @@ import postQuestion from "../../utils/postpageAPI/postQuestion";
 
 export default function QuestionModal({
   closeModal,
-  // sendQuestion,
+  sendQuestion,
   answererProfile,
 }) {
-  const sendQuestion = async (textValue) => {
-    const formData = { content: textValue };
-    const subjectId = answererProfile.id;
-    const response = await postQuestion(formData, subjectId);
-  };
-
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalContainerBar}>

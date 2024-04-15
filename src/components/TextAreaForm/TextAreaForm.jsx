@@ -18,7 +18,9 @@ export default function TextAreaForm({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    buttonOnclick(textValue);
+    const content = textValue;
+    setTextValue("");
+    buttonOnclick(content);
   };
 
   return (
