@@ -1,5 +1,5 @@
-import styles from './QuestionFeedCard.module.css';
-import TextAreaForm from '../TextAreaForm/TextAreaForm';
+import styles from "./QuestionFeedCard.module.css";
+import TextAreaForm from "../TextAreaForm/TextAreaForm";
 
 export default function AnswerContainer({
   AnswererProfile,
@@ -9,6 +9,7 @@ export default function AnswerContainer({
   isAnswered,
   isEditing,
   editFinishOnClick,
+  createAnswer,
 }) {
   return (
     <div className={styles.answerContainer}>
@@ -40,6 +41,7 @@ export default function AnswerContainer({
           <TextAreaForm
             placeholder="답변을 입력해주세요"
             buttonText="답변완료"
+            buttonOnclick={createAnswer}
           />
         )}
       </div>

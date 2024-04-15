@@ -9,6 +9,7 @@ import AnswerContainer from "./AnswerContainer";
 import { useCallback, useEffect, useState } from "react";
 import FeedCardDropDown from "../FeedCardDropDown/FeedCardDropDown";
 import postReaction from "../../utils/postReaction";
+import createAnswer from "../../utils/answerpageAPI/createAnswer";
 
 export default function QuestionFeedCard({
   question,
@@ -31,6 +32,10 @@ export default function QuestionFeedCard({
 
   const handleEditFinish = () => {
     setIsEditing(false);
+  };
+
+  const handleCreateAnswer = (content) => {
+    createAnswer(question.id, content);
   };
 
   const handleLikeButtonClick = () => {
@@ -125,7 +130,11 @@ export default function QuestionFeedCard({
         />
       )}
       {!question.answer && isAnswerPage && (
-        <AnswerContainer AnswererProfile={AnswererProfile} isAnswered={false} />
+        <AnswerContainer
+          AnswererProfile={AnswererProfile}
+          isAnswered={false}
+          createAnswer={handleCreateAnswer}
+        />
       )}
 
       <div className={styles.judgeAnswerContainer}>
