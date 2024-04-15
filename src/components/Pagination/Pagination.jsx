@@ -1,27 +1,23 @@
 import styles from "./Pagination.module.css";
 
-function Pagination() {
+function Pagination({ onNext, onPrev, totalPage }) {
   return (
     <section className={styles.paginationWrapper}>
-      <button className={styles.paginationArrow}>&lt;</button>
+      <button className={styles.paginationArrow} onClick={onPrev}>
+        &lt;
+      </button>
       <ol className={styles.paginationNumbers}>
-        <li>
-          <button className={styles.paginationButton}>1</button>
-        </li>
-        <li>
-          <button className={styles.paginationButton}>2</button>
-        </li>
-        <li>
-          <button className={styles.paginationButton}>3</button>
-        </li>
-        <li>
-          <button className={styles.paginationButton}>4</button>
-        </li>
-        <li>
-          <button className={styles.paginationButton}>5</button>
-        </li>
+        {Array.from({ length: totalPage }, (_, index) => index + 1).map(
+          (pageNumber) => (
+            <li key={pageNumber}>
+              <button className={styles.paginationButton}>{pageNumber}</button>
+            </li>
+          )
+        )}
       </ol>
-      <button className={styles.paginationArrow}>&gt;</button>
+      <button className={styles.paginationArrow} onClick={onNext}>
+        &gt;
+      </button>
     </section>
   );
 }
