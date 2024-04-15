@@ -15,6 +15,7 @@ export default function QuestionFeedCard({
   question,
   AnswererProfile,
   isAnswerPage,
+  updateQuestions,
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(question);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -34,8 +35,9 @@ export default function QuestionFeedCard({
     setIsEditing(false);
   };
 
-  const handleCreateAnswer = (content) => {
-    createAnswer(question.id, content);
+  const handleCreateAnswer = async (content) => {
+    await createAnswer(question.id, content);
+    updateQuestions();
   };
 
   const handleLikeButtonClick = () => {

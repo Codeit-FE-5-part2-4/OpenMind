@@ -9,7 +9,8 @@ import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestio
 
 export default function AnswerPage() {
   const { id } = useParams();
-  const { userProfile, userQuestions } = useUserProfileAndQuestions(id);
+  const { userProfile, userQuestions, updateUserQuestions } =
+    useUserProfileAndQuestions(id);
   const navigate = useNavigate();
   const handleDeleteClick = async () => {
     await deleteFeed(userQuestions, userProfile.id);
@@ -32,6 +33,7 @@ export default function AnswerPage() {
           questions={userQuestions}
           AnswererProfile={userProfile}
           isAnswerPage={true}
+          updateQuestions={updateUserQuestions}
         />
       </div>
     </div>
