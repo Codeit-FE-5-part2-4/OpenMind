@@ -4,7 +4,7 @@ import logoImg from "../../assets/images/logo.png";
 import NameInput from "../../components/NameInput/NameInput";
 import MainHeader from "../../components/MainHeader/MainHeader";
 import { useCallback, useState } from "react";
-import { postUserInfo } from "../../api/nameApi";
+import { postUserInfo } from "../../utils/nameApi";
 import { useNavigate } from "react-router-dom";
 
 function Main() {
@@ -33,7 +33,6 @@ function Main() {
   //서브밋
   const onSubmitForm = (e) => {
     e.preventDefault();
-    handleNameSubmit();
     setValue("");
   };
 
