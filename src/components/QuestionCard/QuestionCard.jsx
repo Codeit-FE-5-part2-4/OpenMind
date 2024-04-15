@@ -20,6 +20,9 @@ function QuestionCard({ feed }) {
           alt="프로필 사진"
         />
         <h2 className={styles.profileName}>{userName}</h2>
+        {userName.length > 8 && (
+          <span className={styles.fullUserName__hover}>{name}</span>
+        )}
       </div>
       <div className={styles.infoSection}>
         <div className={styles.infoItem}>

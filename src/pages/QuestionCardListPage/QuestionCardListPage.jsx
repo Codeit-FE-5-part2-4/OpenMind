@@ -20,21 +20,21 @@ function QuestionCardListPage() {
   const [prevPage, setPrevPage] = useState(null);
   const [totalPage, setTotalPage] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
-  
+
   /*const [limit, setLimit] = useState(() => (window.innerWidth <= 870 ? 6 : 8)); // 브라우저 너비를 감지하여 870px이하에서 6개
   const [width, setWidth] = useState(window.innerWidth); // 브라우저 너비 감지 useState
   const [currentOffset, setCurrentOffset] = useState(0); */
   /**윈도우 객체를 받아서 width에 저장하는 함수 */
-//   const handleResize = () => {
-//     setWidth(window.innerWidth);
-//     if (window.innerWidth <= 870) {
-//       setLimit(6);
-//     } else setLimit(8);
-//   };
+  //   const handleResize = () => {
+  //     setWidth(window.innerWidth);
+  //     if (window.innerWidth <= 870) {
+  //       setLimit(6);
+  //     } else setLimit(8);
+  //   };
 
-//   useEffect(() => {
-//     window.addEventListener("resize", handleResize);
-//   }, [width]);
+  //   useEffect(() => {
+  //     window.addEventListener("resize", handleResize);
+  //   }, [width]);
 
   const getQueryParams = (url) => {
     const urlObj = new URL(url);
@@ -55,7 +55,7 @@ function QuestionCardListPage() {
   const handlePageChange = useCallback(
     async (url) => {
       if (!url) return;
-      
+
       try {
         const { limit, offset } = getQueryParams(url);
         const newFeeds = await getSubjects({
@@ -84,7 +84,6 @@ function QuestionCardListPage() {
     },
     [searchParams, setSearchParams]
   ); // 쿼리파라미터를 설정해주는 함수
-
 
   const displaySubjects = useCallback(async () => {
     const limit = searchParams.get("limit") || INITIALQUERY.limit;
