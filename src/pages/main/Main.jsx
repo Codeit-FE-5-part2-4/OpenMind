@@ -4,7 +4,7 @@ import logoImg from "../../assets/images/logo.png";
 import NameInput from "../../components/NameInput/NameInput";
 import MainHeader from "../../components/MainHeader/MainHeader";
 import { useCallback, useState } from "react";
-import { postUserInfo } from "../../api/nameApi";
+import { postUserInfo } from "../../utils/nameApi";
 import { useNavigate } from "react-router-dom";
 
 function Main() {
@@ -16,7 +16,7 @@ function Main() {
     try {
       const nameData = await postUserInfo(value);
       if (!nameData || !nameData.id) {
-        throw new Error("이름을 입력해 주세요.");
+        throw new Error("Invalid data format");
       }
       const { id } = nameData;
       navigate(`post/${id}/answer`);
