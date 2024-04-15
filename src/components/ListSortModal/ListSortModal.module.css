@@ -39,6 +39,7 @@
   border: 1px solid var(--grayscaleColor300);
   background: var(--grayscaleColor100);
   box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
+  z-index: 1;
 }
 
 .alignButton {

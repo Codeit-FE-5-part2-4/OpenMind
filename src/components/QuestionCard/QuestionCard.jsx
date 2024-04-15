@@ -5,15 +5,24 @@ import { Link } from "react-router-dom";
 function QuestionCard({ feed }) {
   const { name, imageSource, questionCount, id } = feed;
 
+  let userName = "";
+
+  if (name.length > 8) {
+    userName = name.slice(0, 8) + "...";
+  } else userName = name;
+
   return (
-    <Link href={`/post/${id}`} className={styles.cardWrapper}>
+    <Link to={`/post/${id}`} className={styles.cardWrapper}>
       <div className={styles.profileSection}>
         <img
           className={styles.profileImage}
           src={imageSource}
           alt="프로필 사진"
         />
-        <h2 className={styles.profileName}>{name}</h2>
+        <h2 className={styles.profileName}>{userName}</h2>
+        {userName.length > 8 && (
+          <span className={styles.fullUserName__hover}>{name}</span>
+        )}
       </div>
       <div className={styles.infoSection}>
         <div className={styles.infoItem}>

@@ -107,11 +107,23 @@
   }
 }
 
+@media (max-width: 870px) {
+  .pageContainer {
+    padding: 5vh 32px 10vh;
+  }
+  .titleBox {
+    display: flex;
+    justify-content: space-between;
+    margin: 47px 0 0;
+  }
+}
+
 /* 모바일 사이즈 */
 @media (max-width: 767px) {
   .pageContainer {
-    padding: 0 24px;
+    padding: 40px 24px;
     align-items: center;
+    height: auto;
   }
 
   .titleAndSortBox {
