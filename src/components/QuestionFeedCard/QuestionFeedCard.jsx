@@ -10,6 +10,8 @@ import { useCallback, useEffect, useState } from "react";
 import FeedCardDropDown from "../FeedCardDropDown/FeedCardDropDown";
 import postReaction from "../../utils/postReaction";
 import createAnswer from "../../utils/answerpageAPI/createAnswer";
+import { editableInputTypes } from "@testing-library/user-event/dist/utils";
+import editAnswer from "../../utils/answerpageAPI/editAnswer";
 
 export default function QuestionFeedCard({
   question,
@@ -31,13 +33,15 @@ export default function QuestionFeedCard({
     setShowDropdown(false);
   };
 
-  const handleEditFinish = () => {
+  const handleEditFinish = async (content) => {
+    await editAnswer(question.answer.id, content);
+    await updateQuestions();
     setIsEditing(false);
   };
 
   const handleCreateAnswer = async (content) => {
     await createAnswer(question.id, content);
-    updateQuestions();
+    await updateQuestions();
   };
 
   const handleLikeButtonClick = () => {
