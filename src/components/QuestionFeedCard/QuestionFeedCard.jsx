@@ -8,12 +8,9 @@ import moreKebab from "../../assets/images/MoreKebab.svg";
 import AnswerContainer from "./AnswerContainer";
 import { useCallback, useEffect, useState } from "react";
 import FeedCardDropDown from "../FeedCardDropDown/FeedCardDropDown";
-
 import postReaction from "../../utils/postpageAPI/postReaction";
 import createAnswer from "../../utils/answerpageAPI/createAnswer";
-import { editableInputTypes } from "@testing-library/user-event/dist/utils";
 import editAnswer from "../../utils/answerpageAPI/editAnswer";
-
 
 export default function QuestionFeedCard({
   question,
