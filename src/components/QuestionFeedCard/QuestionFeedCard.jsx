@@ -8,12 +8,13 @@ import moreKebab from "../../assets/images/MoreKebab.svg";
 import AnswerContainer from "./AnswerContainer";
 import { useCallback, useEffect, useState } from "react";
 import FeedCardDropDown from "../FeedCardDropDown/FeedCardDropDown";
-import postReaction from "../../utils/postReaction";
+import postReaction from "../../utils/postpageAPI/postReaction";
 
 export default function QuestionFeedCard({
   question,
   AnswererProfile,
   isAnswerPage,
+  onDelete,
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(question);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -103,7 +104,11 @@ export default function QuestionFeedCard({
               <img src={moreKebab} alt="더보기" />
             </button>
             {showDropdown && (
-              <FeedCardDropDown editStartOnclick={handleEditClick} />
+              <FeedCardDropDown
+                editStartOnclick={handleEditClick}
+                question={question}
+                onDelete={onDelete}
+              />
             )}
           </div>
         )}

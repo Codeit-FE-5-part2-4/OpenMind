@@ -7,6 +7,7 @@ export default function QuestionFeedList({
   questions,
   AnswererProfile,
   isAnswerPage = false,
+  onDelete,
 }) {
   const questionCountMsg =
     questions.length > 0
@@ -27,9 +28,10 @@ export default function QuestionFeedList({
             return (
               <li key={question.id}>
                 <QuestionFeedCard
-                  question={question}
                   AnswererProfile={AnswererProfile}
                   isAnswerPage={isAnswerPage}
+                  question={question}
+                  onDelete={onDelete}
                 />
               </li>
             );
