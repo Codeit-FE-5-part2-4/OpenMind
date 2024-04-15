@@ -7,12 +7,14 @@ import QuestionFeedList from "../../components/QuestionFeedList/QuestionFeedList
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import QuestionModal from "../../components/QuestionModal/QuestionModal";
 import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestions";
+import postQuestion from "../../utils/postQuestion";
 
 export default function PostPage() {
   const { id } = useParams(); // Access the id from route parameters
   const [showModal, setShowModal] = useState(false);
   const [buttonText, setButtonText] = useState("질문하러 가기");
-  const { userProfile, userQuestions } = useUserProfileAndQuestions(id);
+  const { userProfile, userQuestions, updateUserQuestions } =
+    useUserProfileAndQuestions(id);
 
   const handleModalOpen = () => {
     setShowModal(true);
@@ -20,6 +22,15 @@ export default function PostPage() {
 
   const handleModalClose = () => {
     setShowModal(false);
+  };
+
+  const handleSendQuestion = async (textValue) => {
+    const formData = { content: textValue };
+    const subjectId = id;
+    const response = await postQuestion(formData, subjectId);
+    handleModalClose();
+    updateUserQuestions(response);
+    console.log(userQuestions);
   };
 
   useEffect(() => {
@@ -56,6 +67,7 @@ export default function PostPage() {
           <QuestionModal
             closeModal={handleModalClose}
             answererProfile={userProfile}
+            sendQuestion={handleSendQuestion}
           />
           <div className={styles.overlay}></div>
         </>

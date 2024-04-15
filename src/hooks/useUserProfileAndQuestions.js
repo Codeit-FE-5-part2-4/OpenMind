@@ -33,11 +33,17 @@ const useUserProfileAndQuestions = (id) => {
     await fetchDataAndSetUserQuestions(id);
   }, [fetchDataAndSetUserProfile, fetchDataAndSetUserQuestions, id]);
 
+  const updateUserQuestions = (question) => {
+    setUserQuestions((prevItems) => {
+      return [question, ...prevItems];
+    });
+  };
+
   useEffect(() => {
     handleLoad();
   }, [handleLoad]);
 
-  return { userProfile, userQuestions, setUserQuestions };
+  return { userProfile, userQuestions, updateUserQuestions };
 };
 
 export { useUserProfileAndQuestions };
