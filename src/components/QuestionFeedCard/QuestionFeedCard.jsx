@@ -21,6 +21,7 @@ export default function QuestionFeedCard({
   AnswererProfile,
   isAnswerPage,
   updateQuestions,
+  modalHandler,
 }) {
   const [currentQuestion, setCurrentQuestion] = useState(question);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -56,10 +57,16 @@ export default function QuestionFeedCard({
   };
 
   // 개별 질문, 해당 질문에 달린 답변들 삭제
-  const handleDeleteQuestionClick = async (question) => {
-    await deleteSingleAnswer(question);
-    await deleteSingleQuestion(question);
-    await updateQuestions();
+  const handleDeleteQuestionClick = () => {
+    modalHandler("정말 질문을 삭제하시겠습니까?", handleDeleteQuestion);
+  };
+
+  const handleDeleteQuestion = async (confirmed) => {
+    if (confirmed) {
+      await deleteSingleAnswer(question);
+      await deleteSingleQuestion(question);
+      await updateQuestions();
+    }
   };
 
   const likeIconSrc = currentQuestion.like === 0 ? likeIconDefault : likeIcon;

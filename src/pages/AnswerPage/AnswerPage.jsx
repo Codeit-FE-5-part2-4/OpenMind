@@ -20,13 +20,10 @@ export default function AnswerPage() {
 
   // 질문자 계정, 해당 질문자에게 달린 질문들, 해당 질문자가 작성한 답변들 일괄 삭제
   const handleDeleteAllClick = () => {
-    setWarningMessage("정말로 피드 페이지를 삭제하시겠습니까?");
-    setOnConfirmHandler(handleDeleteAll);
-    setShowWarning(true);
+    handleOpenModal("정말로 피드 페이지를 삭제하시겠습니까?", handleDeleteAll);
   };
 
   const handleDeleteAll = async (confirmed) => {
-    setShowWarning(false);
     if (confirmed) {
       await deleteAll(userQuestions, userProfile.id);
       navigate("/list");
@@ -37,7 +34,9 @@ export default function AnswerPage() {
     setShowWarning(false);
   };
 
-  const setOnConfirmHandler = (handler) => {
+  const handleOpenModal = (msg, handler) => {
+    setShowWarning(true);
+    setWarningMessage(msg);
     setOnConfirm(() => handler);
   };
 
@@ -70,6 +69,7 @@ export default function AnswerPage() {
           AnswererProfile={userProfile}
           isAnswerPage={true}
           updateQuestions={updateUserQuestions}
+          modalHandler={handleOpenModal}
         />
       </div>
     </div>

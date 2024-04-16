@@ -5,6 +5,7 @@ import BoxButton from "../BoxButton/BoxButton";
 export default function WarningModal({ text, onConfirm, closeModal }) {
   const handleConfirm = (confirmed) => {
     onConfirm(confirmed);
+    closeModal();
   };
 
   return (
