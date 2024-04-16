@@ -67,6 +67,7 @@ export default function QuestionFeedCard({
     }
 
     await updateQuestions();
+    setShowDropdown(!showDropdown);
   };
 
   const handleLikeButtonClick = () => {
