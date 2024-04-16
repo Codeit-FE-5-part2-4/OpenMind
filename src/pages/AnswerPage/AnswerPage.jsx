@@ -23,11 +23,14 @@ export default function AnswerPage() {
     setShowWarning(true);
   };
 
-  const handleDeleteAll = async () => {
+  const handleDeleteAll = async (confirmed) => {
     setShowWarning(false);
-    await deleteAll(userQuestions, userProfile.id);
-    navigate("/list");
+    if (confirmed) {
+      await deleteAll(userQuestions, userProfile.id);
+      navigate("/list");
+    }
   };
+
   const handleCloseModal = () => {
     setShowWarning(false);
   };
@@ -45,8 +48,7 @@ export default function AnswerPage() {
         <>
           <WarningModal
             text={warningMessage}
-            selectYes={handleDeleteAll}
-            selectNo={handleCloseModal}
+            onConfirm={handleDeleteAll}
             closeModal={handleCloseModal}
           />
           <div className={styles.overlay}></div>
