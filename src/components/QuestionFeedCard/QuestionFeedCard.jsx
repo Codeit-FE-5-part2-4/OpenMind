@@ -6,7 +6,7 @@ import styles from "./QuestionFeedCard.module.css";
 import getTimeDifference from "../../utils/getTimeDifference";
 import moreKebab from "../../assets/images/MoreKebab.svg";
 import AnswerContainer from "./AnswerContainer";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import FeedCardDropDown from "../FeedCardDropDown/FeedCardDropDown";
 import postReaction from "../../utils/postpageAPI/postReaction";
 import createAnswer from "../../utils/answerpageAPI/createAnswer";
@@ -25,7 +25,6 @@ export default function QuestionFeedCard({
   const [currentQuestion, setCurrentQuestion] = useState(question);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [reaction, setReaction] = useState("");
 
   const handleDropdownToggleClick = () => {
     setShowDropdown(!showDropdown);
@@ -47,26 +46,14 @@ export default function QuestionFeedCard({
     await updateQuestions();
   };
 
-  const handleLikeButtonClick = () => {
-    setReaction("like");
+  const handleReactionSubmit = async (newReaction) => {
+    try {
+      let result = await postReaction(newReaction, question.id);
+      setCurrentQuestion(result);
+    } catch (error) {
+      console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
+    }
   };
-
-  const handleDisLikeButtonClick = () => {
-    setReaction("dislike");
-  };
-
-  const handleReactionSubmit = useCallback(
-    async (newReaction) => {
-      try {
-        let result = await postReaction(newReaction, question.id);
-        setCurrentQuestion(result);
-      } catch (error) {
-        console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
-      }
-      setReaction("");
-    },
-    [question.id]
-  );
 
   // 개별 질문, 해당 질문에 달린 답변들 삭제
   const handleDeleteQuestionClick = async (question) => {
@@ -84,12 +71,6 @@ export default function QuestionFeedCard({
     currentQuestion.dislike === 0
       ? styles.reactionTextDefault
       : styles.dislikeText;
-
-  useEffect(() => {
-    if (reaction !== "") {
-      handleReactionSubmit(reaction);
-    }
-  }, [reaction, handleReactionSubmit]);
 
   const answerStatusMessages = {
     isAnswered: "답변완료",
@@ -160,7 +141,7 @@ export default function QuestionFeedCard({
       <div className={styles.judgeAnswerContainer}>
         <div className={styles.judgeAnswerWrapper}>
           <button
-            onClick={handleLikeButtonClick}
+            onClick={() => handleReactionSubmit("like")}
             type="submit"
             className={styles.judge}
           >
@@ -172,7 +153,7 @@ export default function QuestionFeedCard({
         </div>
         <div className={styles.judgeAnswerWrapper}>
           <button
-            onClick={handleDisLikeButtonClick}
+            onClick={() => handleReactionSubmit("dislike")}
             type="submit"
             className={styles.judge}
           >
