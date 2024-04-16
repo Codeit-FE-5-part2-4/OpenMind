@@ -4,24 +4,26 @@ import logoImg from "../../assets/images/logo.png";
 import NameInput from "../../components/NameInput/NameInput";
 import MainHeader from "../../components/MainHeader/MainHeader";
 import { useCallback, useState } from "react";
-import { postUserInfo } from "../../utils/nameApi";
+import { checkNameValidity, postUserInfo } from "../../utils/nameApi";
 import { useNavigate } from "react-router-dom";
+import NameCaution from "../../components/NameCaution/NameCaution";
 
 function Main() {
   const [value, setValue] = useState("");
+  const [cautionText, setCautionText] = useState("");
+
   const navigate = useNavigate();
 
   //button 이벤트
   const handleNameSubmit = useCallback(async () => {
     try {
       const nameData = await postUserInfo(value);
-      if (!nameData || !nameData.id) {
-        throw new Error("Invalid data format");
-      }
+      checkNameValidity(value);
+
       const { id } = nameData;
       navigate(`post/${id}/answer`);
     } catch (e) {
-      alert(e.message);
+      setCautionText(e.message);
     }
   }, [navigate, value]);
 
@@ -49,6 +51,7 @@ function Main() {
             onChangeInput={onChangeInput}
             value={value}
           />
+          <NameCaution cautionText={cautionText} />
           <BoxButton text={"질문 받기"} onClick={handleNameSubmit} />
         </form>
       </div>
