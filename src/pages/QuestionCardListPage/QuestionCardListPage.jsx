@@ -14,91 +14,106 @@ const INITIALQUERY = {
 };
 
 function QuestionCardListPage() {
-  const [sortedFeeds, setSortedFeeds] = useState([]);
+  const [currentNearPage, setCurrentNearPage] = useState({});
   const [currentSortValue, setCurrentSortValue] = useState();
-  const [nextPage, setNextPage] = useState();
-  const [prevPage, setPrevPage] = useState(null);
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [sortedFeeds, setSortedFeeds] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams(INITIALQUERY);
 
   const updateSearchParams = useCallback(
-    (key, value) => {
+    (params) => {
       const newSearchParams = new URLSearchParams(searchParams);
-      newSearchParams.set(key, value);
+
+      Object.keys(params).forEach((key) => {
+        newSearchParams.set(key, params[key]);
+      });
 
       setSearchParams(newSearchParams);
     },
     [searchParams, setSearchParams]
-  ); // 쿼리파라미터를 설정해주는 함수
+  ); // 현재 파라미터의 객체를 받아 쿼리파라미터를 설정해주는 함수
 
-  const getQueryParams = (url) => {
+  const getOffsetByParams = (url) => {
+    if (!url) return;
+
     const urlObj = new URL(url);
-    return {
-      limit: urlObj.searchParams.get("limit"),
-      offset: urlObj.searchParams.get("offset"),
-    };
-  } // api요청으로 받은 다음 페이지와 이전 페이지의 스트링 타입 url에서 key를 받아주는 함수
+    return urlObj.searchParams.get("offset");
+  }; // api요청으로 받은 다음 페이지와 이전 페이지의 스트링 타입 url에서 key를 받아주는 함수
 
-  const handleSortList = (e) => {
-    const currentSortValue = e.target.name;
-
-    updateSearchParams("sort", currentSortValue);
-  }; // 모달창의 버튼에 해당하는 값에 따라 sort값을 바꿔 정렬 렌더링의 트리거가 되주는 함수
-
-  const handlePageChangeByUrl = useCallback(
-    async (url) => {
-      if (!url) return;
-
+  const displaySubjects = useCallback(
+    async ({ offset, sort, pageNumber }) => {
       try {
-        const { limit, offset } = getQueryParams(url);
-        const newFeeds = await getSubjects({
-          limit: parseInt(limit, 10),
-          offset: parseInt(offset, 10),
-          sort: currentSortValue,
+        const currentPage = await getSubjects({
+          limit: INITIALQUERY.limit,
+          offset,
+          sort,
         });
-        const { results, next, previous } = newFeeds;
+        const { results, count, next, previous } = currentPage;
 
+        setCurrentNearPage({ next, previous });
         setSortedFeeds(results);
-        setNextPage(next);
-        setPrevPage(previous);
-        console.log(`Loaded page with limit: ${limit} and offset: ${offset}`);
+        setTotalPages(Math.ceil(count / 8));
+        setCurrentSortValue(sort);
+        setCurrentPageNumber(pageNumber);
+        updateSearchParams({ limit: INITIALQUERY.limit, offset, sort });
       } catch (error) {
         console.error(error);
       }
     },
-    [currentSortValue]
-  ); // api요청으로 받은 다음 페이지와 이전 페이지의 url로 페이지네이션 컴포넌트로 동작을 전달하는 함수
+    [updateSearchParams]
+  ); // api요청의 결과값을 렌더링해주는 함수
+
+  const handleSortList = useCallback(
+    (e) => {
+      const currentSortValue = e.target.name;
+      displaySubjects({ offset: INITIALQUERY.offset, sort: currentSortValue });
+      console.log(
+        `Page changed to sort with offset: ${INITIALQUERY.offset} sort: ${currentSortValue}`
+      );
+    },
+    [displaySubjects]
+  ); // 정렬방식으로 페이지 변경
 
   const handlePageChangeByNumber = useCallback(
     (pageNumber) => {
-      const newOffset = (pageNumber - 1) * INITIALQUERY.limit; // 올바른 offset 계산
-      updateSearchParams("offset", newOffset.toString()); // URL 쿼리 파라미터 업데이트
-      setCurrentPageNumber(pageNumber); // 현재 페이지 상태 업데이트
+      const newOffset = (pageNumber - 1) * INITIALQUERY.limit;
+      setCurrentPageNumber(pageNumber);
+      displaySubjects({
+        offset: newOffset,
+        sort: currentSortValue,
+        pageNumber,
+      });
       console.log(`Page changed to: ${pageNumber} with offset: ${newOffset}`);
     },
-    [updateSearchParams]
-  );
+    [displaySubjects, currentSortValue]
+  ); // 번호로 페이지 이동
 
-  const displaySubjects = useCallback(async (offset, sort, pageNumber) => {
-    try {
-      const currentFeeds = await getSubjects({
-        limit: 8,
-        offset,
-        sort,
-      });
-      const { results, next, previous, count } = currentFeeds;
+  const handlePageChangeByArrow = useCallback(
+    (e) => {
+      const direction = e.target.name;
 
-      setSortedFeeds(results);
-      setNextPage(next);
-      setPrevPage(previous);
-      setTotalPages(Math.ceil(count / 8));
-      setCurrentSortValue(sort);
-      setCurrentPageNumber(pageNumber);
-    } catch (error) {
-      console.error(error);
-    }
-  }, []); // api요청의 결과값을 렌더링해주는 함수
+      const { next, previous } = currentNearPage;
+      const url = direction === "next" ? next : previous;
+      console.log(url);
+
+      const newOffset = getOffsetByParams(url);
+      console.log(newOffset);
+
+      if (url !== null) {
+        const pageNumber = Math.floor(newOffset / INITIALQUERY.limit) + 1;
+        displaySubjects({
+          offset: newOffset,
+          sort: currentSortValue,
+          pageNumber,
+        });
+      }
+      console.log(
+        `Page changed to arrow: ${direction} with offset: ${newOffset}`
+      );
+    },
+    [currentSortValue, currentNearPage, displaySubjects]
+  ); // 화살표로 페이지 이동
 
   useEffect(() => {
     const offset = searchParams.get("offset") || INITIALQUERY.offset;
@@ -106,7 +121,7 @@ function QuestionCardListPage() {
     const limit = INITIALQUERY.limit;
     const pageNumber = Math.floor(offset / limit) + 1;
 
-    displaySubjects(offset, sort, pageNumber);
+    displaySubjects({ offset, sort, pageNumber });
   }, [displaySubjects, searchParams]);
 
   return (
@@ -123,8 +138,7 @@ function QuestionCardListPage() {
         <div className={styles.listAndPaginationBox}>
           <QuestionCardList sortedFeeds={sortedFeeds} />
           <Pagination
-            onNext={() => handlePageChangeByUrl(nextPage)}
-            onPrev={() => handlePageChangeByUrl(prevPage)}
+            onArrow={handlePageChangeByArrow}
             onNumber={handlePageChangeByNumber}
             currentPageNumber={currentPageNumber}
             totalPages={totalPages}
