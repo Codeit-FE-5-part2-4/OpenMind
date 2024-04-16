@@ -146,6 +146,7 @@ export default function QuestionFeedCard({
                   editStartOnclick={handleEditClick}
                   question={question}
                   onDelete={handleDeleteQuestionClick}
+                  isRejected={question.answer.isRejected}
                   onReject={handleToggleRejectClick}
                 />
               ) : (

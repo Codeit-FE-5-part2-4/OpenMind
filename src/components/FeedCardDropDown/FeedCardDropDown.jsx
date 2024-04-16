@@ -6,15 +6,17 @@ export default function FeedCardDropDown({
   question,
   onDelete,
   onReject,
+  isRejected,
 }) {
   // 수정하기 버튼이 없는 경우 dropdownListShort
-  const dropdownListStyle = isAnswered
-    ? styles.dropdownList
-    : styles.dropdownListShort;
+  const dropdownListStyle =
+    isAnswered && !isRejected ? styles.dropdownList : styles.dropdownListShort;
+
+  const rejectOrNot = isRejected ? "거절풀기" : "거절하기";
 
   return (
     <ul className={dropdownListStyle}>
-      {isAnswered && (
+      {isAnswered && !isRejected && (
         <li>
           <button className={styles.dropdownElement} onClick={editStartOnclick}>
             <div className={styles.dropdownElementEditIcon}></div>
@@ -39,7 +41,7 @@ export default function FeedCardDropDown({
           }}
         >
           <div className={styles.dropdownElementRejectIcon}></div>
-          <span className={styles.dropdownElementText}>거절하기</span>
+          <span className={styles.dropdownElementText}>{rejectOrNot}</span>
         </button>
       </li>
     </ul>
