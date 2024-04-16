@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./WarningModal.module.css";
 import BoxButton from "../BoxButton/BoxButton";
 
-export default function WarningModal({ text, onConfirm }) {
+export default function WarningModal({ text, onConfirm, closeModal }) {
   const handleConfirm = (confirmed) => {
     onConfirm(confirmed);
   };
@@ -13,7 +13,7 @@ export default function WarningModal({ text, onConfirm }) {
         <div className={styles.barText}>
           <span>{text}</span>
         </div>
-        <button className={styles.closeButton}></button>
+        <button className={styles.closeButton} onClick={closeModal}></button>
       </div>
       <ul className={styles.selectButtonContainer}>
         <li>
