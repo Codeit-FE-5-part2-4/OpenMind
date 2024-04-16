@@ -1,5 +1,5 @@
 import BoxButton from "../../components/BoxButton/BoxButton";
-import styles from "./Main.module.css";
+import styles from "./MainPage.module.css";
 import logoImg from "../../assets/images/logo.png";
 import NameInput from "../../components/NameInput/NameInput";
 import MainHeader from "../../components/MainHeader/MainHeader";
