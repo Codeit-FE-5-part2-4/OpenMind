@@ -16,9 +16,9 @@ export const checkNameValidity = (value) => {
   }
 };
 
-export const postUserInfo = async (value) => {
+export const postUserInfo = async (value, setCautionText) => {
   try {
-    if (!value) return;
+    checkNameValidity(value);
     const response = await fetch(`${BASE_URL}subjects/`, {
       method: "POST",
       headers: {
@@ -32,6 +32,6 @@ export const postUserInfo = async (value) => {
     const nameData = await response.json();
     return nameData;
   } catch (e) {
-    alert(e.message);
+    setCautionText(e.message);
   }
 };
