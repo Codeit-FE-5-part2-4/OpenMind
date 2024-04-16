@@ -63,7 +63,7 @@ export default function QuestionFeedCard({
       isRejected = !question.answer.isRejected;
       await rejectAnswer(question.answer.id, isRejected);
     } else {
-      await createAnswer(question.id, ".", isRejected);
+      await createAnswer(question.id, "거절된 답변", isRejected);
     }
 
     await updateQuestions();
