@@ -2,8 +2,12 @@ const BASE_URL = "https://openmind-api.vercel.app/5-4";
 const QUESTION_PATH = "/questions";
 const ANSWER_PATH = "/answers";
 
-export default async function createAnswer(questionId, content) {
-  const formData = createAnswerRequestForm(content);
+export default async function createAnswer(
+  questionId,
+  content = "",
+  isRejected = false
+) {
+  const formData = createAnswerRequestForm(content, isRejected);
 
   const response = await fetch(
     `${BASE_URL}${QUESTION_PATH}/${questionId}${ANSWER_PATH}/`,
@@ -18,13 +22,13 @@ export default async function createAnswer(questionId, content) {
   return result;
 }
 
-function createAnswerRequestForm(content) {
+function createAnswerRequestForm(content, isRejected) {
   const formData = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ content: content, isRejected: false }),
+    body: JSON.stringify({ content, isRejected }),
   };
 
   return formData;
