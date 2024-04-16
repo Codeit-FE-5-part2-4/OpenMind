@@ -10,7 +10,7 @@
 }
 
 .dropdownList,
-.dropdownListWithOneElement {
+.dropdownListShort {
   position: absolute;
   top: 26px;
   right: 0;
@@ -25,11 +25,11 @@
 }
 
 .dropdownList {
-  height: 68px;
+  height: 98px;
 }
 
-.dropdownListWithOneElement {
-  height: 38px;
+.dropdownListShort {
+  height: 68px;
 }
 
 .dropdownElement {
@@ -54,25 +54,34 @@
     .dropdownElementDeleteIcon {
       background-image: url(../../assets/images/icon/FeedDeleteIconOnHover.svg);
     }
+    .dropdownElementRejectIcon {
+      background-image: url(../../assets/images/icon/FeedRejectIconOnHover.svg);
+    }
   }
 }
 
 .dropdownElementEditIcon,
-.dropdownElementDeleteIcon {
+.dropdownElementDeleteIcon,
+.dropdownElementRejectIcon {
   width: 14px;
   height: 14px;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .dropdownElementEditIcon {
-  background-repeat: no-repeat;
   background-position-y: -1px;
   background-image: url(../../assets/images/icon/FeedEditIcon.svg);
 }
 
 .dropdownElementDeleteIcon {
-  background-repeat: no-repeat;
-  background-position-y: -1.5px;
+  background-position-y: 0.5px;
   background-image: url(../../assets/images/icon/FeedDeleteIcon.svg);
+}
+
+.dropdownElementRejectIcon {
+  background-position-y: -1px;
+  background-image: url(../../assets/images/icon/FeedRejectIcon.svg);
 }
 
 .dropdownElementText {

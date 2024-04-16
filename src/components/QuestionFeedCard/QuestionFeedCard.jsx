@@ -15,6 +15,7 @@ import {
   deleteSingleAnswer,
   deleteSingleQuestion,
 } from "../../utils/answerpageAPI/deleteAPI";
+import { rejectAnswer } from "../../utils/answerpageAPI/rejectAnswer";
 
 export default function QuestionFeedCard({
   question,
@@ -47,6 +48,27 @@ export default function QuestionFeedCard({
     await updateQuestions();
   };
 
+  // 드롭다운에서 삭제하기 버튼 클릭 시 개별 질문, 해당 질문에 달린 답변들 삭제
+  const handleDeleteQuestionClick = async (question) => {
+    await deleteSingleAnswer(question);
+    await deleteSingleQuestion(question);
+    await updateQuestions();
+  };
+
+  // 드롭다운에서 거절하기 버튼 클릭 시 질문답변에 거절하기 출력
+  const handleToggleRejectClick = async (question) => {
+    let isRejected = true; // 기본값 설정
+
+    if (question.answer) {
+      isRejected = !question.answer.isRejected;
+      await rejectAnswer(question.answer.id, isRejected);
+    } else {
+      await createAnswer(question.id, ".", isRejected);
+    }
+
+    await updateQuestions();
+  };
+
   const handleLikeButtonClick = () => {
     setReaction("like");
   };
@@ -67,13 +89,6 @@ export default function QuestionFeedCard({
     },
     [question.id]
   );
-
-  // 개별 질문, 해당 질문에 달린 답변들 삭제
-  const handleDeleteQuestionClick = async (question) => {
-    await deleteSingleAnswer(question);
-    await deleteSingleQuestion(question);
-    await updateQuestions();
-  };
 
   const likeIconSrc = currentQuestion.like === 0 ? likeIconDefault : likeIcon;
   const likeTextSrc =
@@ -130,12 +145,14 @@ export default function QuestionFeedCard({
                   editStartOnclick={handleEditClick}
                   question={question}
                   onDelete={handleDeleteQuestionClick}
+                  onReject={handleToggleRejectClick}
                 />
               ) : (
                 <FeedCardDropDown
                   editStartOnclick={handleEditClick}
                   question={question}
                   onDelete={handleDeleteQuestionClick}
+                  onReject={handleToggleRejectClick}
                 />
               ))}
           </div>
@@ -150,8 +167,8 @@ export default function QuestionFeedCard({
         <AnswerContainer
           AnswererProfile={AnswererProfile}
           answerCreatedAgo={answerCreatedAgo}
-          isRejected={question.answer.isRejected}
           answerContent={question.answer.content}
+          isRejected={question.answer.isRejected}
           isAnswered={true}
           isEditing={isEditing}
           editFinishOnClick={handleEditFinish}
