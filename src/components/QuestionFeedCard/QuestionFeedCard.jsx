@@ -54,9 +54,9 @@ export default function QuestionFeedCard({
       let result = await postReaction(newReaction, question.id);
       setCurrentQuestion(result);
     } catch (error) {
-      console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
+        console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
     }
-
+  }
   // 드롭다운에서 거절하기 버튼 클릭 시 질문답변에 거절하기 출력
   const handleToggleRejectClick = async (question) => {
     let isRejected = true; // 기본값 설정
