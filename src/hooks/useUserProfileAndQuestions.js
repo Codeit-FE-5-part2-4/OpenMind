@@ -13,9 +13,7 @@ const useUserProfileAndQuestions = (id) => {
       let result = await getSubjectInfo(id);
       setUserProfile(result);
     } catch (error) {
-      console.error("피드 페이지를 가져오는 중에 오류가 발생했습니다:", error);
-      navigate("/list");
-      throw error;
+      navigate("/not-found");
     }
   }, [id]);
 

@@ -1,4 +1,5 @@
 .cardWrapper {
+  position: relative;
   max-width: 180px;
   background-color: var(--grayscaleColor100);
   display: block;
@@ -28,6 +29,25 @@
   font-size: 20px;
   font-weight: 400;
   line-height: 1.25;
+}
+
+.fullUserName__hover {
+  display: none;
+}
+
+.profileName:hover + .fullUserName__hover {
+  position: absolute;
+  display: inline-block;
+  top: 56px;
+  left: 84px;
+  background-color: var(--brownColor100);
+  width: fit-content;
+  height: auto;
+  padding: 8px;
+  border-radius: 8px;
+  line-height: 16px;
+  font-size: 12px;
+  z-index: 1;
 }
 
 .infoSection {
