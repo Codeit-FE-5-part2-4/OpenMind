@@ -6,6 +6,7 @@ import Main from "./pages/Main/Main";
 import QuestionCardListPage from "./pages/QuestionCardListPage/QuestionCardListPage";
 import PostPage from "./pages/PostPage/PostPage";
 import AnswerPage from "./pages/AnswerPage/AnswerPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/list" element={<QuestionCardListPage />} />
         <Route path="/post/:id" element={<PostPage />} />
         <Route path="/post/:id/answer" element={<AnswerPage />} />
+        <Route path="/not-found" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
