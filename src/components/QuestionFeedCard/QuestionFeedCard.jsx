@@ -123,13 +123,21 @@ export default function QuestionFeedCard({
             >
               <img src={moreKebab} alt="더보기" />
             </button>
-            {showDropdown && (
-              <FeedCardDropDown
-                editStartOnclick={handleEditClick}
-                question={question}
-                onDelete={handleDeleteQuestionClick}
-              />
-            )}
+            {showDropdown &&
+              (question.answer ? (
+                <FeedCardDropDown
+                  isAnswered={true}
+                  editStartOnclick={handleEditClick}
+                  question={question}
+                  onDelete={handleDeleteQuestionClick}
+                />
+              ) : (
+                <FeedCardDropDown
+                  editStartOnclick={handleEditClick}
+                  question={question}
+                  onDelete={handleDeleteQuestionClick}
+                />
+              ))}
           </div>
         )}
       </div>
