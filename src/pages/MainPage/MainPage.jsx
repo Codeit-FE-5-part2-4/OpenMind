@@ -4,7 +4,7 @@ import logoImg from "../../assets/images/logo.png";
 import NameInput from "../../components/NameInput/NameInput";
 import MainHeader from "../../components/MainHeader/MainHeader";
 import { useCallback, useState } from "react";
-import { checkNameValidity, postUserInfo } from "../../utils/nameApi";
+import { postUserInfo } from "../../utils/nameApi";
 import { useNavigate } from "react-router-dom";
 import NameCaution from "../../components/NameCaution/NameCaution";
 
@@ -17,13 +17,13 @@ function Main() {
   //button 이벤트
   const handleNameSubmit = useCallback(async () => {
     try {
-      const nameData = await postUserInfo(value);
-      checkNameValidity(value);
+      const nameData = await postUserInfo(value, setCautionText);
 
       const { id } = nameData;
+      localStorage.setItem("id", id);
       navigate(`post/${id}/answer`);
     } catch (e) {
-      setCautionText(e.message);
+      console.error(e);
     }
   }, [navigate, value]);
 
