@@ -5,6 +5,7 @@
 
 .paginationNumbers {
   display: flex;
+  align-items: center;
 }
 
 .paginationButton,
@@ -21,7 +22,10 @@
 }
 
 .paginationButton:hover,
-.paginationArrow:hover,
-.paginationButton:focus {
+.paginationArrow:hover {
+  color: var(--brownColor400);
+}
+
+.paginationButton.active {
   color: var(--brownColor400);
 }
