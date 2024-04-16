@@ -35,17 +35,22 @@ export default function AnswerPage() {
   return (
     <div className={styles.container}>
       <div className={styles.background}></div>
-      <h1>
-        <span className={styles.blind}>Openmind</span>
-        <img className={styles.logoImage} src={logoImage} alt="openmind" />
-      </h1>
+      <div className={styles.headerContainer}>
+        <h1>
+          <span className={styles.blind}>Openmind</span>
+          <img className={styles.logoImage} src={logoImage} alt="openmind" />
+        </h1>
+      </div>
       {showWarning && (
-        <WarningModal
-          text={warningMessage}
-          selectYes={handleDeleteAll}
-          selectNo={handleCloseModal}
-          closeModal={handleCloseModal}
-        />
+        <>
+          <WarningModal
+            text={warningMessage}
+            selectYes={handleDeleteAll}
+            selectNo={handleCloseModal}
+            closeModal={handleCloseModal}
+          />
+          <div className={styles.overlay}></div>
+        </>
       )}
       <PostProfile userProfile={userProfile} />
       <div className={styles.QuestionFeedContainer}>
