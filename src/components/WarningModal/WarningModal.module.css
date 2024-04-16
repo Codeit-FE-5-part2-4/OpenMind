@@ -4,20 +4,20 @@
   flex-direction: column;
   background-color: var(--grayscaleColor100);
   box-shadow: 0px 16px 20px 0px rgba(48, 48, 48, 0.62);
-  width: 612px;
-  height: 454px;
-  padding: 40px;
+  padding: 20px;
   gap: 40px;
+  width: 450px;
 
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   border-radius: 24px;
+  font-size: 24px;
 
   @media (max-width: 767px) {
     width: 327px;
-    height: 568px;
+    font-size: 16px;
   }
 }
 
@@ -25,58 +25,38 @@
   display: flex;
   justify-content: space-between;
 
+  gap: 10px;
   .barText {
-    font-size: 24px;
     display: flex;
     align-items: center;
     line-height: 30px;
   }
 }
 
+.selectButtonContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.selectButton {
+  background-color: var(--brownColor300);
+  color: var(--grayscaleColor100);
+}
+
 .closeButton {
   width: 28px;
   height: 28px;
   background-image: url("../../assets/images/Close.svg");
+  background-size: 20px 20px;
+  background-position: center;
+  border-radius: 50%;
+  border: 2px solid var(--grayscaleColor600);
 
   &:hover {
     background-color: var(--redColor);
     background-image: url("../../assets/images/CloseWhite.svg");
+    border: none;
   }
-}
-
-.modalInputContainer {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.modalReceiverInfo {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  .toText {
-    font-size: 18px;
-    line-height: 24px;
-  }
-}
-
-.modalProfileImage {
-  width: 28px;
-  border-radius: 50%;
-}
-
-.modalInput {
-  width: 100%;
-  height: 100%;
-  padding: 16px;
-  background-color: var(--grayscaleColor200);
-  border-radius: 8px;
-  border: none;
-
-  &:focus {
-    outline: none;
-  }
-  resize: none;
 }
