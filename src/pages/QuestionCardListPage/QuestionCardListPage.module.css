@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding: 40px 0;
   background-color: var(--grayscaleColor200);
 }
 
@@ -21,7 +22,7 @@
 
 .title {
   color: #000;
-  margin: 0 auto 12px;
+  margin: 0 auto;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Pretendard;
   font-size: 40px;
@@ -98,7 +99,7 @@
 /* 태블릿 사이즈 */
 @media (max-width: 1200px) {
   .pageContainer {
-    padding: 0 32px;
+    padding: 40px 32px;
   }
   .titleBox {
     display: flex;
@@ -110,11 +111,12 @@
 @media (max-width: 870px) {
   .pageContainer {
     padding: 5vh 32px 10vh;
+    height: auto;
   }
   .titleBox {
     display: flex;
     justify-content: space-between;
-    margin: 47px 0 0;
+    margin: 47px 0 30px;
   }
 }
 
@@ -123,14 +125,13 @@
   .pageContainer {
     padding: 40px 24px;
     align-items: center;
-    height: auto;
   }
 
   .titleAndSortBox {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 52px 0 0;
+    margin: 52px 0 18px;
   }
 
   .title {
