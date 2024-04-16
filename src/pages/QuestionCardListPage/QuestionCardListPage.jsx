@@ -38,7 +38,7 @@ function QuestionCardListPage() {
       limit: urlObj.searchParams.get("limit"),
       offset: urlObj.searchParams.get("offset"),
     };
-  } // api요청으로 받은 다음 페이지와 이전 페이지의 스트링 타입 url에서 key를 받아주는 함수
+  }; // api요청으로 받은 다음 페이지와 이전 페이지의 스트링 타입 url에서 key를 받아주는 함수
 
   const handleSortList = (e) => {
     const currentSortValue = e.target.name;
@@ -123,8 +123,18 @@ function QuestionCardListPage() {
         <div className={styles.listAndPaginationBox}>
           <QuestionCardList sortedFeeds={sortedFeeds} />
           <Pagination
-            onNext={() => handlePageChangeByUrl(nextPage)}
-            onPrev={() => handlePageChangeByUrl(prevPage)}
+            onNext={() => {
+              handlePageChangeByUrl(nextPage);
+              currentPageNumber <= totalPages - 1
+                ? setCurrentPageNumber(currentPageNumber + 1)
+                : setCurrentPageNumber(totalPages);
+            }}
+            onPrev={() => {
+              handlePageChangeByUrl(prevPage);
+              currentPageNumber > 1
+                ? setCurrentPageNumber(currentPageNumber - 1)
+                : setCurrentPageNumber(1);
+            }}
             onNumber={handlePageChangeByNumber}
             currentPageNumber={currentPageNumber}
             totalPages={totalPages}
