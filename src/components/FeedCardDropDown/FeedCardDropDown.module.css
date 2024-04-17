@@ -9,8 +9,7 @@
   position: relative;
 }
 
-.dropdownList,
-.dropdownListShort {
+.dropdownList {
   position: absolute;
   top: 26px;
   right: 0;
@@ -22,14 +21,6 @@
   box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
   border-radius: 8px;
   padding: 4px 0;
-}
-
-.dropdownList {
-  height: 98px;
-}
-
-.dropdownListShort {
-  height: 68px;
 }
 
 .dropdownElement {

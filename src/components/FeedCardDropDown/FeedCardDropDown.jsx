@@ -1,22 +1,22 @@
 import styles from "./FeedCardDropDown.module.css";
 
 export default function FeedCardDropDown({
-  isAnswered = false,
   editStartOnclick,
   question,
   onDelete,
   onReject,
-  isRejected,
 }) {
   // 수정하기 버튼이 없는 경우 dropdownListShort
-  const dropdownListStyle =
-    isAnswered && !isRejected ? styles.dropdownList : styles.dropdownListShort;
 
-  const rejectOrNot = isRejected ? "거절풀기" : "거절하기";
+  //const rejectOrNot = question.answer.isRejected ? "거절풀기" : "거절하기";
+  let rejectOrNot = "거절하기";
+  if (question.answer && question.answer.isRejected) {
+    rejectOrNot = "거절풀기";
+  }
 
   return (
-    <ul className={dropdownListStyle}>
-      {isAnswered && !isRejected && (
+    <ul className={styles.dropdownList}>
+      {question.answer && !question.answer.isRejected && (
         <li>
           <button className={styles.dropdownElement} onClick={editStartOnclick}>
             <div className={styles.dropdownElementEditIcon}></div>
