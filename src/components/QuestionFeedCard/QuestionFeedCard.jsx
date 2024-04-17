@@ -56,9 +56,11 @@ export default function QuestionFeedCard({
       console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
     }
   };
+
   // 드롭다운 답변 거절하기 기능
   const handleToggleRejectClick = async (question) => {
     let isRejected = true;
+    setIsEditing(false);
     const contentOfRejectedAnswer = "&1a3nd8g";
     // 답변이 있을 때 거절하기, 거절풀기
     if (
