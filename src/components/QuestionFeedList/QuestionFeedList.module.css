@@ -26,10 +26,15 @@
 }
 
 .questionEmptyImage {
-  margin: 111px 277px 65px;
+  width: 150px;
+  height: 154px;
+  margin: 70px 277px 65px;
 
   @media (max-width: 767px) {
-    margin: 106px;
+    height: 118px;
+    width: 114px;
+    margin: 90px;
+    margin-top: 66px;
   }
 }
 
@@ -44,4 +49,8 @@
   font-size: 20px;
   font-style: normal;
   line-height: 25px;
+
+  @media (max-width: 767px) {
+    font-size: 18px;
+  }
 }
