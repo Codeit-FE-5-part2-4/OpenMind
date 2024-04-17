@@ -63,8 +63,8 @@
 
 .FloatingButtonAtCorner {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+  right: 48px;
+  bottom: 48px;
 }
 
 .headerContainer {

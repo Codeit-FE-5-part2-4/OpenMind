@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./PostPage.module.css";
 import logoImage from "../../assets/images/logo.png";
 import PostProfile from "../../components/PostProfile/PostProfile";
 import QuestionFeedList from "../../components/QuestionFeedList/QuestionFeedList";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
+import ArrowButton from "../../components/ArrowButton/ArrowButton";
 import QuestionModal from "../../components/QuestionModal/QuestionModal";
 import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestions";
 import postQuestion from "../../utils/postpageAPI/postQuestion";
@@ -12,7 +13,6 @@ import postQuestion from "../../utils/postpageAPI/postQuestion";
 export default function PostPage() {
   const { id } = useParams(); // Access the id from route parameters
   const [showModal, setShowModal] = useState(false);
-  const [buttonText, setButtonText] = useState("질문하러 가기");
   const { userProfile, userQuestions, updateUserQuestions } =
     useUserProfileAndQuestions(id);
 
@@ -35,12 +35,12 @@ export default function PostPage() {
     });
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     function handleResize() {
       if (window.innerWidth < 768) {
-        setButtonText("질문 작성");
+        setButtonText("리스트");
       } else {
-        setButtonText("질문하러 가기");
+        setButtonText("리스트로 가기");
       }
     }
 
@@ -48,7 +48,7 @@ export default function PostPage() {
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, []); */
 
   return (
     <div className={styles.container}>
@@ -60,10 +60,19 @@ export default function PostPage() {
         </h1>
       </div>
       <PostProfile userProfile={userProfile} />
-      <QuestionFeedList
-        questions={userQuestions}
-        AnswererProfile={userProfile}
-      />
+      <div className={styles.QuestionFeedContainer}>
+        <div className={styles.FloatingButtonAtRightSide}>
+          <FloatingButton
+            text="질문하기"
+            disabled={showModal}
+            onClick={handleModalOpen}
+          />
+        </div>
+        <QuestionFeedList
+          questions={userQuestions}
+          AnswererProfile={userProfile}
+        />
+      </div>
       {showModal && (
         <>
           <QuestionModal
@@ -76,12 +85,7 @@ export default function PostPage() {
       )}
 
       <div className={styles.FloatingButtonAtCorner}>
-        <FloatingButton
-          text={buttonText}
-          size="large"
-          disabled={showModal}
-          onClick={handleModalOpen}
-        />
+        <ArrowButton text={"리스트로 가기"} size="large" />
       </div>
     </div>
   );
