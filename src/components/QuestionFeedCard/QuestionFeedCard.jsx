@@ -93,6 +93,7 @@ export default function QuestionFeedCard({
     }
   };
 
+  // '좋아요''싫어요'가 0일때, 0이상일 때 각기 다른 스타일 적용
   const likeIconSrc = currentQuestion.like === 0 ? likeIconDefault : likeIcon;
   const likeTextSrc =
     currentQuestion.like === 0 ? styles.reactionTextDefault : styles.likeText;
@@ -181,29 +182,29 @@ export default function QuestionFeedCard({
       )}
 
       <div className={styles.judgeAnswerContainer}>
-        <div className={styles.judgeAnswerWrapper}>
+        <div>
           <button
             onClick={() => handleReactionSubmit("like")}
             type="submit"
             className={styles.judge}
           >
             <img src={likeIconSrc} alt="좋아요버튼" />
+            <span
+              className={likeTextSrc}
+            >{`좋아요 ${currentQuestion.like}`}</span>
           </button>
-          <span
-            className={likeTextSrc}
-          >{`좋아요 ${currentQuestion.like}`}</span>
         </div>
-        <div className={styles.judgeAnswerWrapper}>
+        <div>
           <button
             onClick={() => handleReactionSubmit("dislike")}
             type="submit"
             className={styles.judge}
           >
             <img src={dislikeIconSrc} alt="싫아요버튼" />
+            <span
+              className={dislikeTextSrc}
+            >{`싫어요 ${currentQuestion.dislike}`}</span>
           </button>
-          <span
-            className={dislikeTextSrc}
-          >{`싫어요 ${currentQuestion.dislike}`}</span>
         </div>
       </div>
     </div>
