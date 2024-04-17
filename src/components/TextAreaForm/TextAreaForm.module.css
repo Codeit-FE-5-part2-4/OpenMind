@@ -12,3 +12,13 @@
     outline: 1px solid var(--brownColor400);
   }
 }
+
+.currentLength {
+  color: var(--grayscaleColor300);
+  align-self: flex-end;
+}
+
+.maxLength {
+  color: var(--redColor);
+  align-self: flex-end;
+}
