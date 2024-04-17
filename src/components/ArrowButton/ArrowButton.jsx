@@ -12,6 +12,9 @@ function ArrowButton({ text }) {
       case "질문하러 가기":
         navigate("/list");
         break;
+      case "리스트로 가기":
+        navigate("/list");
+        break;
       case "답변하러가기":
         id === null ? navigate("/") : navigate(`/post/${id}/answer`);
         break;

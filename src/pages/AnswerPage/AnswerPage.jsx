@@ -3,6 +3,7 @@ import logoImage from "../../assets/images/logo.png";
 import PostProfile from "../../components/PostProfile/PostProfile";
 import QuestionFeedList from "../../components/QuestionFeedList/QuestionFeedList";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
+import ArrowButton from "../../components/ArrowButton/ArrowButton";
 import { useParams, useNavigate } from "react-router-dom";
 import { deleteAll } from "../../utils/answerpageAPI/deleteAPI";
 import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestions";
@@ -71,6 +72,10 @@ export default function AnswerPage() {
           updateQuestions={updateUserQuestions}
           modalHandler={handleOpenModal}
         />
+      </div>
+
+      <div className={styles.FloatingButtonAtCorner}>
+        <ArrowButton text={"리스트로 가기"} size="large" />
       </div>
     </div>
   );
