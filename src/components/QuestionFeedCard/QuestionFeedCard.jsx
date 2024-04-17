@@ -48,36 +48,42 @@ export default function QuestionFeedCard({
     await updateQuestions();
   };
 
-
   const handleReactionSubmit = async (newReaction) => {
     try {
       let result = await postReaction(newReaction, question.id);
       setCurrentQuestion(result);
     } catch (error) {
-        console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
+      console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
     }
-  }
-  // 드롭다운에서 거절하기 버튼 클릭 시 질문답변에 거절하기 출력
+  };
+  // 드롭다운 답변 거절하기 기능
   const handleToggleRejectClick = async (question) => {
-    let isRejected = true; // 기본값 설정
-
-    if (question.answer) {
+    let isRejected = true;
+    const contentOfRejectedAnswer = "&1a3nd8g";
+    // 답변이 있을 때 거절하기, 거절풀기
+    if (
+      question.answer &&
+      question.answer.content !== contentOfRejectedAnswer
+    ) {
       isRejected = !question.answer.isRejected;
       await rejectAnswer(question.answer.id, isRejected);
-    } else {
-      await createAnswer(question.id, "거절된 답변", isRejected);
+      // 답변이 없을 때 거절하기
+    } else if (question.answer === null) {
+      await createAnswer(question.id, contentOfRejectedAnswer, isRejected);
+      // 답변이 없을 때 거절풀기
+    } else if (question.answer.content === contentOfRejectedAnswer) {
+      console.log(question.answer?.content === contentOfRejectedAnswer);
+      await deleteSingleAnswer(question);
     }
 
     await updateQuestions();
     setShowDropdown(!showDropdown);
   };
 
-
   // 개별 질문, 해당 질문에 달린 답변들 삭제
   const handleDeleteQuestionClick = () => {
     modalHandler("정말 질문을 삭제하시겠습니까?", handleDeleteQuestion);
   };
-
 
   const handleDeleteQuestion = async (confirmed) => {
     if (confirmed) {
@@ -86,7 +92,6 @@ export default function QuestionFeedCard({
       await updateQuestions();
     }
   };
-
 
   const likeIconSrc = currentQuestion.like === 0 ? likeIconDefault : likeIcon;
   const likeTextSrc =
