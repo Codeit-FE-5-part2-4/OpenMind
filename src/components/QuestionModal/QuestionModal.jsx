@@ -1,7 +1,6 @@
 import speechBubble from "../../assets/images/Messages.svg";
 import styles from "./QuestionModal.module.css";
 import TextAreaForm from "../TextAreaForm/TextAreaForm";
-import postQuestion from "../../utils/postpageAPI/postQuestion";
 
 export default function QuestionModal({
   closeModal,
