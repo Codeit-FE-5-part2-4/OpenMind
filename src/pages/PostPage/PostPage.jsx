@@ -27,10 +27,12 @@ export default function PostPage() {
   const handleSendQuestion = async (textValue) => {
     const formData = { content: textValue };
     const subjectId = id;
-    const response = await postQuestion(formData, subjectId);
+    await postQuestion(formData, subjectId);
     handleModalClose();
     updateUserQuestions();
-    console.log(userQuestions);
+    window.scrollTo({
+      top: 0,
+    });
   };
 
   useEffect(() => {
