@@ -27,6 +27,7 @@ export default function AnswerPage() {
   const handleDeleteAll = async (confirmed) => {
     if (confirmed) {
       await deleteAll(userQuestions, userProfile.id);
+      localStorage.removeItem("id");
       navigate("/list");
     }
   };

@@ -96,8 +96,9 @@ function QuestionCardListPage() {
       const { next, previous } = currentNearPage;
       const url = direction === "next" ? next : previous;
       console.log(url);
+      if (url === null) return;
 
-      const newOffset = getOffsetByParams(url);
+      const newOffset = getOffsetByParams(url) || 0;
       console.log(newOffset);
 
       if (url !== null) {
