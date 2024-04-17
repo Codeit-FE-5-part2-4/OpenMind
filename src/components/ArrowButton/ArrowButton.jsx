@@ -18,6 +18,9 @@ function ArrowButton({ text }) {
       case "답변하러가기":
         id === null ? navigate("/") : navigate(`/post/${id}/answer`);
         break;
+      default:
+        navigate("/");
+        break;
     }
   };
   return (
