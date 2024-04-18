@@ -3,7 +3,8 @@ import styles from "./FeedCardDropDown.module.css";
 export default function FeedCardDropDown({
   editStartOnclick,
   question,
-  onDelete,
+  onDeleteQuestion,
+  onDeleteAnswer,
   onReject,
 }) {
   // 수정하기 버튼이 없는 경우 dropdownListShort
@@ -27,10 +28,10 @@ export default function FeedCardDropDown({
       <li>
         <button
           className={styles.dropdownElement}
-          onClick={() => onDelete(question)}
+          onClick={() => onDeleteQuestion(question)}
         >
           <div className={styles.dropdownElementDeleteIcon}></div>
-          <span className={styles.dropdownElementText}>삭제하기</span>
+          <span className={styles.dropdownElementText}>질문삭제</span>
         </button>
       </li>
       <li>
@@ -44,6 +45,28 @@ export default function FeedCardDropDown({
           <span className={styles.dropdownElementText}>{rejectOrNot}</span>
         </button>
       </li>
+      {!question.answer && !question.answer.isRejected && (
+        <>
+          <li>
+            <button
+              className={styles.dropdownElement}
+              onClick={editStartOnclick}
+            >
+              <div className={styles.dropdownElementEditIcon}></div>
+              <span className={styles.dropdownElementText}>답변수정</span>
+            </button>
+          </li>
+          <li>
+            <button
+              className={styles.dropdownElement}
+              onClick={() => onDeleteAnswer(question)}
+            >
+              <div className={styles.dropdownElementDeleteIcon}></div>
+              <span className={styles.dropdownElementText}>답변삭제</span>
+            </button>
+          </li>
+        </>
+      )}
     </ul>
   );
 }

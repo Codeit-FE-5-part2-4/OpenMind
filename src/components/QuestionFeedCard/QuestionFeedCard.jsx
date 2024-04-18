@@ -82,7 +82,7 @@ export default function QuestionFeedCard({
     setShowDropdown(!showDropdown);
   };
 
-  // 개별 질문, 해당 질문에 달린 답변들 삭제
+  // 개별 질문 삭제
   const handleDeleteQuestionClick = () => {
     modalHandler("정말 질문을 삭제하시겠습니까?", handleDeleteQuestion);
   };
@@ -92,6 +92,19 @@ export default function QuestionFeedCard({
       await deleteSingleAnswer(question);
       await deleteSingleQuestion(question);
       await updateQuestions();
+    }
+  };
+
+  // 개별 답변 삭제
+  const handleDeleteAnswerClick = () => {
+    modalHandler("정말 답변을 삭제하시겠습니까?", handleDeleteAnswer);
+  };
+
+  const handleDeleteAnswer = async (confirmed) => {
+    if (confirmed) {
+      await deleteSingleAnswer(question);
+      await updateQuestions();
+      setShowDropdown(!showDropdown);
     }
   };
 
@@ -143,7 +156,8 @@ export default function QuestionFeedCard({
               <FeedCardDropDown
                 editStartOnclick={handleEditClick}
                 question={question}
-                onDelete={handleDeleteQuestionClick}
+                onDeleteQuestion={handleDeleteQuestionClick}
+                onDeleteAnswer={handleDeleteAnswerClick}
                 onReject={handleToggleRejectClick}
               />
             )}
