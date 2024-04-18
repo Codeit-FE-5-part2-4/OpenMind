@@ -138,24 +138,15 @@ export default function QuestionFeedCard({
             >
               <img src={moreKebab} alt="더보기" />
             </button>
-            {showDropdown &&
-              (question.answer ? (
-                <FeedCardDropDown
-                  isAnswered={true}
-                  editStartOnclick={handleEditClick}
-                  question={question}
-                  onDelete={handleDeleteQuestionClick}
-                  isRejected={question.answer.isRejected}
-                  onReject={handleToggleRejectClick}
-                />
-              ) : (
-                <FeedCardDropDown
-                  editStartOnclick={handleEditClick}
-                  question={question}
-                  onDelete={handleDeleteQuestionClick}
-                  onReject={handleToggleRejectClick}
-                />
-              ))}
+
+            {showDropdown && (
+              <FeedCardDropDown
+                editStartOnclick={handleEditClick}
+                question={question}
+                onDelete={handleDeleteQuestionClick}
+                onReject={handleToggleRejectClick}
+              />
+            )}
           </div>
         )}
       </div>
