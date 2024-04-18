@@ -2,8 +2,10 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./ListSortModal.module.css";
 import arrowUp from "../../assets/images/icon/Arrow-up.svg";
 import arrowDown from "../../assets/images/icon/Arrow-down.svg";
+import { useSearchParams } from "react-router-dom";
 
-function ListSortModal({ onClickSort, currentSortValue }) {
+function ListSortModal({ handleSort }) {
+  const [searchParams] = useSearchParams();
   const [viewDropdown, setViewDropdown] = useState(false); // 드롭다운 토글 useState
   const [arrowDirection, setArrowDirection] = useState(arrowDown); // 토글메뉴 화살표 useState
   const wrapperRef = useRef(null);
@@ -14,7 +16,7 @@ function ListSortModal({ onClickSort, currentSortValue }) {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [wrapperRef]);
+  }, []);
 
   /** 드롭다운 메뉴 이외의 영역을 클릭시 드롭다운 메뉴 닫힘 */
   const handleClickOutside = (e) => {
@@ -36,25 +38,23 @@ function ListSortModal({ onClickSort, currentSortValue }) {
         onClick={dropdownToggle}
         ref={wrapperRef}
       >
-        {currentSortValue === "time" ? "최신순" : "이름순"}
+        {searchParams.get("sort") === "time" ? "최신순" : "이름순"}
         <img src={arrowDirection} alt={arrowDirection} />
       </button>
       {viewDropdown && (
         <ul className={styles.alignButtons}>
           <li>
             <button
-              name="name"
               className={styles.alignButton}
-              onClick={onClickSort}
+              onClick={() => handleSort("name")}
             >
               이름순
             </button>
           </li>
           <li>
             <button
-              name="time"
               className={styles.alignButton}
-              onClick={onClickSort}
+              onClick={() => handleSort("time")}
             >
               최신순
             </button>
