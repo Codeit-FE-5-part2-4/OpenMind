@@ -6,8 +6,7 @@
   font-style: normal;
   src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff2")
       format("woff2"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff")
-      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff") format("woff"),
     url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.ttf")
       format("truetype");
   font-display: swap;
@@ -30,8 +29,7 @@
   font-style: normal;
   src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.woff2")
       format("woff2"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.woff")
-      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.woff") format("woff"),
     url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.ttf")
       format("truetype");
   font-display: swap;
@@ -54,8 +52,7 @@
   font-style: normal;
   src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff2")
       format("woff2"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff")
-      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff") format("woff"),
     url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.ttf")
       format("truetype");
   font-display: swap;
@@ -78,8 +75,7 @@
   font-style: normal;
   src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff2")
       format("woff2"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff")
-      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff") format("woff"),
     url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.ttf")
       format("truetype");
   font-display: swap;
@@ -102,8 +98,7 @@
   font-style: normal;
   src: url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff2")
       format("woff2"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff")
-      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff") format("woff"),
     url("https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.ttf")
       format("truetype");
   font-display: swap;
@@ -125,4 +120,8 @@
   --grayscaleColor400: #818181;
   --grayscaleColor500: #515151;
   --grayscaleColor600: #000000;
+}
+
+* {
+  box-sizing: border-box;
 }

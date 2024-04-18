@@ -64,7 +64,7 @@ export default function AnswerPage() {
       <PostProfile userProfile={userProfile} />
       <div className={styles.QuestionFeedContainer}>
         <div className={styles.FloatingButtonAtRightSide}>
-          <FloatingButton text="삭제하기" onClick={handleDeleteAllClick} />
+          <FloatingButton text="모두 지우기" onClick={handleDeleteAllClick} />
         </div>
         <QuestionFeedList
           questions={userQuestions}

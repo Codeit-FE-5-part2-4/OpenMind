@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./ListSortModal.module.css";
 import arrowUp from "../../assets/images/icon/Arrow-up.svg";
 import arrowDown from "../../assets/images/icon/Arrow-down.svg";
@@ -26,10 +26,10 @@ function ListSortModal({ handleSort }) {
     }
   };
 
-  const dropdownToggle = () => {
+  const dropdownToggle = useCallback(() => {
     setViewDropdown(!viewDropdown);
     viewDropdown ? setArrowDirection(arrowDown) : setArrowDirection(arrowUp); // 드롭다운 페이지 활성화시 ↑ 비활성화시 ↓
-  };
+  }, [viewDropdown]);
 
   return (
     <div className={styles.sortMenu}>

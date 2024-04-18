@@ -96,39 +96,6 @@
   line-height: 22px;
 }
 
-.judgeAnswerContainer {
-  display: flex;
-  width: 100%;
-  /* gap: 32px; */
-  gap: 16px;
-  padding-top: 24px;
-  border-top: 1px solid var(--grayscaleColor300);
-}
-
-.judge {
-  align-items: center;
-  display: flex;
-  gap: 6px;
-  border: 1px solid var(--grayscaleColor300);
-  border-radius: 9999px;
-  padding: 10px;
-}
-
-.reactionTextDefault {
-  font-size: 14px;
-  color: var(--grayscaleColor400);
-}
-
-.likeText {
-  font-size: 14px;
-  color: var(--blueColor);
-}
-
-.dislikeText {
-  font-size: 14px;
-  color: var(--grayscaleColor600);
-}
-
 .isAnswered {
   color: var(--brownColor400);
   border: 1px solid var(--brownColor400);
