@@ -1,14 +1,9 @@
-import likeIcon from "../../assets/images/icon/likeIcon.svg";
-import likeIconDefault from "../../assets/images/icon/likeIcon-default.svg";
-import dislikeIcon from "../../assets/images/icon/dislikeIcon.svg";
-import dislikeIconDefault from "../../assets/images/icon/dislikeIcon-default.svg";
 import styles from "./QuestionFeedCard.module.css";
 import getTimeDifference from "../../utils/getTimeDifference";
 import moreKebab from "../../assets/images/MoreKebab.svg";
 import AnswerContainer from "./AnswerContainer";
 import { useState } from "react";
 import FeedCardDropDown from "../FeedCardDropDown/FeedCardDropDown";
-import postReaction from "../../utils/postpageAPI/postReaction";
 import createAnswer from "../../utils/answerpageAPI/createAnswer";
 import editAnswer from "../../utils/answerpageAPI/editAnswer";
 import {
@@ -16,6 +11,8 @@ import {
   deleteSingleQuestion,
 } from "../../utils/answerpageAPI/deleteAPI";
 import { rejectAnswer } from "../../utils/answerpageAPI/rejectAnswer";
+import PostReaction from "../../components/PostReaction/PostReaction";
+import postReaction from "../../utils/postpageAPI/postReaction";
 
 export default function QuestionFeedCard({
   question,
@@ -24,7 +21,6 @@ export default function QuestionFeedCard({
   updateQuestions,
   modalHandler,
 }) {
-  const [currentQuestion, setCurrentQuestion] = useState(question);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -48,10 +44,9 @@ export default function QuestionFeedCard({
     await updateQuestions();
   };
 
-  const handleReactionSubmit = async (newReaction) => {
+  const handleReactionSubmit = async (reaction) => {
     try {
-      let result = await postReaction(newReaction, question.id);
-      setCurrentQuestion(result);
+      await postReaction(reaction, question.id);
     } catch (error) {
       console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
     }
@@ -69,6 +64,10 @@ export default function QuestionFeedCard({
     ) {
       isRejected = !question.answer.isRejected;
       await rejectAnswer(question.answer.id, isRejected);
+      if (!isRejected) {
+        setIsEditing(true);
+      }
+
       // 답변이 없을 때 거절하기
     } else if (question.answer === null) {
       await createAnswer(question.id, contentOfRejectedAnswer, isRejected);
@@ -82,7 +81,7 @@ export default function QuestionFeedCard({
     setShowDropdown(!showDropdown);
   };
 
-  // 개별 질문, 해당 질문에 달린 답변들 삭제
+  // 개별 질문 삭제
   const handleDeleteQuestionClick = () => {
     modalHandler("정말 질문을 삭제하시겠습니까?", handleDeleteQuestion);
   };
@@ -95,16 +94,19 @@ export default function QuestionFeedCard({
     }
   };
 
-  // '좋아요''싫어요'가 0일때, 0이상일 때 각기 다른 스타일 적용
-  const likeIconSrc = currentQuestion.like === 0 ? likeIconDefault : likeIcon;
-  const likeTextSrc =
-    currentQuestion.like === 0 ? styles.reactionTextDefault : styles.likeText;
-  const dislikeIconSrc =
-    currentQuestion.dislike === 0 ? dislikeIconDefault : dislikeIcon;
-  const dislikeTextSrc =
-    currentQuestion.dislike === 0
-      ? styles.reactionTextDefault
-      : styles.dislikeText;
+  // 개별 답변 삭제
+  const handleDeleteAnswerClick = () => {
+    modalHandler("정말 답변을 삭제하시겠습니까?", handleDeleteAnswer);
+    setIsEditing(false);
+  };
+
+  const handleDeleteAnswer = async (confirmed) => {
+    if (confirmed) {
+      await deleteSingleAnswer(question);
+      await updateQuestions();
+      setShowDropdown(!showDropdown);
+    }
+  };
 
   const answerStatusMessages = {
     isAnswered: "답변완료",
@@ -143,7 +145,8 @@ export default function QuestionFeedCard({
               <FeedCardDropDown
                 editStartOnclick={handleEditClick}
                 question={question}
-                onDelete={handleDeleteQuestionClick}
+                onDeleteQuestion={handleDeleteQuestionClick}
+                onDeleteAnswer={handleDeleteAnswerClick}
                 onReject={handleToggleRejectClick}
               />
             )}
@@ -173,33 +176,7 @@ export default function QuestionFeedCard({
           createAnswer={handleCreateAnswer}
         />
       )}
-
-      <div className={styles.judgeAnswerContainer}>
-        <div>
-          <button
-            onClick={() => handleReactionSubmit("like")}
-            type="submit"
-            className={styles.judge}
-          >
-            <img src={likeIconSrc} alt="좋아요버튼" />
-            <span
-              className={likeTextSrc}
-            >{`좋아요 ${currentQuestion.like}`}</span>
-          </button>
-        </div>
-        <div>
-          <button
-            onClick={() => handleReactionSubmit("dislike")}
-            type="submit"
-            className={styles.judge}
-          >
-            <img src={dislikeIconSrc} alt="싫아요버튼" />
-            <span
-              className={dislikeTextSrc}
-            >{`싫어요 ${currentQuestion.dislike}`}</span>
-          </button>
-        </div>
-      </div>
+      <PostReaction question={question} onReaction={handleReactionSubmit} />
     </div>
   );
 }
