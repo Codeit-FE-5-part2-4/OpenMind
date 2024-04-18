@@ -17,14 +17,6 @@ export default function FeedCardDropDown({
 
   return (
     <ul className={styles.dropdownList}>
-      {question.answer && !question.answer.isRejected && (
-        <li>
-          <button className={styles.dropdownElement} onClick={editStartOnclick}>
-            <div className={styles.dropdownElementEditIcon}></div>
-            <span className={styles.dropdownElementText}>수정하기</span>
-          </button>
-        </li>
-      )}
       <li>
         <button
           className={styles.dropdownElement}
@@ -45,7 +37,7 @@ export default function FeedCardDropDown({
           <span className={styles.dropdownElementText}>{rejectOrNot}</span>
         </button>
       </li>
-      {!question.answer && !question.answer.isRejected && (
+      {question.answer && (
         <>
           <li>
             <button

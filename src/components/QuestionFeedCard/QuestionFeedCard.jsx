@@ -69,6 +69,10 @@ export default function QuestionFeedCard({
     ) {
       isRejected = !question.answer.isRejected;
       await rejectAnswer(question.answer.id, isRejected);
+      if (!isRejected) {
+        setIsEditing(true);
+      }
+
       // 답변이 없을 때 거절하기
     } else if (question.answer === null) {
       await createAnswer(question.id, contentOfRejectedAnswer, isRejected);
