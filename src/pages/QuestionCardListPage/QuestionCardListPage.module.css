@@ -125,6 +125,7 @@
   .pageContainer {
     padding: 40px 24px;
     align-items: center;
+    height: auto;
   }
 
   .titleAndSortBox {

@@ -19,6 +19,7 @@ function ArrowButton({ text }) {
         id === null ? navigate("/") : navigate(`/post/${id}/answer`);
         break;
       default:
+        navigate("/");
         break;
     }
   };

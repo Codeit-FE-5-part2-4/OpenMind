@@ -26,15 +26,8 @@
   color: var(--brownColor400);
 }
 
-.paginationButton__active {
+.active {
   color: var(--brownColor400);
-  width: 40px;
-  height: 40px;
-  border: none;
   background-color: var(--brownColor200);
   border-radius: 9999px;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.25;
-  text-align: center;
 }
