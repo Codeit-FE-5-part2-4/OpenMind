@@ -1,6 +1,7 @@
 import { type } from "@testing-library/user-event/dist/type";
 import styles from "./Pagination.module.css";
 import classNames from "classnames";
+import { motion } from "framer-motion";
 
 // 번호를 눌렀을 때 엑티브 클래스 추가하는 로직 추후에 구현
 
@@ -39,14 +40,22 @@ function Pagination({ onArrow, totalPages, onNumber, currentPageNumber }) {
   const pageRenderingNumber = (number) => {
     return (
       <li key={number}>
-        <button
+        <motion.button
           className={handlePaginationNumber(number)}
           onClick={() => {
             onNumber(number);
           }}
+          initial={{ y: 0 }}
+          animate={
+            currentPageNumber === number
+              ? {
+                  y: ["-100%", 0, 0],
+                }
+              : {}
+          }
         >
           {number}
-        </button>
+        </motion.button>
       </li>
     );
   };
