@@ -1,7 +1,6 @@
 .judgeAnswerContainer {
   display: flex;
   width: 100%;
-  /* gap: 32px; */
   gap: 16px;
   padding-top: 24px;
   border-top: 1px solid var(--grayscaleColor300);
@@ -11,9 +10,15 @@
   align-items: center;
   display: flex;
   gap: 6px;
-  border: 1px solid var(--grayscaleColor300);
-  border-radius: 9999px;
-  padding: 10px;
+  border: 1px solid var(--grayscaleColor100);
+  border-radius: 50%;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+
+  &:hover {
+    background-color: var(--grayscaleColor200);
+  }
 }
 
 .reactionTextDefault {

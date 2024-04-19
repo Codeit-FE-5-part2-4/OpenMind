@@ -12,7 +12,7 @@ import {
 } from "../../utils/answerpageAPI/deleteAPI";
 import { rejectAnswer } from "../../utils/answerpageAPI/rejectAnswer";
 import PostReaction from "../../components/PostReaction/PostReaction";
-import postReaction from "../../utils/postpageAPI/postReaction";
+import { motion } from "framer-motion";
 
 export default function QuestionFeedCard({
   question,
@@ -42,14 +42,6 @@ export default function QuestionFeedCard({
   const handleCreateAnswer = async (content) => {
     await createAnswer(question.id, content);
     await updateQuestions();
-  };
-
-  const handleReactionSubmit = async (reaction) => {
-    try {
-      await postReaction(reaction, question.id);
-    } catch (error) {
-      console.error("질문 목록을 가져오는 중에 오류가 발생했습니다:");
-    }
   };
 
   // 드롭다운 답변 거절하기 기능
@@ -134,13 +126,18 @@ export default function QuestionFeedCard({
         <span className={answerStatusStyle}>{answerStatusMsg}</span>
         {isAnswerPage && (
           <div className={styles.kebabButtonContainer}>
-            <button
-              onClick={handleDropdownToggleClick}
-              className={styles.kebabButton}
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              onHoverStart={(e) => {}}
+              onHoverEnd={(e) => {}}
             >
-              <img src={moreKebab} alt="더보기" />
-            </button>
-
+              <button
+                onClick={handleDropdownToggleClick}
+                className={styles.kebabButton}
+              >
+                <img src={moreKebab} alt="더보기" />
+              </button>
+            </motion.div>
             {showDropdown && (
               <FeedCardDropDown
                 editStartOnclick={handleEditClick}
@@ -176,7 +173,7 @@ export default function QuestionFeedCard({
           createAnswer={handleCreateAnswer}
         />
       )}
-      <PostReaction question={question} onReaction={handleReactionSubmit} />
+      <PostReaction question={question} />
     </div>
   );
 }
