@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getSubjects } from "../../utils/listPageApi/getSubjects";
 import { useSearchParams } from "react-router-dom";
 import ListSortModal from "../../components/ListSortModal/ListSortModal";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 const INITIALQUERY = {
   limit: 8,
@@ -17,7 +18,7 @@ const INITIALQUERY = {
 function QuestionCardListPage() {
   const [datas, setDatas] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const displaySubjects = useCallback(async (params) => {
@@ -29,7 +30,8 @@ function QuestionCardListPage() {
       setDatas(feedDatas);
       setCurrentPage(page);
     } catch (error) {
-      setErrorMessage(error.message);
+      console.error(error);
+      setIsError(true);
     }
   }, []);
 
@@ -90,18 +92,17 @@ function QuestionCardListPage() {
   };
 
   return (
-    <div className={styles.pageContainer}>
-      <section className={styles.contentContainer}>
-        <ListHeader />
-        {errorMessage ? (
-          <p className={styles.errorBox}>{errorMessage}</p>
-        ) : (
-          <>
+    <>
+      {isError ? (
+        <NotFoundPage />
+      ) : (
+        <div className={styles.pageContainer}>
+          <section className={styles.contentContainer}>
+            <ListHeader />
             <div className={styles.titleAndSortBox}>
               <h1 className={styles.title}>누구에게 질문할까요?</h1>
               <ListSortModal handleSort={handleSortChange} />
             </div>
-
             <div className={styles.listAndPaginationBox}>
               <QuestionCardList feeds={datas?.results} />
               <Pagination
@@ -111,10 +112,10 @@ function QuestionCardListPage() {
                 onPage={handlePageChangeByPage}
               />
             </div>
-          </>
-        )}
-      </section>
-    </div>
+          </section>
+        </div>
+      )}
+    </>
   );
 }
 

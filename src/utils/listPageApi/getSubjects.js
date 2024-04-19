@@ -1,11 +1,14 @@
 export async function getSubjects({ limit, offset, sort }) {
   try {
     const response = await fetch(
-      `https://openmind-api.vercel.app/5-4/subjects/?limit=${limit}&offset=${offset}&sort=${sort}`
+      `https://openmind-api.vercel.app/5-4/subject/?limit=${limit}&offset=${offset}&sort=${sort}`
     );
 
     if (!response.ok) {
-      throw new Error(`${response.status}: 요청이 실패했습니다.`);
+      const errorBody = await response.text();
+      throw new Error(
+        `${response.status} ${response.statusText}: ${errorBody}`
+      );
     }
 
     const fetchData = await response.json();
@@ -14,7 +17,6 @@ export async function getSubjects({ limit, offset, sort }) {
 
     return { results, count, next, previous };
   } catch (error) {
-    console.error(error);
     throw error;
   }
 }
