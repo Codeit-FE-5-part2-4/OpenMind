@@ -13,7 +13,7 @@
   gap: 6px;
   border: 1px solid var(--grayscaleColor300);
   border-radius: 9999px;
-  padding: 10px;
+  padding: 14px 7px;
 }
 
 .reactionTextDefault {

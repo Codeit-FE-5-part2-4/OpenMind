@@ -35,7 +35,7 @@ export default function PostReaction({ question }) {
           className={styles.judge}
         >
           <img src={likeIconSrc} alt="좋아요버튼" />
-          <span className={likeTextSrc}>{`좋아요 ${newQuestion.like}`}</span>
+          <span className={likeTextSrc}>{`${newQuestion.like}`}</span>
         </button>
       </div>
       <div>
@@ -45,9 +45,7 @@ export default function PostReaction({ question }) {
           className={styles.judge}
         >
           <img src={dislikeIconSrc} alt="싫아요버튼" />
-          <span
-            className={dislikeTextSrc}
-          >{`싫어요 ${newQuestion.dislike}`}</span>
+          <span className={dislikeTextSrc}>{`${newQuestion.dislike}`}</span>
         </button>
       </div>
     </div>
