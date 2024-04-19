@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getSubjects } from "../../utils/listPageApi/getSubjects";
 import { useSearchParams } from "react-router-dom";
 import ListSortModal from "../../components/ListSortModal/ListSortModal";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 const INITIALQUERY = {
   limit: 8,
@@ -15,10 +16,11 @@ const INITIALQUERY = {
 };
 
 function QuestionCardListPage() {
-  const [datas, setDatas] = useState();
+  const [datas, setDatas] = useState([]);
   const [currentPage, setCurrentPage] = useState();
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isClick, setIsClick] = useState(false);
   const displaySubjects = useCallback(async (params) => {
     const { limit, offset, sort, page } = params;
 
@@ -29,6 +31,9 @@ function QuestionCardListPage() {
       setCurrentPage(parseInt(page)); //params의 page속성은 string이므로 숫자로 변환
     } catch (error) {
       console.error(error);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -88,24 +93,34 @@ function QuestionCardListPage() {
   };
 
   return (
-    <div className={styles.pageContainer}>
-      <section className={styles.contentContainer}>
-        <ListHeader />
-        <div className={styles.titleAndSortBox}>
-          <h1 className={styles.title}>누구에게 질문할까요?</h1>
-          <ListSortModal handleSort={handleSortChange} />
+    <>
+      {isError ? (
+        <NotFoundPage />
+      ) : (
+        <div className={styles.pageContainer}>
+          <section className={styles.contentContainer}>
+            <ListHeader />
+            <div className={styles.titleAndSortBox}>
+              <h1 className={styles.title}>누구에게 질문할까요?</h1>
+              <ListSortModal handleSort={handleSortChange} />
+            </div>
+            {isLoading ? (
+              <div className={styles.LoadingBox}>Loading...</div>
+            ) : (
+              <div className={styles.listAndPaginationBox}>
+                <QuestionCardList feeds={datas?.results} />
+                <Pagination
+                  count={datas?.count}
+                  currentPage={currentPage}
+                  onArrow={handlePageChangeByArrow}
+                  onPage={handlePageChangeByPage}
+                />
+              </div>
+            )}
+          </section>
         </div>
-        <div className={styles.listAndPaginationBox}>
-          <QuestionCardList feeds={datas?.results} />
-          <Pagination
-            count={datas?.count || 0} // datas가 렌더링되기 전에 0을 전달하여 NaN값이 전달되는 것을 방지
-            currentPage={currentPage}
-            onArrow={handlePageChangeByArrow}
-            onPage={handlePageChangeByPage}
-          />
-        </div>
-      </section>
-    </div>
+      )}
+    </>
   );
 }
 

@@ -1,6 +1,6 @@
 const BASE_URL = "https://openmind-api.vercel.app/5-4";
 
-export default async function postReaction(newReaction, questionId) {
+export default async function postReaction(reaction, questionId) {
   const response = await fetch(
     `${BASE_URL}/questions/${questionId}/reaction/`,
     {
@@ -8,12 +8,13 @@ export default async function postReaction(newReaction, questionId) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ type: newReaction }),
+      body: JSON.stringify({ type: reaction }),
     }
   );
   if (!response.ok) {
     return;
   }
-  const body = response.json();
+
+  const body = await response.json();
   return body;
 }

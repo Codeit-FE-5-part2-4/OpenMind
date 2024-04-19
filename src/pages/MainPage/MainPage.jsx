@@ -3,20 +3,19 @@ import styles from "./MainPage.module.css";
 import logoImg from "../../assets/images/logo.png";
 import NameInput from "../../components/NameInput/NameInput";
 import MainHeader from "../../components/MainHeader/MainHeader";
-import { useCallback, useState, useRef, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { postUserInfo } from "../../utils/nameApi";
 import { useNavigate } from "react-router-dom";
 import NameCaution from "../../components/NameCaution/NameCaution";
 import MainAni from "../../components/MainAni/MainAni";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Main() {
   const [value, setValue] = useState("");
   const [cautionText, setCautionText] = useState("");
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
   const navigate = useNavigate();
-  // 애니메이션
-  const conAniWrap = useRef(null);
 
   //button 이벤트
   const handleNameSubmit = useCallback(async () => {
@@ -42,28 +41,31 @@ function Main() {
     setValue("");
   };
 
+  //애니메이션
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (conAniWrap.current) {
-        conAniWrap.current.style.display = "none";
-      }
-    }, 3200);
+      setIsAnimationComplete(true);
+    }, 1000);
 
-    // 컴포넌트가 언마운트될 때 clearTimeout을 호출하여 타이머를 제거합니다.
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   return (
     <main className={styles.mainWrap}>
-      <motion.div
-        className={styles.MainAniWrap}
-        ref={conAniWrap}
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 0 }}
-        transition={{ delay: 2.4, duration: 1 }}
-      >
-        <MainAni />
-      </motion.div>
+      <AnimatePresence>
+        {!isAnimationComplete && (
+          <motion.div
+            className={styles.MainAniWrap}
+            key="main-ani"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ delay: 2.4, duration: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <MainAni />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <MainHeader />
       <h1 className={styles.logo}>
         <img src={logoImg} alt="" />

@@ -1,9 +1,9 @@
 const BASE_URL = "https://openmind-api.vercel.app/5-4";
 const SUBJECTS_PATH = "/subjects";
 const QEUSTIONS_PATH = "questions/";
-export default async function getSubjectQuestion(id) {
+export default async function getSubjectQuestion(id, limit = 1000) {
   const response = await fetch(
-    `${BASE_URL}${SUBJECTS_PATH}/${id}/${QEUSTIONS_PATH}`
+    `${BASE_URL}${SUBJECTS_PATH}/${id}/${QEUSTIONS_PATH}?limit=${limit}`
   );
   if (!response.ok) {
     throw new Error("질문 목록 조회를 실패했습니다!");
