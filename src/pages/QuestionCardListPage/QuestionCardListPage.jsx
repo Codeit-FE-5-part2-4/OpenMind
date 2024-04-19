@@ -16,9 +16,9 @@ const INITIALQUERY = {
 
 function QuestionCardListPage() {
   const [datas, setDatas] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const [isClick, setIsClick] = useState(false);
   const displaySubjects = useCallback(async (params) => {
     const { limit, offset, sort, page } = params;
 
@@ -26,7 +26,7 @@ function QuestionCardListPage() {
       const feedDatas = await getSubjects({ limit, offset, sort });
 
       setDatas(feedDatas);
-      setCurrentPage(page);
+      setCurrentPage(parseInt(page)); //params의 page속성은 string이므로 숫자로 변환
     } catch (error) {
       console.error(error);
     }
@@ -76,7 +76,6 @@ function QuestionCardListPage() {
       searchParams.set("offset", prevOffset || 0);
       searchParams.set("page", currentPage - 1);
     }
-
     setSearchParams(searchParams);
   };
 
@@ -99,7 +98,7 @@ function QuestionCardListPage() {
         <div className={styles.listAndPaginationBox}>
           <QuestionCardList feeds={datas?.results} />
           <Pagination
-            count={datas?.count}
+            count={datas?.count || 0} // datas가 렌더링되기 전에 0을 전달하여 NaN값이 전달되는 것을 방지
             currentPage={currentPage}
             onArrow={handlePageChangeByArrow}
             onPage={handlePageChangeByPage}
