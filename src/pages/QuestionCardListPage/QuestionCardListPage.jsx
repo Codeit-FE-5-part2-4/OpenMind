@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { getSubjects } from "../../utils/listPageApi/getSubjects";
 import { useSearchParams } from "react-router-dom";
 import ListSortModal from "../../components/ListSortModal/ListSortModal";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 const INITIALQUERY = {
   limit: 8,
@@ -15,8 +16,10 @@ const INITIALQUERY = {
 };
 
 function QuestionCardListPage() {
-  const [datas, setDatas] = useState();
+  const [datas, setDatas] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const displaySubjects = useCallback(async (params) => {
@@ -29,6 +32,9 @@ function QuestionCardListPage() {
       setCurrentPage(page);
     } catch (error) {
       console.error(error);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -89,24 +95,34 @@ function QuestionCardListPage() {
   };
 
   return (
-    <div className={styles.pageContainer}>
-      <section className={styles.contentContainer}>
-        <ListHeader />
-        <div className={styles.titleAndSortBox}>
-          <h1 className={styles.title}>누구에게 질문할까요?</h1>
-          <ListSortModal handleSort={handleSortChange} />
+    <>
+      {isError ? (
+        <NotFoundPage />
+      ) : (
+        <div className={styles.pageContainer}>
+          <section className={styles.contentContainer}>
+            <ListHeader />
+            <div className={styles.titleAndSortBox}>
+              <h1 className={styles.title}>누구에게 질문할까요?</h1>
+              <ListSortModal handleSort={handleSortChange} />
+            </div>
+            {isLoading ? (
+              <div className={styles.LoadingBox}>Loading...</div>
+            ) : (
+              <div className={styles.listAndPaginationBox}>
+                <QuestionCardList feeds={datas?.results} />
+                <Pagination
+                  count={datas?.count}
+                  currentPage={currentPage}
+                  onArrow={handlePageChangeByArrow}
+                  onPage={handlePageChangeByPage}
+                />
+              </div>
+            )}
+          </section>
         </div>
-        <div className={styles.listAndPaginationBox}>
-          <QuestionCardList feeds={datas?.results} />
-          <Pagination
-            count={datas?.count}
-            currentPage={currentPage}
-            onArrow={handlePageChangeByArrow}
-            onPage={handlePageChangeByPage}
-          />
-        </div>
-      </section>
-    </div>
+      )}
+    </>
   );
 }
 

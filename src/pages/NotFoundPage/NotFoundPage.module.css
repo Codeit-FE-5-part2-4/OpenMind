@@ -1,6 +1,6 @@
 .mainWrap {
   display: flex;
-  height: calc(100vh - 160px);
+  height: 100vh;
   flex-direction: column;
   align-items: center;
   background: var(--grayscaleColor200);

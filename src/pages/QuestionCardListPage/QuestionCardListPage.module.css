@@ -96,6 +96,16 @@
   align-items: center;
 }
 
+.LoadingBox {
+  width: 100%;
+  height: 482.55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 500;
+}
+
 /* 태블릿 사이즈 */
 @media (max-width: 1200px) {
   .pageContainer {
