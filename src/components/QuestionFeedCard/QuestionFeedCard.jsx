@@ -12,6 +12,7 @@ import {
 } from "../../utils/answerpageAPI/deleteAPI";
 import { rejectAnswer } from "../../utils/answerpageAPI/rejectAnswer";
 import PostReaction from "../../components/PostReaction/PostReaction";
+import { motion } from "framer-motion";
 
 export default function QuestionFeedCard({
   question,
@@ -125,13 +126,18 @@ export default function QuestionFeedCard({
         <span className={answerStatusStyle}>{answerStatusMsg}</span>
         {isAnswerPage && (
           <div className={styles.kebabButtonContainer}>
-            <button
-              onClick={handleDropdownToggleClick}
-              className={styles.kebabButton}
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              onHoverStart={(e) => {}}
+              onHoverEnd={(e) => {}}
             >
-              <img src={moreKebab} alt="더보기" />
-            </button>
-
+              <button
+                onClick={handleDropdownToggleClick}
+                className={styles.kebabButton}
+              >
+                <img src={moreKebab} alt="더보기" />
+              </button>
+            </motion.div>
             {showDropdown && (
               <FeedCardDropDown
                 editStartOnclick={handleEditClick}

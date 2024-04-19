@@ -5,6 +5,7 @@ import dislikeIconDefault from "../../assets/images/icon/dislikeIcon-default.svg
 import styles from "./PostReaction.module.css";
 import postReaction from "../../utils/postpageAPI/postReaction";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function PostReaction({ question }) {
   const [newQuestion, setNewQuestion] = useState(question);
@@ -29,24 +30,36 @@ export default function PostReaction({ question }) {
   return (
     <div className={styles.judgeAnswerContainer}>
       <div>
-        <button
-          onClick={() => handleReactionSubmit("like")}
-          type="submit"
-          className={styles.judge}
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          onHoverStart={(e) => {}}
+          onHoverEnd={(e) => {}}
         >
-          <img src={likeIconSrc} alt="좋아요버튼" />
-          <span className={likeTextSrc}>{`${newQuestion.like}`}</span>
-        </button>
+          <button
+            onClick={() => handleReactionSubmit("like")}
+            type="submit"
+            className={styles.judge}
+          >
+            <img src={likeIconSrc} alt="좋아요버튼" />
+            <span className={likeTextSrc}>{`${newQuestion.like}`}</span>
+          </button>
+        </motion.div>
       </div>
       <div>
-        <button
-          onClick={() => handleReactionSubmit("dislike")}
-          type="submit"
-          className={styles.judge}
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          onHoverStart={(e) => {}}
+          onHoverEnd={(e) => {}}
         >
-          <img src={dislikeIconSrc} alt="싫아요버튼" />
-          <span className={dislikeTextSrc}>{`${newQuestion.dislike}`}</span>
-        </button>
+          <button
+            onClick={() => handleReactionSubmit("dislike")}
+            type="submit"
+            className={styles.judge}
+          >
+            <img src={dislikeIconSrc} alt="싫아요버튼" />
+            <span className={dislikeTextSrc}>{`${newQuestion.dislike}`}</span>
+          </button>
+        </motion.div>
       </div>
     </div>
   );
