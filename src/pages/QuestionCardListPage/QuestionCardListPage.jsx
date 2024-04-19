@@ -2,7 +2,7 @@ import QuestionCardList from "../../components/QuestionCardList/QuestionCardList
 import ListHeader from "../../components/ListHeader/ListHeader";
 import Pagination from "../../components/Pagination/Pagination";
 import styles from "./QuestionCardListPage.module.css";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getSubjects } from "../../utils/listPageApi/getSubjects";
 import { useSearchParams } from "react-router-dom";
 import ListSortModal from "../../components/ListSortModal/ListSortModal";
@@ -19,11 +19,13 @@ function QuestionCardListPage() {
   const [datas, setDatas] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const displaySubjects = useCallback(async (params) => {
+  const displaySubjects = async (params) => {
     const { limit, offset, sort, page } = params;
+
+    setIsLoading(true);
 
     try {
       const feedDatas = await getSubjects({ limit, offset, sort });
@@ -36,7 +38,7 @@ function QuestionCardListPage() {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
     if (!searchParams.has("sort") || searchParams.get("sort") === "") {
@@ -44,8 +46,9 @@ function QuestionCardListPage() {
       setSearchParams(searchParams, { replace: true });
     }
 
-    if (!searchParams.has("page")) {
+    if (!searchParams.has("page") || searchParams.get("page") === "") {
       searchParams.set("page", INITIALQUERY.page);
+      setSearchParams(searchParams);
     }
 
     const limit = INITIALQUERY.limit;
@@ -54,11 +57,11 @@ function QuestionCardListPage() {
     const page = searchParams.get("page") || INITIALQUERY.page;
 
     displaySubjects({ limit, offset, sort, page });
-  }, [searchParams, setSearchParams, displaySubjects]);
+  }, [searchParams, setSearchParams]);
 
   const handleSortChange = (newSort) => {
     searchParams.set("sort", newSort);
-    setSearchParams(searchParams);
+    setSearchParams("sort", newSort);
   };
 
   function getOffsetByStringUrl(urlString) {
@@ -70,20 +73,29 @@ function QuestionCardListPage() {
   }
 
   const handlePageChangeByArrow = (direction) => {
-    const { next, previous } = datas;
-    const nextOffset = getOffsetByStringUrl(next);
-    const prevOffset = getOffsetByStringUrl(previous);
-    const currentPage = Number(searchParams.get("page"));
+    if (isLoading) return;
+    let newOffset = null;
+    let newPageNumber = null;
 
-    if (direction === "next") {
-      searchParams.set("offset", nextOffset);
-      searchParams.set("page", currentPage + 1);
-    } else {
-      searchParams.set("offset", prevOffset || 0);
-      searchParams.set("page", currentPage - 1);
+    if (direction === "next" && datas.next) {
+      newOffset = getOffsetByStringUrl(datas.next);
+      newPageNumber = parseInt(currentPage) + 1;
+    } else if (direction === "previous" && datas.previous) {
+      newOffset = getOffsetByStringUrl(datas.previous);
+      newPageNumber = parseInt(currentPage) - 1;
+    }
+    console.log(newOffset, newPageNumber, currentPage);
+
+    if (newPageNumber === 1 && newOffset === null) {
+      newOffset = 0;
     }
 
-    setSearchParams(searchParams);
+    if (newOffset !== null && newPageNumber !== null) {
+      searchParams.set("offset", newOffset);
+      searchParams.set("page", newPageNumber);
+      setSearchParams(searchParams);
+      setCurrentPage(newPageNumber);
+    }
   };
 
   const handlePageChangeByPage = (page) => {
