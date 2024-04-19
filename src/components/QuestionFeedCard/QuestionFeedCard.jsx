@@ -10,7 +10,7 @@ import {
   deleteSingleAnswer,
   deleteSingleQuestion,
 } from "../../utils/answerpageAPI/deleteAPI";
-import { rejectAnswer } from "../../utils/answerpageAPI/rejectAnswer";
+import { toggleRejectAnswer } from "../../utils/answerpageAPI/toggleRejectAnswer";
 import PostReaction from "../../components/PostReaction/PostReaction";
 import { motion } from "framer-motion";
 
@@ -44,28 +44,32 @@ export default function QuestionFeedCard({
     await updateQuestions();
   };
 
-  // 드롭다운 답변 거절하기 기능
+  // 답변 거절하기 기능
   const handleToggleRejectClick = async (question) => {
-    let isRejected = true;
+    const questionId = question.id;
+    const answerId = question.answer?.id;
+    const isQuestionAnswered = question.answer;
+    const isQuestionRejected = question.answer?.isRejected;
+    const AnswerContent = question.answer?.content;
+    const hiddenWord = "&1a3nd8g"; // 아무 문자열이나 가능
     setIsEditing(false);
-    const contentOfRejectedAnswer = "&1a3nd8g";
-    // 답변이 있을 때 거절하기, 거절풀기
-    if (
-      question.answer &&
-      question.answer.content !== contentOfRejectedAnswer
-    ) {
-      isRejected = !question.answer.isRejected;
-      await rejectAnswer(question.answer.id, isRejected);
-      if (!isRejected) {
-        setIsEditing(true);
-      }
 
-      // 답변이 없을 때 거절하기
-    } else if (question.answer === null) {
-      await createAnswer(question.id, contentOfRejectedAnswer, isRejected);
-      // 답변이 없을 때 거절풀기
-    } else if (question.answer.content === contentOfRejectedAnswer) {
-      console.log(question.answer?.content === contentOfRejectedAnswer);
+    if (
+      isQuestionAnswered &&
+      AnswerContent !== hiddenWord &&
+      !isQuestionRejected
+    ) {
+      await toggleRejectAnswer(answerId, true);
+    } else if (
+      isQuestionAnswered &&
+      AnswerContent !== hiddenWord &&
+      isQuestionRejected
+    ) {
+      await toggleRejectAnswer(answerId, false);
+      setIsEditing(true);
+    } else if (isQuestionAnswered == null) {
+      await createAnswer(questionId, hiddenWord, true);
+    } else if (AnswerContent === hiddenWord) {
       await deleteSingleAnswer(question);
     }
 
@@ -92,6 +96,7 @@ export default function QuestionFeedCard({
     setIsEditing(false);
   };
 
+  // 전체 답변 삭제
   const handleDeleteAnswer = async (confirmed) => {
     if (confirmed) {
       await deleteSingleAnswer(question);
