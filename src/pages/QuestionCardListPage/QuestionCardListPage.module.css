@@ -96,9 +96,9 @@
   align-items: center;
 }
 
-.errorBox {
+.LoadingBox {
   width: 100%;
-  height: 577px;
+  height: 482.55px;
   display: flex;
   justify-content: center;
   align-items: center;

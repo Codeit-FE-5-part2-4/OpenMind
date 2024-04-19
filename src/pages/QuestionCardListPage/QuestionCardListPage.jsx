@@ -19,6 +19,7 @@ function QuestionCardListPage() {
   const [datas, setDatas] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const displaySubjects = useCallback(async (params) => {
@@ -32,6 +33,8 @@ function QuestionCardListPage() {
     } catch (error) {
       console.error(error);
       setIsError(true);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -103,15 +106,19 @@ function QuestionCardListPage() {
               <h1 className={styles.title}>누구에게 질문할까요?</h1>
               <ListSortModal handleSort={handleSortChange} />
             </div>
-            <div className={styles.listAndPaginationBox}>
-              <QuestionCardList feeds={datas?.results} />
-              <Pagination
-                count={datas?.count}
-                currentPage={currentPage}
-                onArrow={handlePageChangeByArrow}
-                onPage={handlePageChangeByPage}
-              />
-            </div>
+            {isLoading ? (
+              <div className={styles.LoadingBox}>Loading...</div>
+            ) : (
+              <div className={styles.listAndPaginationBox}>
+                <QuestionCardList feeds={datas?.results} />
+                <Pagination
+                  count={datas?.count}
+                  currentPage={currentPage}
+                  onArrow={handlePageChangeByArrow}
+                  onPage={handlePageChangeByPage}
+                />
+              </div>
+            )}
           </section>
         </div>
       )}
