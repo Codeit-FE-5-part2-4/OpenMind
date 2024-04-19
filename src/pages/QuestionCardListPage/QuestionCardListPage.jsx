@@ -15,8 +15,9 @@ const INITIALQUERY = {
 };
 
 function QuestionCardListPage() {
-  const [datas, setDatas] = useState();
+  const [datas, setDatas] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [errorMessage, setErrorMessage] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
   const displaySubjects = useCallback(async (params) => {
@@ -28,7 +29,7 @@ function QuestionCardListPage() {
       setDatas(feedDatas);
       setCurrentPage(page);
     } catch (error) {
-      console.error(error);
+      setErrorMessage(error.message);
     }
   }, []);
 
@@ -92,19 +93,26 @@ function QuestionCardListPage() {
     <div className={styles.pageContainer}>
       <section className={styles.contentContainer}>
         <ListHeader />
-        <div className={styles.titleAndSortBox}>
-          <h1 className={styles.title}>누구에게 질문할까요?</h1>
-          <ListSortModal handleSort={handleSortChange} />
-        </div>
-        <div className={styles.listAndPaginationBox}>
-          <QuestionCardList feeds={datas?.results} />
-          <Pagination
-            count={datas?.count}
-            currentPage={currentPage}
-            onArrow={handlePageChangeByArrow}
-            onPage={handlePageChangeByPage}
-          />
-        </div>
+        {errorMessage ? (
+          <p className={styles.errorBox}>{errorMessage}</p>
+        ) : (
+          <>
+            <div className={styles.titleAndSortBox}>
+              <h1 className={styles.title}>누구에게 질문할까요?</h1>
+              <ListSortModal handleSort={handleSortChange} />
+            </div>
+
+            <div className={styles.listAndPaginationBox}>
+              <QuestionCardList feeds={datas?.results} />
+              <Pagination
+                count={datas?.count}
+                currentPage={currentPage}
+                onArrow={handlePageChangeByArrow}
+                onPage={handlePageChangeByPage}
+              />
+            </div>
+          </>
+        )}
       </section>
     </div>
   );
