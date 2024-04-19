@@ -20,10 +20,13 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  width: 100%;
 }
 
 .questionTitle {
   font-size: 18px;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .answererName {
