@@ -17,7 +17,7 @@ const INITIALQUERY = {
 
 function QuestionCardListPage() {
   const [datas, setDatas] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState();
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -31,7 +31,7 @@ function QuestionCardListPage() {
       const feedDatas = await getSubjects({ limit, offset, sort });
 
       setDatas(feedDatas);
-      setCurrentPage(page);
+      setCurrentPage(parseInt(page)); //params의 page속성은 string이므로 숫자로 변환
     } catch (error) {
       console.error(error);
       setIsError(true);
@@ -84,6 +84,7 @@ function QuestionCardListPage() {
       newOffset = getOffsetByStringUrl(datas.previous);
       newPageNumber = parseInt(currentPage) - 1;
     }
+
     console.log(newOffset, newPageNumber, currentPage);
 
     if (newPageNumber === 1 && newOffset === null) {

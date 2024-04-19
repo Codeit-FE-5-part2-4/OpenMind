@@ -1,68 +1,62 @@
 import { useSearchParams } from "react-router-dom";
 import styles from "./Pagination.module.css";
 import { useEffect, useState } from "react";
+import classNames from "classnames";
+import { motion } from "framer-motion";
 
 function Pagination({ onArrow, onPage, currentPage, count }) {
+  const [isClicking, setIsClicking] = useState(false);
   const [totalPage, setTotalPage] = useState();
   const [numbers, setNumbers] = useState([]);
   const [searchParams] = useSearchParams();
 
+  const start = (() => {
+    if (currentPage <= 3) {
+      //초기페이지 렌더링 조건
+      return 2; //초기페이지 렌더링
+    } else if (currentPage < totalPage - 3) {
+      //중간페이지 렌더링 조건
+      return currentPage - 1; //중간페이지 렌더링
+    } else return totalPage - 4; //마지막페이지 렌더링
+  })();
+
+  const last = (() => {
+    if (currentPage <= 3) {
+      //초기페이지 렌더링 조건
+      return 6; //초기페이지 렌더링
+    } else if (currentPage < totalPage - 3) {
+      //중간페이지 렌더링 조건
+      return currentPage + 2; //중간페이지 렌더링
+    } else return totalPage; //마지막페이지 렌더링
+  })();
+
   useEffect(() => {
     try {
       const totalPage = Math.ceil(count / 8);
-      const numbers = Array.from({ length: totalPage }, (_, i) => i + 1);
+      const numbers = Array.from({ length: last - start }, (_, i) => start + i);
       setTotalPage(totalPage);
       setNumbers(numbers);
     } catch (error) {
       console.error("Error generating pages:", error);
     }
-  }, [count, searchParams]);
-  
-/* import classNames from "classnames";
-import { motion } from "framer-motion";
+  }, [start, last, count, searchParams]);
 
-// 번호를 눌렀을 때 엑티브 클래스 추가하는 로직 추후에 구현
-
-function Pagination({ onArrow, totalPages, onNumber, currentPageNumber }) {
-  const start = (() => {
-    if (currentPageNumber <= 3) {
-      //초기페이지 렌더링 조건
-      return 2; //초기페이지 렌더링
-    } else if (currentPageNumber < totalPages - 3) {
-      //중간페이지 렌더링 조건
-      return currentPageNumber - 1; //중간페이지 렌더링
-    } else return totalPages - 4; //마지막페이지 렌더링
-  })();
-
-  const last = (() => {
-    if (currentPageNumber <= 3) {
-      //초기페이지 렌더링 조건
-      return 6; //초기페이지 렌더링
-    } else if (currentPageNumber < totalPages - 3) {
-      //중간페이지 렌더링 조건
-      return currentPageNumber + 2; //중간페이지 렌더링
-    } else return totalPages; //마지막페이지 렌더링
-  })();
-  
-  const pageNumbers = Array.from({ length: last - start }, (_, i) => start + i); // 시작페이지, 마지막페이지 제외하고 렌더링
-
+  /** 현재페이지에 active 클래스 추가 */
   const handlePaginationNumber = (number) => {
     return classNames(styles.paginationButton, {
-      [styles.active]: currentPageNumber === number,
+      [styles.active]: currentPage === number,
     });
-  }; // 현재페이지에 active 클래스 추가
+  };
 
-  const pageRenderingNumber = (number) => {
+  const PaginationButton = (number) => {
     return (
       <li key={number}>
         <motion.button
           className={handlePaginationNumber(number)}
-          onClick={() => {
-            onNumber(number);
-          }}
+          onClick={() => onPage(number)}
           initial={{ y: 0 }}
           animate={
-            currentPageNumber === number
+            currentPage === number
               ? {
                   y: ["-100%", 0, 0],
                 }
@@ -73,32 +67,37 @@ function Pagination({ onArrow, totalPages, onNumber, currentPageNumber }) {
         </motion.button>
       </li>
     );
-  }; //페이지번호 렌더링 */
-
+  };
+  const handleArrowClick = (arrowDirection) => {
+    if (!isClicking) {
+      setIsClicking(true);
+      onArrow(arrowDirection);
+      setTimeout(() => {
+        setIsClicking(false);
+      }, 300);
+    }
+  };
   return (
     <section className={styles.paginationWrapper}>
       <button
         className={styles.paginationArrow}
-        onClick={() => onArrow("previous")}
+        onClick={() => handleArrowClick("previous")}
         disabled={currentPage <= 1}
       >
         &lt;
       </button>
       <ol className={styles.paginationNumbers}>
-        {numbers.map((number) => (
-          <li key={number}>
-            <button
-              className={styles.paginationButton}
-              onClick={() => onPage(number)}
-            >
-              {number}
-            </button>
-          </li>
-        ))}
+        {PaginationButton(1)}
+        {currentPage > 3 && <li className={styles.paginationButton}>...</li>}
+        {numbers.map((number) => PaginationButton(number))}
+        {currentPage < totalPage - 3 && (
+          <li className={styles.paginationButton}>...</li>
+        )}
+        {PaginationButton(totalPage)}
       </ol>
       <button
         className={styles.paginationArrow}
-        onClick={() => onArrow("next")}
+        onClick={() => handleArrowClick("next")}
         disabled={currentPage >= totalPage}
       >
         &gt;
