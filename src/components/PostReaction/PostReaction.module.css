@@ -4,6 +4,10 @@
   gap: 16px;
   padding-top: 24px;
   border-top: 1px solid var(--grayscaleColor300);
+
+  @media (max-width: 767px) {
+    padding-top: 8px;
+  }
 }
 
 .judge {
@@ -13,12 +17,8 @@
   border: 1px solid var(--grayscaleColor100);
   border-radius: 50%;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-
-  &:hover {
-    background-color: var(--grayscaleColor200);
-  }
+  width: 32px;
+  height: 32px;
 }
 
 .reactionTextDefault {
@@ -34,4 +34,9 @@
 .dislikeText {
   font-size: 14px;
   color: var(--grayscaleColor600);
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
 }

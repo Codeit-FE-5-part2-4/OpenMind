@@ -30,36 +30,40 @@ export default function PostReaction({ question }) {
   return (
     <div className={styles.judgeAnswerContainer}>
       <div>
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          onHoverStart={(e) => {}}
-          onHoverEnd={(e) => {}}
-        >
+        <div className={styles.buttonContainer}>
           <button
             onClick={() => handleReactionSubmit("like")}
             type="submit"
             className={styles.judge}
           >
-            <img src={likeIconSrc} alt="좋아요버튼" />
-            <span className={likeTextSrc}>{`${newQuestion.like}`}</span>
+            <motion.img
+              src={likeIconSrc}
+              alt="좋아요버튼"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            />
           </button>
-        </motion.div>
+          <span className={likeTextSrc}>{`${newQuestion.like}`}</span>
+        </div>
       </div>
       <div>
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          onHoverStart={(e) => {}}
-          onHoverEnd={(e) => {}}
-        >
+        <div className={styles.buttonContainer}>
           <button
             onClick={() => handleReactionSubmit("dislike")}
             type="submit"
             className={styles.judge}
           >
-            <img src={dislikeIconSrc} alt="싫아요버튼" />
-            <span className={dislikeTextSrc}>{`${newQuestion.dislike}`}</span>
+            <motion.img
+              src={dislikeIconSrc}
+              alt="싫아요버튼"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            />
           </button>
-        </motion.div>
+          <span className={dislikeTextSrc}>{`${newQuestion.dislike}`}</span>
+        </div>
       </div>
     </div>
   );
