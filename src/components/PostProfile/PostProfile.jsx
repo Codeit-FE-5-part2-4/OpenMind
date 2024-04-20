@@ -29,7 +29,12 @@ export default function PostProfile({ userProfile }) {
       imgSource: linkShareImage,
       onClick: handleCopyLinkClipBoard,
     },
-    { altMessage: "link to kakao", imgSource: kakaoImage, onClick: shareKakao },
+    {
+      altMessage: "link to kakao",
+      imgSource: kakaoImage,
+      onClick: () =>
+        shareKakao(`https://openmind5-4.netlify.app/post/${userProfile.id}`),
+    },
     {
       altMessage: "link to facebook",
       imgSource: faceBookImage,
