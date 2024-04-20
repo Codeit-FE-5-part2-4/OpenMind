@@ -1,6 +1,7 @@
 import speechBubble from "../../assets/images/icon/speech-bubble.svg";
 import styles from "./QuestionCard.module.css";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function QuestionCard({ feed }) {
   const { name, imageSource, questionCount, id } = feed;
@@ -11,8 +12,19 @@ function QuestionCard({ feed }) {
     userName = name.slice(0, 8) + "...";
   } else userName = name;
 
+  const MotionLink = motion(Link);
+
   return (
-    <Link to={`/post/${id}`} className={styles.cardWrapper}>
+    <MotionLink
+      to={`/post/${id}`}
+      className={styles.cardWrapper}
+      whileHover={{
+        scale: 1.1,
+        boxShadow: "0 0 10px 4px var(--brownColor200)",
+      }}
+      whileTap={{ scale: 0.9 }}
+      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+    >
       <div className={styles.profileSection}>
         <img
           className={styles.profileImage}
@@ -31,7 +43,7 @@ function QuestionCard({ feed }) {
         </div>
         <div>{questionCount}개</div>
       </div>
-    </Link>
+    </MotionLink>
   );
 }
 

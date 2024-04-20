@@ -61,7 +61,8 @@ function QuestionCardListPage() {
 
   const handleSortChange = (newSort) => {
     searchParams.set("sort", newSort);
-    setSearchParams("sort", newSort);
+    searchParams.set("page", 1);
+    setSearchParams(searchParams);
   };
 
   function getOffsetByStringUrl(urlString) {
@@ -84,8 +85,6 @@ function QuestionCardListPage() {
       newOffset = getOffsetByStringUrl(datas.previous);
       newPageNumber = parseInt(currentPage) - 1;
     }
-
-    console.log(newOffset, newPageNumber, currentPage);
 
     if (newPageNumber === 1 && newOffset === null) {
       newOffset = 0;
@@ -123,7 +122,10 @@ function QuestionCardListPage() {
               <div className={styles.LoadingBox}>Loading...</div>
             ) : (
               <div className={styles.listAndPaginationBox}>
-                <QuestionCardList feeds={datas?.results} />
+                <QuestionCardList
+                  feeds={datas?.results}
+                  currentPage={currentPage}
+                />
                 <Pagination
                   count={datas?.count}
                   currentPage={currentPage}
