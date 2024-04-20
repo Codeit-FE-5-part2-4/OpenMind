@@ -5,8 +5,8 @@
   display: block;
   padding: 20px;
   text-decoration: none;
-  border: 1px solid var(--grayscaleColor400);
   border-radius: 16px;
+  box-shadow: 0 0 5px 2px var(--brownColor200);
   margin: 0 auto;
 }
 

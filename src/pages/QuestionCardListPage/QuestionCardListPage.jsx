@@ -7,6 +7,7 @@ import { getSubjects } from "../../utils/listPageApi/getSubjects";
 import { useSearchParams } from "react-router-dom";
 import ListSortModal from "../../components/ListSortModal/ListSortModal";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
+import { getOffsetByStringUrl } from "./getOffsetByStringUrl";
 
 const INITIALQUERY = {
   limit: 8,
@@ -48,29 +49,22 @@ function QuestionCardListPage() {
 
     if (!searchParams.has("page") || searchParams.get("page") === "") {
       searchParams.set("page", INITIALQUERY.page);
-      setSearchParams(searchParams);
+      setSearchParams(searchParams, { replace: true });
     }
 
     const limit = INITIALQUERY.limit;
     const offset = searchParams.get("offset") || INITIALQUERY.offset;
     const sort = searchParams.get("sort");
-    const page = searchParams.get("page") || INITIALQUERY.page;
+    const page = searchParams.get("page");
 
     displaySubjects({ limit, offset, sort, page });
   }, [searchParams, setSearchParams]);
 
   const handleSortChange = (newSort) => {
     searchParams.set("sort", newSort);
-    setSearchParams("sort", newSort);
+    searchParams.set("page", 1);
+    setSearchParams(searchParams);
   };
-
-  function getOffsetByStringUrl(urlString) {
-    if (!urlString) return null;
-    const newUrl = new URL(urlString);
-    const params = new URLSearchParams(newUrl.search);
-    const offset = params.get("offset");
-    return offset;
-  }
 
   const handlePageChangeByArrow = (direction) => {
     if (isLoading) return;
@@ -85,8 +79,6 @@ function QuestionCardListPage() {
       newPageNumber = parseInt(currentPage) - 1;
     }
 
-    console.log(newOffset, newPageNumber, currentPage);
-
     if (newPageNumber === 1 && newOffset === null) {
       newOffset = 0;
     }
@@ -100,6 +92,7 @@ function QuestionCardListPage() {
   };
 
   const handlePageChangeByPage = (page) => {
+    if (isLoading) return;
     const offset = (page - 1) * INITIALQUERY.limit;
 
     searchParams.set("page", page);
@@ -119,19 +112,24 @@ function QuestionCardListPage() {
               <h1 className={styles.title}>누구에게 질문할까요?</h1>
               <ListSortModal handleSort={handleSortChange} />
             </div>
-            {isLoading ? (
-              <div className={styles.LoadingBox}>Loading...</div>
-            ) : (
-              <div className={styles.listAndPaginationBox}>
-                <QuestionCardList feeds={datas?.results} />
-                <Pagination
-                  count={datas?.count}
+            <div className={styles.listAndPaginationBox}>
+              {isLoading ? (
+                <div className={styles.LoadingBox}>Loading...</div>
+              ) : (
+                <QuestionCardList
                   currentPage={currentPage}
-                  onArrow={handlePageChangeByArrow}
-                  onPage={handlePageChangeByPage}
+                  feeds={datas.results}
+                  next={datas.next}
+                  prev={datas.previous}
                 />
-              </div>
-            )}
+              )}
+              <Pagination
+                count={datas?.count}
+                currentPage={currentPage}
+                onArrow={handlePageChangeByArrow}
+                onPage={handlePageChangeByPage}
+              />
+            </div>
           </section>
         </div>
       )}
