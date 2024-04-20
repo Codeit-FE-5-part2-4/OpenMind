@@ -17,7 +17,7 @@ export default function NotFoundPage() {
             <ArrowButton text={"질문하러 가기"} />
           </li>
           <li>
-            <ArrowButton text={"답변하러가기"} />
+            <ArrowButton text={"답변하러 가기"} />
           </li>
         </ul>
       </div>
