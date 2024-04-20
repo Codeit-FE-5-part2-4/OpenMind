@@ -1,7 +1,9 @@
+import { BASE_URL } from "../constants.js";
+
 export async function getSubjects({ limit, offset, sort }) {
   try {
     const response = await fetch(
-      `https://openmind-api.vercel.app/5-4/subjects/?limit=${limit}&offset=${offset}&sort=${sort}`
+      `${BASE_URL}/subjects/?limit=${limit}&offset=${offset}&sort=${sort}`
     );
 
     if (!response.ok) {

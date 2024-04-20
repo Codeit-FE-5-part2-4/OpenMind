@@ -2,6 +2,29 @@ import styles from "./PaginationNumberList.module.css";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 
+function PaginationButton({ number, onPage, currentPage }) {
+  return (
+    <li key={number}>
+      <motion.button
+        className={classNames(styles.paginationButton, {
+          [styles.active]: currentPage === number,
+        })}
+        onClick={() => {
+          onPage(number);
+        }}
+        initial={{ y: 0 }}
+        animate={
+          currentPage === number && {
+            y: [0, "-50%", 0],
+          }
+        }
+      >
+        {number}
+      </motion.button>
+    </li>
+  );
+}
+
 function PaginationNumberList({ onPage, currentPage, totalPage }) {
   const start = (() => {
     if (currentPage <= 3) {
@@ -25,40 +48,26 @@ function PaginationNumberList({ onPage, currentPage, totalPage }) {
 
   const numbers = Array.from({ length: last - start }, (_, i) => start + i);
 
-  const PaginationButton = (number) => {
-    return (
-      <li key={number}>
-        <motion.button
-          className={classNames(styles.paginationButton, {
-            [styles.active]: currentPage === number,
-          })}
-          onClick={() => {
-            onPage(number);
-          }}
-          initial={{ y: 0 }}
-          animate={
-            currentPage === number
-              ? {
-                  y: [0, "-50%", 0],
-                }
-              : {}
-          }
-        >
-          {number}
-        </motion.button>
-      </li>
-    );
-  };
-
   return (
     <ol className={styles.paginationNumbers}>
-      {PaginationButton(1)}
+      <PaginationButton number={1} onPage={onPage} currentPage={currentPage} />
       {currentPage > 3 && <li className={styles.paginationButton}>...</li>}
-      {numbers.map((number) => PaginationButton(number))}
+      {numbers?.map((number) => (
+        <PaginationButton
+          key={number}
+          number={number}
+          onPage={onPage}
+          currentPage={currentPage}
+        />
+      ))}
       {currentPage < totalPage - 3 && (
         <li className={styles.paginationButton}>...</li>
       )}
-      {PaginationButton(totalPage)}
+      <PaginationButton
+        number={totalPage}
+        onPage={onPage}
+        currentPage={currentPage}
+      />
     </ol>
   );
 }
