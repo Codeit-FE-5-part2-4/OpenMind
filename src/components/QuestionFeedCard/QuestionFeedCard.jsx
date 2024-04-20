@@ -24,10 +24,12 @@ export default function QuestionFeedCard({
   const [showDropdown, setShowDropdown] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
+  // 드롭다운 토글
   const handleDropdownToggleClick = () => {
     setShowDropdown(!showDropdown);
   };
 
+  // 답변 수정하기
   const handleEditClick = () => {
     setIsEditing(true);
     setShowDropdown(false);
@@ -39,37 +41,26 @@ export default function QuestionFeedCard({
     setIsEditing(false);
   };
 
+  // 답변 생성하기
   const handleCreateAnswer = async (content) => {
     await createAnswer(question.id, content);
     await updateQuestions();
   };
 
-  // 답변 거절하기 기능
+  // 답변 거절하기
   const handleToggleRejectClick = async (question) => {
-    const questionId = question.id;
-    const answerId = question.answer?.id;
-    const isQuestionAnswered = question.answer;
-    const isQuestionRejected = question.answer?.isRejected;
-    const AnswerContent = question.answer?.content;
+    const Answer = question.answer;
     const hiddenWord = "&1a3nd8g"; // 아무 문자열이나 가능
     setIsEditing(false);
 
-    if (
-      isQuestionAnswered &&
-      AnswerContent !== hiddenWord &&
-      !isQuestionRejected
-    ) {
-      await toggleRejectAnswer(answerId, true);
-    } else if (
-      isQuestionAnswered &&
-      AnswerContent !== hiddenWord &&
-      isQuestionRejected
-    ) {
-      await toggleRejectAnswer(answerId, false);
-      setIsEditing(true);
-    } else if (isQuestionAnswered == null) {
-      await createAnswer(questionId, hiddenWord, true);
-    } else if (AnswerContent === hiddenWord) {
+    if (Answer && Answer.content !== hiddenWord) {
+      await toggleRejectAnswer(question.answer.id, true);
+      if (Answer.isRejected) {
+        setIsEditing(true);
+      }
+    } else if (Answer == null) {
+      await createAnswer(question.id, hiddenWord, true);
+    } else if (Answer.content === hiddenWord) {
       await deleteSingleAnswer(question);
     }
 
@@ -96,7 +87,6 @@ export default function QuestionFeedCard({
     setIsEditing(false);
   };
 
-  // 전체 답변 삭제
   const handleDeleteAnswer = async (confirmed) => {
     if (confirmed) {
       await deleteSingleAnswer(question);
@@ -109,6 +99,7 @@ export default function QuestionFeedCard({
     isAnswered: "답변완료",
     notAnswered: "미답변",
   };
+
   const answerStatusMsg = question.answer
     ? answerStatusMessages.isAnswered
     : answerStatusMessages.notAnswered;
