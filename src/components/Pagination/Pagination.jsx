@@ -1,14 +1,10 @@
-import { useSearchParams } from "react-router-dom";
 import styles from "./Pagination.module.css";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { motion } from "framer-motion";
 
 function Pagination({ onArrow, onPage, currentPage, count }) {
-  const [isClicking, setIsClicking] = useState(false);
-  const [totalPage, setTotalPage] = useState();
-  const [numbers, setNumbers] = useState([]);
-  const [searchParams] = useSearchParams();
+  const [totalPage, setTotalPage] = useState(0);
 
   const start = (() => {
     if (currentPage <= 3) {
@@ -30,16 +26,17 @@ function Pagination({ onArrow, onPage, currentPage, count }) {
     } else return totalPage; //마지막페이지 렌더링
   })();
 
+  const numbers = Array.from({ length: last - start }, (_, i) => start + i);
+
   useEffect(() => {
-    try {
-      const totalPage = Math.ceil(count / 8);
-      const numbers = Array.from({ length: last - start }, (_, i) => start + i);
-      setTotalPage(totalPage);
-      setNumbers(numbers);
-    } catch (error) {
-      console.error("Error generating pages:", error);
-    }
-  }, [start, last, count, searchParams]);
+    if (!isNaN(count) && count > 0)
+      try {
+        const totalPage = Math.ceil(count / 8);
+        setTotalPage(totalPage);
+      } catch (error) {
+        console.error("Error generating pages:", error);
+      }
+  }, [count]);
 
   /** 현재페이지에 active 클래스 추가 */
   const handlePaginationNumber = (number) => {
@@ -68,20 +65,12 @@ function Pagination({ onArrow, onPage, currentPage, count }) {
       </li>
     );
   };
-  const handleArrowClick = (arrowDirection) => {
-    if (!isClicking) {
-      setIsClicking(true);
-      onArrow(arrowDirection);
-      setTimeout(() => {
-        setIsClicking(false);
-      }, 300);
-    }
-  };
+
   return (
     <section className={styles.paginationWrapper}>
       <button
         className={styles.paginationArrow}
-        onClick={() => handleArrowClick("previous")}
+        onClick={() => onArrow("previous")}
         disabled={currentPage <= 1}
       >
         &lt;
@@ -97,7 +86,7 @@ function Pagination({ onArrow, onPage, currentPage, count }) {
       </ol>
       <button
         className={styles.paginationArrow}
-        onClick={() => handleArrowClick("next")}
+        onClick={() => onArrow("next")}
         disabled={currentPage >= totalPage}
       >
         &gt;

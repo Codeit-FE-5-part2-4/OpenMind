@@ -1,33 +1,25 @@
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./QuestionCardList.module.css";
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { getOffsetByStringUrl } from "../../pages/QuestionCardListPage/getOffsetByStringUrl";
 
 function QuestionCardList({ feeds, currentPage }) {
-  const [direction, setDirection] = useState(0);
-  const location = useLocation();
-  const [prevPage, setPrevPage] = useState(null);
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const currentPage = parseInt(searchParams.get("page") || "1", 10);
-
-    console.log(currentPage);
-
-    if (prevPage !== null && currentPage !== prevPage) {
-      setDirection(currentPage > prevPage ? 1 : -1);
-    } else {
-      setDirection(0);
-    }
-    setPrevPage(currentPage);
-  }, [location, prevPage]);
+  const [back, setBack] = useState(false);
+  const [searchParams] = useSearchParams();
 
   const pageTransitionVariants = {
-    initial: { opacity: 0, x: 300 * direction },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -300 * direction },
+    initial: { opacity: 0, x: 500 },
+    animate: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+    exit: { opacity: 0, x: -500, transition: { duration: 0.5 } },
   };
+
+  useEffect(() => {
+    const currentOffset = getOffsetByStringUrl();
+
+    console.log(currentOffset);
+  }, [searchParams]);
 
   return (
     <AnimatePresence mode="wait">
@@ -38,7 +30,6 @@ function QuestionCardList({ feeds, currentPage }) {
         initial="initial"
         animate="animate"
         exit="exit"
-        transition={{ duration: 0.5 }}
       >
         <ul className={styles.listContainer}>
           {feeds?.map((feed, id) => (
