@@ -1,3 +1,3 @@
-export const shareFacebook = () => {
-  window.open("http://www.facebook.com/sharer.php?u=www.naver.com");
+export const shareFacebook = (route) => {
+  window.open(`http://www.facebook.com/sharer.php?u=${route}`);
 };

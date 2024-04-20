@@ -7,13 +7,13 @@ import { shareKakao } from "../../utils/shareKakao";
 
 import { shareFacebook } from "../../utils/shareFacebook";
 
-const POST_BASE_URL = "https://openmind-api.vercel.app/5-4";
-
 export default function PostProfile({ userProfile }) {
   const [showToast, setShowToast] = useState(false);
 
+  const SHARE_URL = `https://openmind5-4.netlify.app/post/${userProfile.id}`;
+
   const handleCopyLinkClipBoard = async () => {
-    const copiedLink = `${POST_BASE_URL}/${userProfile.id}`;
+    const copiedLink = SHARE_URL;
     try {
       await navigator.clipboard.writeText(copiedLink);
       setShowToast(true); // 토스트 메시지 표시
@@ -29,11 +29,15 @@ export default function PostProfile({ userProfile }) {
       imgSource: linkShareImage,
       onClick: handleCopyLinkClipBoard,
     },
-    { altMessage: "link to kakao", imgSource: kakaoImage, onClick: shareKakao },
+    {
+      altMessage: "link to kakao",
+      imgSource: kakaoImage,
+      onClick: () => shareKakao(SHARE_URL),
+    },
     {
       altMessage: "link to facebook",
       imgSource: faceBookImage,
-      onClick: shareFacebook,
+      onClick: () => shareFacebook(SHARE_URL),
     },
   ];
 
