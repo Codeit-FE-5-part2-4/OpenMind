@@ -6,7 +6,7 @@ function ListHeader() {
   return (
     <header className={styles.header}>
       <HomeButton size="M" />
-      <ArrowButton text="답변하러가기" />
+      <ArrowButton text="답변하러 가기" />
     </header>
   );
 }

@@ -1,0 +1,26 @@
+.paginationNumbers {
+  display: flex;
+  align-items: center;
+}
+
+.paginationButton {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--grayscaleColor400);
+  text-align: center;
+}
+
+.paginationButton:hover {
+  color: var(--brownColor400);
+}
+
+.active {
+  color: var(--brownColor400);
+  background-color: var(--brownColor200);
+  border-radius: 9999px;
+}

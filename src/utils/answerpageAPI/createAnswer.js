@@ -7,11 +7,21 @@ export default async function createAnswer(
   content = "",
   isRejected = false
 ) {
-  const formData = createAnswerRequestForm(content, isRejected);
+  function createAnswerRequestForm(content, isRejected) {
+    const formData = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ content, isRejected }),
+    };
+
+    return formData;
+  }
 
   const response = await fetch(
     `${BASE_URL}${QUESTION_PATH}/${questionId}${ANSWER_PATH}/`,
-    formData
+    createAnswerRequestForm(content, isRejected)
   );
 
   if (!response.ok) {
@@ -20,16 +30,4 @@ export default async function createAnswer(
 
   const result = await response.json();
   return result;
-}
-
-function createAnswerRequestForm(content, isRejected) {
-  const formData = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ content, isRejected }),
-  };
-
-  return formData;
 }

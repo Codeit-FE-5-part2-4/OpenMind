@@ -1,16 +1,16 @@
 const BASE_URL = "https://openmind-api.vercel.app/5-4";
 
-export async function rejectAnswer(answerId, isRejectedValue) {
+export async function toggleRejectAnswer(answerId, isQuestionRejected) {
   try {
     await fetch(`${BASE_URL}/answers/${answerId}/`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ isRejected: isRejectedValue }),
+      body: JSON.stringify({ isRejected: isQuestionRejected }),
     });
     console.log(
-      `Toggled whether to reject answer ${answerId} or not successfully.`
+      `Turned Answer ${answerId}'s status ${isQuestionRejected} or not successfully.`
     );
   } catch (error) {
     console.error(

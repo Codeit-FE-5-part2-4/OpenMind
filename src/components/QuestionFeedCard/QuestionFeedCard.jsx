@@ -10,7 +10,7 @@ import {
   deleteSingleAnswer,
   deleteSingleQuestion,
 } from "../../utils/answerpageAPI/deleteAPI";
-import { rejectAnswer } from "../../utils/answerpageAPI/rejectAnswer";
+import { toggleRejectAnswer } from "../../utils/answerpageAPI/toggleRejectAnswer";
 import PostReaction from "../../components/PostReaction/PostReaction";
 import { motion } from "framer-motion";
 
@@ -24,10 +24,12 @@ export default function QuestionFeedCard({
   const [showDropdown, setShowDropdown] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
+  // 드롭다운 토글
   const handleDropdownToggleClick = () => {
     setShowDropdown(!showDropdown);
   };
 
+  // 답변 수정하기
   const handleEditClick = () => {
     setIsEditing(true);
     setShowDropdown(false);
@@ -39,33 +41,26 @@ export default function QuestionFeedCard({
     setIsEditing(false);
   };
 
+  // 답변 생성하기
   const handleCreateAnswer = async (content) => {
     await createAnswer(question.id, content);
     await updateQuestions();
   };
 
-  // 드롭다운 답변 거절하기 기능
+  // 답변 거절하기
   const handleToggleRejectClick = async (question) => {
-    let isRejected = true;
+    const Answer = question.answer;
+    const hiddenWord = "&1a3nd8g"; // 아무 문자열이나 가능
     setIsEditing(false);
-    const contentOfRejectedAnswer = "&1a3nd8g";
-    // 답변이 있을 때 거절하기, 거절풀기
-    if (
-      question.answer &&
-      question.answer.content !== contentOfRejectedAnswer
-    ) {
-      isRejected = !question.answer.isRejected;
-      await rejectAnswer(question.answer.id, isRejected);
-      if (!isRejected) {
+
+    if (Answer && Answer.content !== hiddenWord) {
+      await toggleRejectAnswer(question.answer.id, true);
+      if (Answer.isRejected) {
         setIsEditing(true);
       }
-
-      // 답변이 없을 때 거절하기
-    } else if (question.answer === null) {
-      await createAnswer(question.id, contentOfRejectedAnswer, isRejected);
-      // 답변이 없을 때 거절풀기
-    } else if (question.answer.content === contentOfRejectedAnswer) {
-      console.log(question.answer?.content === contentOfRejectedAnswer);
+    } else if (Answer == null) {
+      await createAnswer(question.id, hiddenWord, true);
+    } else if (Answer.content === hiddenWord) {
       await deleteSingleAnswer(question);
     }
 
@@ -104,6 +99,7 @@ export default function QuestionFeedCard({
     isAnswered: "답변완료",
     notAnswered: "미답변",
   };
+
   const answerStatusMsg = question.answer
     ? answerStatusMessages.isAnswered
     : answerStatusMessages.notAnswered;

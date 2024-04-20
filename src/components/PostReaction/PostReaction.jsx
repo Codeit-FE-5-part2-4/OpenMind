@@ -11,10 +11,10 @@ export default function PostReaction({ question }) {
   const [newQuestion, setNewQuestion] = useState(question);
 
   const likeIconSrc = newQuestion.like === 0 ? likeIconDefault : likeIcon;
-  const likeTextSrc =
-    newQuestion.like === 0 ? styles.reactionTextDefault : styles.likeText;
   const dislikeIconSrc =
     newQuestion.dislike === 0 ? dislikeIconDefault : dislikeIcon;
+  const likeTextSrc =
+    newQuestion.like === 0 ? styles.reactionTextDefault : styles.likeText;
   const dislikeTextSrc =
     newQuestion.dislike === 0 ? styles.reactionTextDefault : styles.dislikeText;
 

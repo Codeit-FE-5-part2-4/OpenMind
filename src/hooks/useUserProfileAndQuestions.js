@@ -15,7 +15,7 @@ const useUserProfileAndQuestions = (id) => {
     } catch (error) {
       navigate("/not-found");
     }
-  }, [id]);
+  }, [id, navigate]);
 
   const fetchDataAndSetUserQuestions = useCallback(async () => {
     try {
