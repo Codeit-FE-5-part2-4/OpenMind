@@ -15,7 +15,7 @@ function ArrowButton({ text }) {
       case "리스트로 가기":
         navigate("/list");
         break;
-      case "답변하러가기":
+      case "답변하러 가기":
         id === null ? navigate("/") : navigate(`/post/${id}/answer`);
         break;
       default:
