@@ -1,6 +1,6 @@
 .cardWrapper {
   position: relative;
-  max-width: 180px;
+  max-width: 220px;
   background-color: var(--grayscaleColor100);
   display: block;
   padding: 20px;
