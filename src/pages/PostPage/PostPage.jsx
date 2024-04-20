@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import styles from "./PostPage.module.css";
 import logoImage from "../../assets/images/logo.png";
 import PostProfile from "../../components/PostProfile/PostProfile";
@@ -54,10 +54,12 @@ export default function PostPage() {
     <div className={styles.container}>
       <div className={styles.background}></div>
       <div className={styles.headerContainer}>
-        <h1>
-          <span className={styles.blind}>Openmind</span>
-          <img className={styles.logoImage} src={logoImage} alt="openmind" />
-        </h1>
+        <Link to="/">
+          <h1>
+            <span className={styles.blind}>Openmind</span>
+            <img className={styles.logoImage} src={logoImage} alt="openmind" />
+          </h1>
+        </Link>
       </div>
       <PostProfile userProfile={userProfile} />
       <div className={styles.QuestionFeedContainer}>

@@ -7,7 +7,7 @@ import { shareKakao } from "../../utils/shareKakao";
 
 import { shareFacebook } from "../../utils/shareFacebook";
 
-const POST_BASE_URL = "https://openmind-api.vercel.app/5-4/post";
+const POST_BASE_URL = "https://openmind-api.vercel.app/5-4";
 
 export default function PostProfile({ userProfile }) {
   const [showToast, setShowToast] = useState(false);
