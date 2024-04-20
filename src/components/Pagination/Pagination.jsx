@@ -5,8 +5,6 @@ import PaginationNumberList from "../PaginationNumberList/PaginationNumberList";
 function Pagination({ onArrow, onPage, currentPage, count }) {
   const [totalPage, setTotalPage] = useState();
 
-  const numbers = Array.from({ length: last - start }, (_, i) => start + i);
-
   useEffect(() => {
     try {
       const totalPage = Math.ceil(count / 8);
