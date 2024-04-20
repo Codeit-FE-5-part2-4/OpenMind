@@ -4,7 +4,7 @@ import PostProfile from "../../components/PostProfile/PostProfile";
 import QuestionFeedList from "../../components/QuestionFeedList/QuestionFeedList";
 import FloatingButton from "../../components/FloatingButton/FloatingButton";
 import ArrowButton from "../../components/ArrowButton/ArrowButton";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { deleteAll } from "../../utils/answerpageAPI/deleteAPI";
 import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestions";
 import { useState } from "react";
@@ -21,7 +21,7 @@ export default function AnswerPage() {
 
   // 질문자 계정, 해당 질문자에게 달린 질문들, 해당 질문자가 작성한 답변들 일괄 삭제
   const handleDeleteAllClick = () => {
-    handleOpenModal("정말로 피드 페이지를 삭제하시겠습니까?", handleDeleteAll);
+    handleOpenModal("정말로 피드를 삭제하시겠습니까?", handleDeleteAll);
   };
 
   const handleDeleteAll = async (confirmed) => {
@@ -46,10 +46,12 @@ export default function AnswerPage() {
     <div className={styles.container}>
       <div className={styles.background}></div>
       <div className={styles.headerContainer}>
-        <h1>
-          <span className={styles.blind}>Openmind</span>
-          <img className={styles.logoImage} src={logoImage} alt="openmind" />
-        </h1>
+        <Link to="/">
+          <h1>
+            <span className={styles.blind}>Openmind</span>
+            <img className={styles.logoImage} src={logoImage} alt="openmind" />
+          </h1>
+        </Link>
       </div>
       {showWarning && (
         <>
@@ -64,7 +66,7 @@ export default function AnswerPage() {
       <PostProfile userProfile={userProfile} />
       <div className={styles.QuestionFeedContainer}>
         <div className={styles.FloatingButtonAtRightSide}>
-          <FloatingButton text="모두 지우기" onClick={handleDeleteAllClick} />
+          <FloatingButton text="피드 삭제" onClick={handleDeleteAllClick} />
         </div>
         <QuestionFeedList
           questions={userQuestions}
