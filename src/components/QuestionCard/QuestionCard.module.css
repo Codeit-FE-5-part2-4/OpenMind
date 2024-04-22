@@ -26,9 +26,13 @@
 }
 
 .profileName {
+  width: 100%;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .fullUserName__hover {

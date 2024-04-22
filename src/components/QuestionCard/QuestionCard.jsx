@@ -2,17 +2,24 @@ import speechBubble from "../../assets/images/icon/speech-bubble.svg";
 import styles from "./QuestionCard.module.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 
 function QuestionCard({ feed }) {
   const { name, imageSource, questionCount, id } = feed;
 
-  let userName = "";
-
-  if (name.length > 8) {
-    userName = name.slice(0, 8) + "...";
-  } else userName = name;
-
   const MotionLink = motion(Link);
+
+  const nameRef = useRef();
+  const [isEllipsis, setIsEllipsis] = useState(false);
+
+  const handleMouseOver = () => {
+    if (nameRef.current) {
+      const containerWidth = nameRef.current.offsetWidth;
+      const scrollWidth = nameRef.current.scrollWidth;
+
+      setIsEllipsis(scrollWidth > containerWidth);
+    }
+  };
 
   return (
     <MotionLink
@@ -31,8 +38,14 @@ function QuestionCard({ feed }) {
           src={imageSource}
           alt="프로필 사진"
         />
-        <h2 className={styles.profileName}>{userName}</h2>
-        {userName.length > 8 && (
+        <h2
+          className={styles.profileName}
+          ref={nameRef}
+          onMouseOver={handleMouseOver}
+        >
+          {name}
+        </h2>
+        {isEllipsis && (
           <span className={styles.fullUserName__hover}>{name}</span>
         )}
       </div>
