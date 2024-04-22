@@ -1,7 +1,7 @@
 import styles from "./QuestionFeedCard.module.css";
-import { motion } from "framer-motion";
 import moreKebab from "../../assets/images/MoreKebab.svg";
 import FeedCardDropDown from "../FeedCardDropDown/FeedCardDropDown";
+import HoverAnimationDiv from "../HoverAnimationDiv/HoverAnimationDiv";
 
 export default function AnswerStatusBar({
   question,
@@ -28,15 +28,11 @@ export default function AnswerStatusBar({
       <span className={answerStatusStyle}>{answerStatusMsg}</span>
       {isAnswerPage && (
         <div className={styles.kebabButtonContainer}>
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            onHoverStart={(e) => {}}
-            onHoverEnd={(e) => {}}
-          >
+          <HoverAnimationDiv>
             <button onClick={onDropdownClick} className={styles.kebabButton}>
               <img src={moreKebab} alt="더보기" />
             </button>
-          </motion.div>
+          </HoverAnimationDiv>
           {showDropdown && (
             <FeedCardDropDown
               editStartOnclick={dropdownFunctions.handleEditClick}
