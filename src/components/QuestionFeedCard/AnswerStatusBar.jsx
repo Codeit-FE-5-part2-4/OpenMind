@@ -9,6 +9,8 @@ export default function AnswerStatusBar({
   onDropdownClick,
   showDropdown,
   dropdownFunctions,
+  isEditing,
+  onCancelEdit,
 }) {
   const answerStatusMessages = {
     isAnswered: "답변완료",
@@ -35,6 +37,8 @@ export default function AnswerStatusBar({
           </HoverAnimationDiv>
           {showDropdown && (
             <FeedCardDropDown
+              isEditing={isEditing}
+              onCancelEdit={onCancelEdit}
               editStartOnclick={dropdownFunctions.handleEditClick}
               question={question}
               onDeleteQuestion={dropdownFunctions.handleDeleteQuestionClick}

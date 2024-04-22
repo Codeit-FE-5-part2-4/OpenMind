@@ -26,6 +26,11 @@ export default function QuestionFeedCard({
     setShowDropdown(!showDropdown);
   };
 
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setShowDropdown(false);
+  };
+
   const handleEditClick = () => {
     setIsEditing(true);
     setShowDropdown(false);
@@ -102,6 +107,8 @@ export default function QuestionFeedCard({
         onDropdownClick={handleDropdownToggleClick}
         showDropdown={showDropdown}
         dropdownFunctions={dropdownFunctions}
+        isEditing={isEditing}
+        onCancelEdit={handleCancelEdit}
       />
 
       <QuestionInfoBar

@@ -6,10 +6,25 @@ export default function FeedCardDropDown({
   onDeleteQuestion,
   onDeleteAnswer,
   onReject,
+  isEditing,
+  onCancelEdit,
 }) {
   let rejectOrNot = "거절하기";
   if (question.answer && question.answer.isRejected) {
     rejectOrNot = "거절풀기";
+  }
+
+  if (isEditing) {
+    return (
+      <ul className={styles.dropdownList}>
+        <li>
+          <button className={styles.dropdownElement} onClick={onCancelEdit}>
+            <div className={styles.dropdownElementDeleteIcon}></div>
+            <span className={styles.dropdownElementText}>수정취소</span>
+          </button>
+        </li>
+      </ul>
+    );
   }
 
   return (
