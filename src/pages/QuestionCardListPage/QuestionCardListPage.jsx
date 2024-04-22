@@ -9,7 +9,7 @@ import ListSortModal from "../../components/ListSortModal/ListSortModal";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import { getOffsetByStringUrl } from "./getOffsetByStringUrl";
 
-const INITIALQUERY = {
+export const INITIALQUERY = {
   limit: 8,
   offset: 0,
   sort: "time",
@@ -18,9 +18,10 @@ const INITIALQUERY = {
 
 function QuestionCardListPage() {
   const [datas, setDatas] = useState([]);
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isBack, setIsBack] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const displaySubjects = async (params) => {
@@ -88,16 +89,18 @@ function QuestionCardListPage() {
       searchParams.set("page", newPageNumber);
       setSearchParams(searchParams);
       setCurrentPage(newPageNumber);
+      setIsBack(newPageNumber < currentPage);
     }
   };
 
-  const handlePageChangeByPage = (page) => {
+  const handlePageChangeByPage = (newPage) => {
     if (isLoading) return;
-    const offset = (page - 1) * INITIALQUERY.limit;
+    const offset = (newPage - 1) * INITIALQUERY.limit;
 
-    searchParams.set("page", page);
+    searchParams.set("page", newPage);
     searchParams.set("offset", offset);
     setSearchParams(searchParams);
+    setIsBack(newPage < currentPage);
   };
 
   return (
@@ -114,13 +117,12 @@ function QuestionCardListPage() {
             </div>
             <div className={styles.listAndPaginationBox}>
               {isLoading ? (
-                <div className={styles.LoadingBox}>Loading...</div>
+                <div className={styles.LoadingBox}></div>
               ) : (
                 <QuestionCardList
                   currentPage={currentPage}
                   feeds={datas.results}
-                  next={datas.next}
-                  prev={datas.previous}
+                  isBack={isBack}
                 />
               )}
               <Pagination
