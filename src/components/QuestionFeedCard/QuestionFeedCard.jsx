@@ -12,6 +12,7 @@ import ReactionBar from "../../components/ReactionBar/ReactionBar";
 import { motion } from "framer-motion";
 import AnswerStatusBar from "./AnswerStatusBar";
 import QuestionInfoBar from "./QuestionInfoBar";
+import AnimatedDiv from "./AnimatedDiv";
 
 export default function QuestionFeedCard({
   question,
@@ -102,16 +103,7 @@ export default function QuestionFeedCard({
   };
 
   return (
-    <motion.div
-      className={styles.questionCard}
-      initial={{ opacity: 0, y: -20 }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, delay: 0.1 },
-      }}
-      viewport={{ once: true, amount: 0.2 }}
-    >
+    <AnimatedDiv>
       <AnswerStatusBar
         question={question}
         isAnswerPage={isAnswerPage}
@@ -133,6 +125,6 @@ export default function QuestionFeedCard({
         isAnswerPage={isAnswerPage}
       />
       <ReactionBar question={question} />
-    </motion.div>
+    </AnimatedDiv>
   );
 }
