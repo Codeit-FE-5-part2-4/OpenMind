@@ -1,30 +1,34 @@
 import styles from "./PaginationNumberList.module.css";
 import classNames from "classnames";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function PaginationButton({ number, onPage, currentPage }) {
   return (
-    <li key={number}>
-      <motion.button
-        className={classNames(styles.paginationButton, {
-          [styles.active]: currentPage === number,
-        })}
-        onClick={() => {
-          onPage(number);
-        }}
-        initial={{ y: 0 }}
-        animate={
-          currentPage === number && {
-            y: [0, "-50%", 0],
+    <AnimatePresence mode="sync">
+      <li key={number}>
+        <motion.button
+          className={classNames(styles.paginationButton, {
+            [styles.active]: currentPage === number,
+          })}
+          onClick={() => {
+            onPage(number);
+          }}
+          initial={{ y: 0 }}
+          animate={
+            currentPage === number
+              ? {
+                  y: [0, "-50%", 0],
+                }
+              : {}
           }
-        }
-      >
-        {number}
-      </motion.button>
-    </li>
+          exit={{ opacity: 0 }}
+        >
+          {number}
+        </motion.button>
+      </li>
+    </AnimatePresence>
   );
 }
-
 function PaginationNumberList({ onPage, currentPage, totalPage }) {
   const start = (() => {
     if (currentPage <= 3) {

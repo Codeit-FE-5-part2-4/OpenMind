@@ -17,7 +17,7 @@ export const INITIALQUERY = {
 
 function QuestionCardListPage() {
   const [datas, setDatas] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState();
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isBack, setIsBack] = useState(false);
@@ -135,12 +135,14 @@ function QuestionCardListPage() {
                   isBack={isBack}
                 />
               )}
-              <Pagination
-                count={datas?.count}
-                currentPage={currentPage}
-                onArrow={handlePageChangeByArrow}
-                onPage={handlePageChangeByPage}
-              />
+              {datas.count && ( //datas의 count가 존재하는지 확인하여 페이지네이션 렌더링여부 검사
+                <Pagination
+                  count={datas?.count}
+                  currentPage={currentPage}
+                  onArrow={handlePageChangeByArrow}
+                  onPage={handlePageChangeByPage}
+                />
+              )}
             </div>
           )}
         </section>
