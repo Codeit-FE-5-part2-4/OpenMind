@@ -49,11 +49,15 @@
   line-height: 18px;
   position: fixed;
   bottom: 60px;
-  opacity: 0; /* 초기에는 투명하게 설정 */
-  transition: opacity 0.5s ease-in-out; /* 서서히 나타나고 사라지도록 설정 */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
   z-index: 1010;
+
+  @media (max-width: 767px) {
+    bottom: 90px;
+  }
 }
 
 .toast.show {
-  opacity: 1; /* 토스트 메시지가 표시될 때 투명도를 조정하여 나타남 */
+  opacity: 1;
 }

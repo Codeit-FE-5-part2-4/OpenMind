@@ -14,7 +14,6 @@ export default function WarningModal({ text, onConfirm, closeModal }) {
         <div className={styles.barText}>
           <span>{text}</span>
         </div>
-        {/* <button className={styles.closeButton} onClick={closeModal}></button> */}
       </div>
       <ul className={styles.selectButtonContainer}>
         <li className={styles.selectButton}>

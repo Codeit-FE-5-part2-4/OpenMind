@@ -10,7 +10,7 @@ export default function NotFoundPage() {
         <img src={logoImg} alt="" />
       </h1>
       <div className={styles.mainConBox}>
-        <span>404 페이지를 찾을수 없습니다</span>
+        <span>페이지를 찾을수 없습니다</span>
         <img src={notFound} alt="" className={styles.notFoundImg} />
         <ul className={styles.buttonContainer}>
           <li>

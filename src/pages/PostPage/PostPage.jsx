@@ -11,7 +11,7 @@ import { useUserProfileAndQuestions } from "../../hooks/useUserProfileAndQuestio
 import postQuestion from "../../utils/postpageAPI/postQuestion";
 
 export default function PostPage() {
-  const { id } = useParams(); // Access the id from route parameters
+  const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
   const { userProfile, userQuestions, updateUserQuestions } =
     useUserProfileAndQuestions(id);
@@ -34,21 +34,6 @@ export default function PostPage() {
       top: 0,
     });
   };
-
-  /*   useEffect(() => {
-    function handleResize() {
-      if (window.innerWidth < 768) {
-        setButtonText("리스트");
-      } else {
-        setButtonText("리스트로 가기");
-      }
-    }
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); */
 
   return (
     <div className={styles.container}>
