@@ -1,17 +1,17 @@
 .mainWrap {
   display: flex;
   height: 100vh;
+  overflow-y: auto;
   flex-direction: column;
   align-items: center;
   background: var(--grayscaleColor200);
-  padding: 160px 0 0;
+  padding: 80px 0 0;
   width: 100%;
 }
 
 .mainConBox {
   width: 100%;
   display: flex;
-  padding: 32px;
   background: var(--grayscaleColor200);
   border-radius: 16px;
   flex-direction: column;
@@ -25,7 +25,6 @@
 }
 
 .notFoundImg {
-  width: auto;
   height: 300px;
   button {
     width: 200px;
@@ -34,17 +33,22 @@
 
 @media (max-width: 767px) {
   .mainWrap {
-    height: calc(100vh - 80px);
+    height: calc(100vh);
     padding: 80px 0 0;
     background-size: 120%;
   }
-  /* 모바일 */
   .logo img {
     height: 98px;
   }
   .mainConBox {
-    width: 257px;
+    width: 100%;
     padding: 24px;
-    margin: 82px 0 0;
+  }
+  .notFoundImg {
+    width: 100%;
+    height: auto;
+  }
+  .buttonContainer {
+    flex-direction: column;
   }
 }
