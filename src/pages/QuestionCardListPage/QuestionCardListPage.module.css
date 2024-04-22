@@ -150,4 +150,8 @@
     margin: 0;
     font-size: 24px;
   }
+
+  .loadingBox {
+    height: 767.94px;
+  }
 }
