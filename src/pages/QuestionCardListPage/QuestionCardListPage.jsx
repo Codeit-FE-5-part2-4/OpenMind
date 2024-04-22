@@ -125,12 +125,14 @@ function QuestionCardListPage() {
                   isBack={isBack}
                 />
               )}
-              <Pagination
-                count={datas?.count}
-                currentPage={currentPage}
-                onArrow={handlePageChangeByArrow}
-                onPage={handlePageChangeByPage}
-              />
+              {datas.count && (
+                <Pagination
+                  count={datas?.count}
+                  currentPage={currentPage}
+                  onArrow={handlePageChangeByArrow}
+                  onPage={handlePageChangeByPage}
+                />
+              )}
             </div>
           </section>
         </div>
