@@ -7,9 +7,6 @@ export default function FeedCardDropDown({
   onDeleteAnswer,
   onReject,
 }) {
-  // 수정하기 버튼이 없는 경우 dropdownListShort
-
-  //const rejectOrNot = question.answer.isRejected ? "거절풀기" : "거절하기";
   let rejectOrNot = "거절하기";
   if (question.answer && question.answer.isRejected) {
     rejectOrNot = "거절풀기";
@@ -37,7 +34,7 @@ export default function FeedCardDropDown({
           <span className={styles.dropdownElementText}>{rejectOrNot}</span>
         </button>
       </li>
-      {question.answer && (
+      {question.answer && !question.answer.isRejected && (
         <>
           <li>
             <button

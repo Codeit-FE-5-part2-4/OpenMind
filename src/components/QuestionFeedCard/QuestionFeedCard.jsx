@@ -1,4 +1,3 @@
-import styles from "./QuestionFeedCard.module.css";
 import AnswerContainer from "./AnswerContainer";
 import { useState } from "react";
 import createAnswer from "../../utils/answerpageAPI/createAnswer";
@@ -9,7 +8,6 @@ import {
 } from "../../utils/answerpageAPI/deleteAPI";
 import { toggleRejectAnswer } from "../../utils/answerpageAPI/toggleRejectAnswer";
 import ReactionBar from "../../components/ReactionBar/ReactionBar";
-import { motion } from "framer-motion";
 import AnswerStatusBar from "./AnswerStatusBar";
 import QuestionInfoBar from "./QuestionInfoBar";
 import AnimatedDiv from "./AnimatedDiv";
@@ -24,12 +22,10 @@ export default function QuestionFeedCard({
   const [showDropdown, setShowDropdown] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
-  // 드롭다운 토글
   const handleDropdownToggleClick = () => {
     setShowDropdown(!showDropdown);
   };
 
-  // 답변 수정하기
   const handleEditClick = () => {
     setIsEditing(true);
     setShowDropdown(false);
@@ -41,34 +37,31 @@ export default function QuestionFeedCard({
     setIsEditing(false);
   };
 
-  // 답변 생성하기
   const handleCreateAnswer = async (content) => {
     await createAnswer(question.id, content);
     await updateQuestions();
   };
 
-  // 답변 거절하기
   const handleToggleRejectClick = async (question) => {
-    const Answer = question.answer;
-    const hiddenWord = "&1a3nd8g"; // 아무 문자열이나 가능
+    const Answer = question?.answer;
+    const hiddenWord = "&1a3nd8g";
     setIsEditing(false);
 
-    if (Answer && Answer.content !== hiddenWord) {
-      await toggleRejectAnswer(question.answer.id, true);
-      if (Answer.isRejected) {
-        setIsEditing(true);
-      }
-    } else if (Answer == null) {
+    if (!Answer) {
       await createAnswer(question.id, hiddenWord, true);
     } else if (Answer.content === hiddenWord) {
       await deleteSingleAnswer(question);
+    } else if (Answer.content !== hiddenWord) {
+      await toggleRejectAnswer(question.answer.id, !Answer.isRejected);
+      if (Answer.isRejected) {
+        setIsEditing(true);
+      }
     }
 
     await updateQuestions();
-    setShowDropdown(!showDropdown);
+    setShowDropdown(false);
   };
 
-  // 개별 질문 삭제
   const handleDeleteQuestionClick = () => {
     modalHandler("정말 질문을 삭제하시겠습니까?", handleDeleteQuestion);
   };
@@ -81,7 +74,6 @@ export default function QuestionFeedCard({
     }
   };
 
-  // 개별 답변 삭제
   const handleDeleteAnswerClick = () => {
     modalHandler("정말 답변을 삭제하시겠습니까?", handleDeleteAnswer);
     setIsEditing(false);
