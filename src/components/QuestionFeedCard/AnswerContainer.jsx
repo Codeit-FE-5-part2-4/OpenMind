@@ -4,13 +4,15 @@ import TextAreaForm from "../TextAreaForm/TextAreaForm";
 export default function AnswerContainer({
   AnswererProfile,
   answerCreatedAgo,
-  isRejected,
-  answerContent,
+  question,
   isAnswered,
   isEditing,
   editFinishOnClick,
   createAnswer,
 }) {
+  const content = question?.answer.content;
+  const isRejected = question?.answer.isRejected;
+
   return (
     <div className={styles.answerContainer}>
       <img
@@ -30,13 +32,13 @@ export default function AnswerContainer({
         )}
 
         {isAnswered && !isRejected && !isEditing && (
-          <p className={styles.answerContent}>{answerContent}</p>
+          <p className={styles.content}>{content}</p>
         )}
 
         {isAnswered && isEditing && (
           <TextAreaForm
             buttonText="수정완료"
-            initialText={answerContent}
+            initialText={content}
             buttonOnclick={editFinishOnClick}
           />
         )}

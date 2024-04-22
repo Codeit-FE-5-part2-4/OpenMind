@@ -2,7 +2,7 @@ import likeIcon from "../../assets/images/icon/likeIcon.svg";
 import likeIconDefault from "../../assets/images/icon/likeIcon-default.svg";
 import dislikeIcon from "../../assets/images/icon/dislikeIcon.svg";
 import dislikeIconDefault from "../../assets/images/icon/dislikeIcon-default.svg";
-import styles from "./PostReaction.module.css";
+import styles from "./ReactionBar.module.css";
 import postReaction from "../../utils/postpageAPI/postReaction";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -33,7 +33,6 @@ export default function PostReaction({ question }) {
         <div className={styles.buttonContainer}>
           <button
             onClick={() => handleReactionSubmit("like")}
-            type="submit"
             className={styles.judge}
           >
             <motion.img
@@ -51,7 +50,6 @@ export default function PostReaction({ question }) {
         <div className={styles.buttonContainer}>
           <button
             onClick={() => handleReactionSubmit("dislike")}
-            type="submit"
             className={styles.judge}
           >
             <motion.img
