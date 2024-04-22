@@ -5,13 +5,14 @@ export default function AnswerContainer({
   AnswererProfile,
   answerCreatedAgo,
   question,
-  isAnswered,
   isEditing,
   editFinishOnClick,
   createAnswer,
+  isAnswerPage,
 }) {
-  const content = question?.answer.content;
-  const isRejected = question?.answer.isRejected;
+  const content = question?.answer?.content;
+  const isRejected = question?.answer?.isRejected;
+  const isAnswered = question.answer !== null;
 
   return (
     <div className={styles.answerContainer}>
@@ -42,7 +43,7 @@ export default function AnswerContainer({
             buttonOnclick={editFinishOnClick}
           />
         )}
-        {!isAnswered && !isEditing && (
+        {!isAnswered && isAnswerPage && (
           <TextAreaForm
             placeholder="답변을 입력해주세요"
             buttonText="답변완료"

@@ -159,24 +159,15 @@ export default function QuestionFeedCard({
         <span className={styles.createdAt}>{questionCreatedAgo}</span>
         <p className={styles.questionTitle}>{question.content}</p>
       </div>
-
-      {question.answer && (
-        <AnswerContainer
-          AnswererProfile={AnswererProfile}
-          answerCreatedAgo={answerCreatedAgo}
-          question={question}
-          isAnswered={true}
-          isEditing={isEditing}
-          editFinishOnClick={handleEditFinish}
-        />
-      )}
-      {!question.answer && isAnswerPage && (
-        <AnswerContainer
-          AnswererProfile={AnswererProfile}
-          isAnswered={false}
-          createAnswer={handleCreateAnswer}
-        />
-      )}
+      <AnswerContainer
+        AnswererProfile={AnswererProfile}
+        answerCreatedAgo={answerCreatedAgo}
+        question={question}
+        isEditing={isEditing}
+        editFinishOnClick={handleEditFinish}
+        createAnswer={handleCreateAnswer}
+        isAnswerPage={isAnswerPage}
+      />
       <ReactionBar question={question} />
     </motion.div>
   );
