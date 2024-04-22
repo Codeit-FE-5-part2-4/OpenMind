@@ -1,9 +1,9 @@
 import styles from "./QuestionFeedCard.module.css";
 import TextAreaForm from "../TextAreaForm/TextAreaForm";
+import getTimeDifference from "../../utils/getTimeDifference";
 
 export default function AnswerContainer({
   AnswererProfile,
-  answerCreatedAgo,
   question,
   isEditing,
   editFinishOnClick,
@@ -13,6 +13,15 @@ export default function AnswerContainer({
   const content = question?.answer?.content;
   const isRejected = question?.answer?.isRejected;
   const isAnswered = question.answer !== null;
+
+  if (!isAnswerPage && question.answer === null) {
+    return;
+  }
+
+  let answerCreatedAgo;
+  if (question.answer) {
+    answerCreatedAgo = getTimeDifference(new Date(question.answer.createdAt));
+  }
 
   return (
     <div className={styles.answerContainer}>
