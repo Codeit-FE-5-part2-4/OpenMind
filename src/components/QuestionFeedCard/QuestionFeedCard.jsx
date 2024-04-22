@@ -11,7 +11,7 @@ import {
   deleteSingleQuestion,
 } from "../../utils/answerpageAPI/deleteAPI";
 import { toggleRejectAnswer } from "../../utils/answerpageAPI/toggleRejectAnswer";
-import PostReaction from "../../components/PostReaction/PostReaction";
+import ReactionBar from "../../components/ReactionBar/ReactionBar";
 import { motion } from "framer-motion";
 
 export default function QuestionFeedCard({
@@ -164,8 +164,7 @@ export default function QuestionFeedCard({
         <AnswerContainer
           AnswererProfile={AnswererProfile}
           answerCreatedAgo={answerCreatedAgo}
-          answerContent={question.answer.content}
-          isRejected={question.answer.isRejected}
+          question={question}
           isAnswered={true}
           isEditing={isEditing}
           editFinishOnClick={handleEditFinish}
@@ -178,7 +177,7 @@ export default function QuestionFeedCard({
           createAnswer={handleCreateAnswer}
         />
       )}
-      <PostReaction question={question} />
+      <ReactionBar question={question} />
     </motion.div>
   );
 }
