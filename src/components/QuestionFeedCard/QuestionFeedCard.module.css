@@ -23,7 +23,7 @@
   width: 100%;
 }
 
-.questionTitle {
+.questionContent {
   font-size: 18px;
   white-space: normal;
   overflow-wrap: break-word;
@@ -44,11 +44,6 @@
   font-size: 14px;
   font-weight: 500;
   color: var(--grayscaleColor400);
-}
-
-.questionContent {
-  font-size: 18px;
-  line-height: 24px;
 }
 
 .answerContainer {

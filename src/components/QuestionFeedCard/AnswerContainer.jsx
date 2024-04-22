@@ -1,17 +1,27 @@
 import styles from "./QuestionFeedCard.module.css";
 import TextAreaForm from "../TextAreaForm/TextAreaForm";
+import getTimeDifference from "../../utils/getTimeDifference";
 
 export default function AnswerContainer({
   AnswererProfile,
-  answerCreatedAgo,
   question,
-  isAnswered,
   isEditing,
   editFinishOnClick,
   createAnswer,
+  isAnswerPage,
 }) {
-  const content = question?.answer.content;
-  const isRejected = question?.answer.isRejected;
+  const content = question?.answer?.content;
+  const isRejected = question?.answer?.isRejected;
+  const isAnswered = question.answer !== null;
+
+  if (!isAnswerPage && question.answer === null) {
+    return;
+  }
+
+  let answerCreatedAgo;
+  if (question.answer) {
+    answerCreatedAgo = getTimeDifference(new Date(question.answer.createdAt));
+  }
 
   return (
     <div className={styles.answerContainer}>
@@ -42,7 +52,7 @@ export default function AnswerContainer({
             buttonOnclick={editFinishOnClick}
           />
         )}
-        {!isAnswered && !isEditing && (
+        {!isAnswered && isAnswerPage && (
           <TextAreaForm
             placeholder="답변을 입력해주세요"
             buttonText="답변완료"

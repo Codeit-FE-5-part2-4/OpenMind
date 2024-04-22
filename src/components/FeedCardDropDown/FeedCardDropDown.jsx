@@ -6,13 +6,25 @@ export default function FeedCardDropDown({
   onDeleteQuestion,
   onDeleteAnswer,
   onReject,
+  isEditing,
+  onCancelEdit,
 }) {
-  // 수정하기 버튼이 없는 경우 dropdownListShort
-
-  //const rejectOrNot = question.answer.isRejected ? "거절풀기" : "거절하기";
   let rejectOrNot = "거절하기";
   if (question.answer && question.answer.isRejected) {
     rejectOrNot = "거절풀기";
+  }
+
+  if (isEditing) {
+    return (
+      <ul className={styles.dropdownList}>
+        <li>
+          <button className={styles.dropdownElement} onClick={onCancelEdit}>
+            <div className={styles.dropdownElementDeleteIcon}></div>
+            <span className={styles.dropdownElementText}>수정취소</span>
+          </button>
+        </li>
+      </ul>
+    );
   }
 
   return (
@@ -37,7 +49,7 @@ export default function FeedCardDropDown({
           <span className={styles.dropdownElementText}>{rejectOrNot}</span>
         </button>
       </li>
-      {question.answer && (
+      {question.answer && !question.answer.isRejected && (
         <>
           <li>
             <button
