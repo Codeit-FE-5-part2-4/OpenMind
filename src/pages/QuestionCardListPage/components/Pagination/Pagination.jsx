@@ -7,8 +7,10 @@ function Pagination({ onArrow, onPage, currentPage, count }) {
 
   useEffect(() => {
     try {
-      const totalPage = Math.ceil(count / 8);
-      setTotalPage(totalPage);
+      if (count) {
+        const totalPage = Math.ceil(count / 8);
+        setTotalPage(totalPage);
+      }
     } catch (error) {
       console.error("Error generating pages:", error);
     }

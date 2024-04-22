@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./ListSortModal.module.css";
-import arrowUp from "../../assets/images/icon/Arrow-up.svg";
-import arrowDown from "../../assets/images/icon/Arrow-down.svg";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import arrowDown from "../../../../assets/images/icon/Arrow-down.svg";
+import arrowUp from "../../../../assets/images/icon/Arrow-up.svg";
 
 function ListSortModal({ handleSort }) {
   const [searchParams] = useSearchParams();

@@ -6,13 +6,13 @@
   width: 100%;
   max-width: 940px;
   display: grid;
-  grid-template-columns: repeat(4, minmax(186px, 222px));
+  grid-template: repeat(2, 1fr) / repeat(4, minmax(186px, 222px));
   gap: 20px;
 }
 
 @media (max-width: 870px) {
   .list {
-    grid-template-columns: repeat(2, minmax(122px, 222px));
+    grid-template: repeat(4, 1fr) / repeat(2, minmax(122px, 222px));
     margin-bottom: 40px;
     gap: 16px;
   }

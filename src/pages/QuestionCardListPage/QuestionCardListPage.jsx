@@ -1,12 +1,13 @@
-import QuestionCardList from "../../components/QuestionCardList/QuestionCardList";
-import ListHeader from "../../components/ListHeader/ListHeader";
-import Pagination from "../../components/Pagination/Pagination";
-import ListSortModal from "../../components/ListSortModal/ListSortModal";
 import styles from "./QuestionCardListPage.module.css";
 import { useEffect, useState } from "react";
 import { getSubjects } from "../../utils/listPageApi/getSubjects";
 import { useSearchParams } from "react-router-dom";
-import { getOffsetByStringUrl } from "./getOffsetByStringUrl";
+import { getOffsetByStringUrl } from "./utils/getOffsetByStringUrl";
+import ListErrorBox from "./components/ListErrorBox/ListErrorBox";
+import ListHeader from "./components/ListHeader/ListHeader";
+import ListSortModal from "./components/ListSortModal/ListSortModal";
+import Pagination from "./components/Pagination/Pagination";
+import QuestionCardList from "./components/QuestionCardList/QuestionCardList";
 
 export const INITIALQUERY = {
   limit: 8,
@@ -113,17 +114,7 @@ function QuestionCardListPage() {
             <ListSortModal handleSort={handleSortChange} />
           </div>
           {isError ? (
-            <div className={styles.errorBox}>
-              <h2 className={styles.errorMessage}>
-                데이터를 불러오는데 실패했습니다.
-              </h2>
-              <button
-                onClick={() => displaySubjects(INITIALQUERY)}
-                className={styles.errorButton}
-              >
-                다시 시도
-              </button>
-            </div>
+            <ListErrorBox dataFetch={() => displaySubjects(INITIALQUERY)} />
           ) : (
             <div className={styles.listAndPaginationBox}>
               {isLoading ? (
@@ -135,14 +126,12 @@ function QuestionCardListPage() {
                   isBack={isBack}
                 />
               )}
-              {datas.count && ( //datas의 count가 존재하는지 확인하여 페이지네이션 렌더링여부 검사
-                <Pagination
-                  count={datas?.count}
-                  currentPage={currentPage}
-                  onArrow={handlePageChangeByArrow}
-                  onPage={handlePageChangeByPage}
-                />
-              )}
+              <Pagination
+                count={datas?.count}
+                currentPage={currentPage}
+                onArrow={handlePageChangeByArrow}
+                onPage={handlePageChangeByPage}
+              />
             </div>
           )}
         </section>
