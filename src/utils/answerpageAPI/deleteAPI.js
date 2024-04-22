@@ -27,7 +27,6 @@ async function deleteSubject(subjectId) {
     await fetch(`${BASE_URL}/subjects/${subjectId}/`, {
       method: "DELETE",
     });
-    console.log(`Subject ${subjectId} deleted successfully.`);
   } catch (error) {
     console.error(`Error deleting subject ${subjectId}: ${error}`);
   }
@@ -39,7 +38,6 @@ export async function deleteSingleQuestion(question) {
     await fetch(`${BASE_URL}/questions/${question.id}/`, {
       method: "DELETE",
     });
-    console.log(`Question ${question.id} deleted successfully.`);
   } catch (error) {
     console.error(`Error deleting question ${question.id}: ${error}`);
   }
@@ -53,7 +51,6 @@ export async function deleteSingleAnswer(question) {
       await fetch(`${BASE_URL}/answers/${answerId}/`, {
         method: "DELETE",
       });
-      console.log(`Answer ${answerId} deleted successfully.`);
     } catch (error) {
       console.error(`Error deleting answer ${answerId}: ${error}`);
     }

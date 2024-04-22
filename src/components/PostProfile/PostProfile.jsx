@@ -16,8 +16,8 @@ export default function PostProfile({ userProfile }) {
     const copiedLink = SHARE_URL;
     try {
       await navigator.clipboard.writeText(copiedLink);
-      setShowToast(true); // 토스트 메시지 표시
-      setTimeout(() => setShowToast(false), 3000); // 5초 후에 토스트 메시지 숨김
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
     } catch (err) {
       console.log(err);
     }

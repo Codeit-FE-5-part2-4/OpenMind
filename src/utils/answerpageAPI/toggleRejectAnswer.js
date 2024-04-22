@@ -9,9 +9,6 @@ export async function toggleRejectAnswer(answerId, isQuestionRejected) {
       },
       body: JSON.stringify({ isRejected: isQuestionRejected }),
     });
-    console.log(
-      `Turned Answer ${answerId}'s status ${isQuestionRejected} or not successfully.`
-    );
   } catch (error) {
     console.error(
       `Error toggling whether to reject answer ${answerId}: ${error}`
