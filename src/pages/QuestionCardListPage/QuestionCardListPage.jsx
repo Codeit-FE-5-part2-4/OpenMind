@@ -125,7 +125,7 @@ function QuestionCardListPage() {
                   isBack={isBack}
                 />
               )}
-              {datas.count && (
+              {datas.count && ( //datas의 count가 존재하는지 확인하여 페이지네이션 렌더링여부 검사
                 <Pagination
                   count={datas?.count}
                   currentPage={currentPage}
