@@ -1,12 +1,11 @@
 import QuestionCardList from "../../components/QuestionCardList/QuestionCardList";
 import ListHeader from "../../components/ListHeader/ListHeader";
 import Pagination from "../../components/Pagination/Pagination";
+import ListSortModal from "../../components/ListSortModal/ListSortModal";
 import styles from "./QuestionCardListPage.module.css";
 import { useEffect, useState } from "react";
 import { getSubjects } from "../../utils/listPageApi/getSubjects";
 import { useSearchParams } from "react-router-dom";
-import ListSortModal from "../../components/ListSortModal/ListSortModal";
-import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import { getOffsetByStringUrl } from "./getOffsetByStringUrl";
 
 export const INITIALQUERY = {
@@ -28,6 +27,7 @@ function QuestionCardListPage() {
     const { limit, offset, sort, page } = params;
 
     setIsLoading(true);
+    setIsError(false);
 
     try {
       const feedDatas = await getSubjects({ limit, offset, sort });
@@ -105,19 +105,29 @@ function QuestionCardListPage() {
 
   return (
     <>
-      {isError ? (
-        <NotFoundPage />
-      ) : (
-        <div className={styles.pageContainer}>
-          <section className={styles.contentContainer}>
-            <ListHeader />
-            <div className={styles.titleAndSortBox}>
-              <h1 className={styles.title}>누구에게 질문할까요?</h1>
-              <ListSortModal handleSort={handleSortChange} />
+      <div className={styles.pageContainer}>
+        <section className={styles.contentContainer}>
+          <ListHeader />
+          <div className={styles.titleAndSortBox}>
+            <h1 className={styles.title}>누구에게 질문할까요?</h1>
+            <ListSortModal handleSort={handleSortChange} />
+          </div>
+          {isError ? (
+            <div className={styles.errorBox}>
+              <h2 className={styles.errorMessage}>
+                데이터를 불러오는데 실패했습니다.
+              </h2>
+              <button
+                onClick={() => displaySubjects(INITIALQUERY)}
+                className={styles.errorButton}
+              >
+                다시 시도
+              </button>
             </div>
+          ) : (
             <div className={styles.listAndPaginationBox}>
               {isLoading ? (
-                <div className={styles.LoadingBox}></div>
+                <div className={styles.loadingBox}></div>
               ) : (
                 <QuestionCardList
                   currentPage={currentPage}
@@ -132,9 +142,9 @@ function QuestionCardListPage() {
                 onPage={handlePageChangeByPage}
               />
             </div>
-          </section>
-        </div>
-      )}
+          )}
+        </section>
+      </div>
     </>
   );
 }
