@@ -1,9 +1,6 @@
 import styles from "./QuestionFeedCard.module.css";
-import getTimeDifference from "../../utils/getTimeDifference";
-import moreKebab from "../../assets/images/MoreKebab.svg";
 import AnswerContainer from "./AnswerContainer";
 import { useState } from "react";
-import FeedCardDropDown from "../FeedCardDropDown/FeedCardDropDown";
 import createAnswer from "../../utils/answerpageAPI/createAnswer";
 import editAnswer from "../../utils/answerpageAPI/editAnswer";
 import {
@@ -13,6 +10,8 @@ import {
 import { toggleRejectAnswer } from "../../utils/answerpageAPI/toggleRejectAnswer";
 import ReactionBar from "../../components/ReactionBar/ReactionBar";
 import { motion } from "framer-motion";
+import AnswerStatusBar from "./AnswerStatusBar";
+import QuestionInfoBar from "./QuestionInfoBar";
 
 export default function QuestionFeedCard({
   question,
@@ -95,26 +94,12 @@ export default function QuestionFeedCard({
     }
   };
 
-  const answerStatusMessages = {
-    isAnswered: "답변완료",
-    notAnswered: "미답변",
+  const dropdownFunctions = {
+    handleEditClick,
+    handleDeleteQuestionClick,
+    handleDeleteAnswerClick,
+    handleToggleRejectClick,
   };
-
-  const answerStatusMsg = question.answer
-    ? answerStatusMessages.isAnswered
-    : answerStatusMessages.notAnswered;
-
-  const questionCreatedAgo = getTimeDifference(new Date(question.createdAt));
-
-  let answerCreatedAgo;
-  let answerStatusStyle = styles.notAnswered;
-  if (question.answer) {
-    answerStatusStyle = styles.isAnswered;
-    answerCreatedAgo = getTimeDifference(new Date(question.answer.createdAt));
-  }
-
-  answerStatusStyle += " ";
-  answerStatusStyle += styles.answerStatus;
 
   return (
     <motion.div
@@ -127,41 +112,20 @@ export default function QuestionFeedCard({
       }}
       viewport={{ once: true, amount: 0.2 }}
     >
-      <div className={styles.answerStatusBar}>
-        <span className={answerStatusStyle}>{answerStatusMsg}</span>
-        {isAnswerPage && (
-          <div className={styles.kebabButtonContainer}>
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              onHoverStart={(e) => {}}
-              onHoverEnd={(e) => {}}
-            >
-              <button
-                onClick={handleDropdownToggleClick}
-                className={styles.kebabButton}
-              >
-                <img src={moreKebab} alt="더보기" />
-              </button>
-            </motion.div>
-            {showDropdown && (
-              <FeedCardDropDown
-                editStartOnclick={handleEditClick}
-                question={question}
-                onDeleteQuestion={handleDeleteQuestionClick}
-                onDeleteAnswer={handleDeleteAnswerClick}
-                onReject={handleToggleRejectClick}
-              />
-            )}
-          </div>
-        )}
-      </div>
-      <div className={styles.questionInfo}>
-        <span className={styles.createdAt}>{questionCreatedAgo}</span>
-        <p className={styles.questionTitle}>{question.content}</p>
-      </div>
+      <AnswerStatusBar
+        question={question}
+        isAnswerPage={isAnswerPage}
+        onDropdownClick={handleDropdownToggleClick}
+        showDropdown={showDropdown}
+        dropdownFunctions={dropdownFunctions}
+      />
+
+      <QuestionInfoBar
+        questionCreatedAt={question.createAt}
+        questionContent={question.content}
+      />
       <AnswerContainer
         AnswererProfile={AnswererProfile}
-        answerCreatedAgo={answerCreatedAgo}
         question={question}
         isEditing={isEditing}
         editFinishOnClick={handleEditFinish}
