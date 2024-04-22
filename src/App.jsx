@@ -16,7 +16,7 @@ function App() {
         <Route path="/list" element={<QuestionCardListPage />} />
         <Route path="/post/:id" element={<PostPage />} />
         <Route path="/post/:id/answer" element={<AnswerPage />} />
-        <Route path="/not-found" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
