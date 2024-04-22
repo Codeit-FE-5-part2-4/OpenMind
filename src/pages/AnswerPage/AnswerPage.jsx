@@ -16,10 +16,9 @@ export default function AnswerPage() {
     useUserProfileAndQuestions(id);
   const [showWarning, setShowWarning] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
-  const [onConfirm, setOnConfirm] = useState(() => () => {}); // 초기값으로 빈 함수 설정
+  const [onConfirm, setOnConfirm] = useState(() => () => {});
   const navigate = useNavigate();
 
-  // 질문자 계정, 해당 질문자에게 달린 질문들, 해당 질문자가 작성한 답변들 일괄 삭제
   const handleDeleteAllClick = () => {
     handleOpenModal("정말로 피드를 삭제하시겠습니까?", handleDeleteAll);
   };
@@ -57,7 +56,7 @@ export default function AnswerPage() {
         <>
           <WarningModal
             text={warningMessage}
-            onConfirm={onConfirm} // 상태로 설정된 함수 사용
+            onConfirm={onConfirm}
             closeModal={handleCloseModal}
           />
           <div className={styles.overlay}></div>

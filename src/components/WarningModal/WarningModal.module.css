@@ -46,30 +46,6 @@
 }
 
 .selectButton {
-  /* background-color: var(--brownColor300); */
   color: var(--grayscaleColor100);
   text-align: center;
-}
-
-.closeButton {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  background-image: url("../../assets/images/Close.svg");
-  background-size: 20px 20px;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* border-radius: 50%; */
-  /* border: 2px solid var(--grayscaleColor600); */
-
-  @media (max-width: 767px) {
-    width: 14px;
-    height: 14px;
-  }
-
-  &:hover {
-    background-color: var(--redColor);
-    background-image: url("../../assets/images/CloseWhite.svg");
-    border: none;
-  }
 }
