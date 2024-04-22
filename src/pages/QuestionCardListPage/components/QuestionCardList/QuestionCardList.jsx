@@ -1,6 +1,6 @@
-import QuestionCard from "../QuestionCard/QuestionCard";
 import styles from "./QuestionCardList.module.css";
 import { motion, AnimatePresence } from "framer-motion";
+import QuestionCard from "../QuestionCard/QuestionCard";
 
 function QuestionCardList({ feeds, currentPage, isBack }) {
   const direction = isBack ? -1 : 1;

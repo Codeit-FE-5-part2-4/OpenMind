@@ -1,8 +1,8 @@
-import speechBubble from "../../assets/images/icon/speech-bubble.svg";
 import styles from "./QuestionCard.module.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
+import speechBubble from "../../../../assets/images/icon/speechBubble.svg";
 
 function QuestionCard({ feed }) {
   const { name, imageSource, questionCount, id } = feed;

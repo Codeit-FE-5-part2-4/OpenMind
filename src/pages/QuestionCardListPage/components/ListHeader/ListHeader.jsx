@@ -1,6 +1,6 @@
 import styles from "./ListHeader.module.css";
-import HomeButton from "../HomeButton/HomeButton";
-import ArrowButton from "../ArrowButton/ArrowButton";
+import HomeButton from "../../../../components/HomeButton/HomeButton";
+import ArrowButton from "../../../../components/ArrowButton/ArrowButton";
 
 function ListHeader() {
   return (
