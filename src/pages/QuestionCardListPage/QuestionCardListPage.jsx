@@ -9,7 +9,7 @@ import ListSortModal from "../../components/ListSortModal/ListSortModal";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import { getOffsetByStringUrl } from "./getOffsetByStringUrl";
 
-const INITIALQUERY = {
+export const INITIALQUERY = {
   limit: 8,
   offset: 0,
   sort: "time",
@@ -18,10 +18,11 @@ const INITIALQUERY = {
 
 function QuestionCardListPage() {
   const [datas, setDatas] = useState([]);
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [back, setBack] = useState(false);
 
   const displaySubjects = async (params) => {
     const { limit, offset, sort, page } = params;
@@ -91,12 +92,13 @@ function QuestionCardListPage() {
     }
   };
 
-  const handlePageChangeByPage = (page) => {
+  const handlePageChangeByPage = (newPage) => {
     if (isLoading) return;
-    const offset = (page - 1) * INITIALQUERY.limit;
+    const offset = (newPage - 1) * INITIALQUERY.limit;
 
-    searchParams.set("page", page);
+    searchParams.set("page", newPage);
     searchParams.set("offset", offset);
+    setBack(newPage < currentPage);
     setSearchParams(searchParams);
   };
 
@@ -119,8 +121,7 @@ function QuestionCardListPage() {
                 <QuestionCardList
                   currentPage={currentPage}
                   feeds={datas.results}
-                  next={datas.next}
-                  prev={datas.previous}
+                  back={back}
                 />
               )}
               <Pagination

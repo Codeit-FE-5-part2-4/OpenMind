@@ -3,6 +3,7 @@ import styles from "./ListSortModal.module.css";
 import arrowUp from "../../assets/images/icon/Arrow-up.svg";
 import arrowDown from "../../assets/images/icon/Arrow-down.svg";
 import { useSearchParams } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 function ListSortModal({ handleSort }) {
   const [searchParams] = useSearchParams();
@@ -33,33 +34,42 @@ function ListSortModal({ handleSort }) {
 
   return (
     <div className={styles.sortMenu}>
-      <button
+      <motion.button
         className={styles.selectSortButton}
         onClick={dropdownToggle}
         ref={wrapperRef}
+        whileTap={{ scale: 0.95 }}
       >
         {searchParams.get("sort") === "time" ? "최신순" : "이름순"}
         <img src={arrowDirection} alt={arrowDirection} />
-      </button>
+      </motion.button>
       {viewDropdown && (
-        <ul className={styles.alignButtons}>
-          <li>
-            <button
-              className={styles.alignButton}
-              onClick={() => handleSort("name")}
-            >
-              이름순
-            </button>
-          </li>
-          <li>
-            <button
-              className={styles.alignButton}
-              onClick={() => handleSort("time")}
-            >
-              최신순
-            </button>
-          </li>
-        </ul>
+        <AnimatePresence>
+          <motion.ul
+            className={styles.alignButtons}
+            key="modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <li>
+              <button
+                className={styles.alignButton}
+                onClick={() => handleSort("name")}
+              >
+                이름순
+              </button>
+            </li>
+            <li>
+              <button
+                className={styles.alignButton}
+                onClick={() => handleSort("time")}
+              >
+                최신순
+              </button>
+            </li>
+          </motion.ul>
+        </AnimatePresence>
       )}
     </div>
   );
