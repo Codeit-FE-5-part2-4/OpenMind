@@ -1,6 +1,5 @@
 import Filter from "badwords-ko";
-
-const BASE_URL = "https://openmind-api.vercel.app/5-4/";
+import { BASE_URL } from "./constants.js";
 
 const filter = new Filter();
 
@@ -19,7 +18,7 @@ export const checkNameValidity = (value) => {
 export const postUserInfo = async (value, setCautionText) => {
   try {
     checkNameValidity(value);
-    const response = await fetch(`${BASE_URL}subjects/`, {
+    const response = await fetch(`${BASE_URL}/subjects/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
