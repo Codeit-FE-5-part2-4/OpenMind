@@ -21,8 +21,8 @@ function QuestionCardListPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isBack, setIsBack] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [back, setBack] = useState(false);
 
   const displaySubjects = async (params) => {
     const { limit, offset, sort, page } = params;
@@ -89,6 +89,7 @@ function QuestionCardListPage() {
       searchParams.set("page", newPageNumber);
       setSearchParams(searchParams);
       setCurrentPage(newPageNumber);
+      setIsBack(newPageNumber < currentPage);
     }
   };
 
@@ -98,8 +99,8 @@ function QuestionCardListPage() {
 
     searchParams.set("page", newPage);
     searchParams.set("offset", offset);
-    setBack(newPage < currentPage);
     setSearchParams(searchParams);
+    setIsBack(newPage < currentPage);
   };
 
   return (
@@ -116,12 +117,12 @@ function QuestionCardListPage() {
             </div>
             <div className={styles.listAndPaginationBox}>
               {isLoading ? (
-                <div className={styles.LoadingBox}>Loading...</div>
+                <div className={styles.LoadingBox}></div>
               ) : (
                 <QuestionCardList
                   currentPage={currentPage}
                   feeds={datas.results}
-                  back={back}
+                  isBack={isBack}
                 />
               )}
               <Pagination

@@ -43,14 +43,14 @@ function ListSortModal({ handleSort }) {
         {searchParams.get("sort") === "time" ? "최신순" : "이름순"}
         <img src={arrowDirection} alt={arrowDirection} />
       </motion.button>
-      {viewDropdown && (
-        <AnimatePresence>
+      <AnimatePresence mode="wait">
+        {viewDropdown && (
           <motion.ul
             className={styles.alignButtons}
-            key="modal"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            key={viewDropdown ? "open" : "closed"}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
           >
             <li>
               <button
@@ -69,8 +69,8 @@ function ListSortModal({ handleSort }) {
               </button>
             </li>
           </motion.ul>
-        </AnimatePresence>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 }
