@@ -18,7 +18,7 @@ export const INITIALQUERY = {
 
 function QuestionCardListPage() {
   const [datas, setDatas] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState();
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isBack, setIsBack] = useState(false);
