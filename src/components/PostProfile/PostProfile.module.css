@@ -52,6 +52,10 @@
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
   z-index: 1010;
+
+  @media (max-width: 767px) {
+    bottom: 90px;
+  }
 }
 
 .toast.show {
