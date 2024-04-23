@@ -18,12 +18,13 @@ export const INITIALQUERY = {
 
 function QuestionCardListPage() {
   const [datas, setDatas] = useState([]);
-  const [currentPage, setCurrentPage] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isBack, setIsBack] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // 피드 리스트 렌더링 함수
   const displaySubjects = async (params) => {
     const { limit, offset, sort, page } = params;
 
@@ -34,7 +35,7 @@ function QuestionCardListPage() {
       const feedDatas = await getSubjects({ limit, offset, sort });
 
       setDatas(feedDatas);
-      setCurrentPage(parseInt(page)); //params의 page속성은 string이므로 숫자로 변환
+      setCurrentPage(parseInt(page));
     } catch (error) {
       console.error(error);
       setIsError(true);
@@ -43,6 +44,7 @@ function QuestionCardListPage() {
     }
   };
 
+  // 초기 렌더링과 쿼리 파라미터 변경에 대응
   useEffect(() => {
     if (!searchParams.has("sort") || searchParams.get("sort") === "") {
       searchParams.set("sort", INITIALQUERY.sort);
@@ -62,12 +64,14 @@ function QuestionCardListPage() {
     displaySubjects({ limit, offset, sort, page });
   }, [searchParams, setSearchParams]);
 
+  // 정렬 핸들링 함수
   const handleSortChange = (newSort) => {
     searchParams.set("sort", newSort);
     searchParams.set("page", 1);
     setSearchParams(searchParams);
   };
 
+  // 화살표를 이용한 페이지 핸들링 함수
   const handlePageChangeByArrow = (direction) => {
     if (isLoading) return;
     let newOffset = null;
@@ -94,6 +98,7 @@ function QuestionCardListPage() {
     }
   };
 
+  // 번호를 이용한 페이지 핸들링 함수
   const handlePageChangeByPage = (newPage) => {
     if (isLoading) return;
     const offset = (newPage - 1) * INITIALQUERY.limit;
@@ -105,38 +110,36 @@ function QuestionCardListPage() {
   };
 
   return (
-    <>
-      <div className={styles.pageContainer}>
-        <section className={styles.contentContainer}>
-          <ListHeader />
-          <div className={styles.titleAndSortBox}>
-            <h1 className={styles.title}>누구에게 질문할까요?</h1>
-            <ListSortModal handleSort={handleSortChange} />
-          </div>
-          {isError ? (
-            <ListErrorBox dataFetch={() => displaySubjects(INITIALQUERY)} />
-          ) : (
-            <div className={styles.listAndPaginationBox}>
-              {isLoading ? (
-                <div className={styles.loadingBox}></div>
-              ) : (
-                <QuestionCardList
-                  currentPage={currentPage}
-                  feeds={datas.results}
-                  isBack={isBack}
-                />
-              )}
-              <Pagination
-                count={datas?.count}
+    <div className={styles.pageContainer}>
+      <section className={styles.contentContainer}>
+        <ListHeader />
+        <div className={styles.titleAndSortBox}>
+          <h1 className={styles.title}>누구에게 질문할까요?</h1>
+          <ListSortModal handleSort={handleSortChange} />
+        </div>
+        {isError ? (
+          <ListErrorBox dataFetch={() => displaySubjects(INITIALQUERY)} />
+        ) : (
+          <div className={styles.listAndPaginationBox}>
+            {isLoading ? (
+              <div className={styles.loadingBox}></div>
+            ) : (
+              <QuestionCardList
                 currentPage={currentPage}
-                onArrow={handlePageChangeByArrow}
-                onPage={handlePageChangeByPage}
+                feeds={datas.results}
+                isBack={isBack}
               />
-            </div>
-          )}
-        </section>
-      </div>
-    </>
+            )}
+            <Pagination
+              count={datas?.count}
+              currentPage={currentPage}
+              onArrow={handlePageChangeByArrow}
+              onPage={handlePageChangeByPage}
+            />
+          </div>
+        )}
+      </section>
+    </div>
   );
 }
 
