@@ -1,4 +1,4 @@
-export const shareKakao = (route) => {
+export const shareKakao = (name, route) => {
   if (window.Kakao) {
     const kakao = window.Kakao;
     if (!kakao.isInitialized()) {
@@ -9,7 +9,7 @@ export const shareKakao = (route) => {
       objectType: "feed", // 카카오 링크 공유 여러 type들 중 feed라는 타입 -> 자세한 건 카카오에서 확인
       content: {
         title: "Openmind", // 인자값으로 받은 title
-        description: "무엇이든 물어보세요", // 인자값으로 받은 title
+        description: `${name}님에게 무엇이든 물어보세요`, // 인자값으로 받은 title
         imageUrl: "https://ifh.cc/g/k2Wdn3.png",
         link: {
           mobileWebUrl: route, // 인자값으로 받은 route(uri 형태)
