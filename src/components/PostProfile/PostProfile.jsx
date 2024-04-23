@@ -32,7 +32,7 @@ export default function PostProfile({ userProfile }) {
     {
       altMessage: "link to kakao",
       imgSource: kakaoImage,
-      onClick: () => shareKakao(SHARE_URL),
+      onClick: () => shareKakao(userProfile.name, SHARE_URL),
     },
     {
       altMessage: "link to facebook",
