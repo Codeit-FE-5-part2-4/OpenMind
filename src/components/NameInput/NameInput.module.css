@@ -1,0 +1,27 @@
+.nameInputBox {
+    position: relative;
+}
+
+.nameInputBox input {
+    width: 100%;
+    padding: 12px 16px 10px 40px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.375;
+    color: var(--grayscaleColor600);
+    border: 1px solid var(--grayscaleColor400);
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.nameInputBox input:focus {
+    outline: none;
+    border: 1px solid var(--brownColor400);
+}
+
+.nameInputBox img {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}

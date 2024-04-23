@@ -1,0 +1,22 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 1200px) {
+  .header {
+    width: auto;
+    padding: 0 18px;
+  }
+}
+
+/*모바일 사이즈 */
+@media (max-width: 767px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+}

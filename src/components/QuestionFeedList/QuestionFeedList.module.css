@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 16px;
+  padding: 16px;
+
+  border: 1px solid var(--brownColor300);
+  background-color: var(--brownColor100);
+}
+
+.questionCount {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.questionCardEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.questionEmptyImage {
+  width: 150px;
+  height: 154px;
+  margin: 70px 277px 65px;
+
+  @media (max-width: 767px) {
+    height: 118px;
+    width: 114px;
+    margin: 90px;
+    margin-top: 66px;
+  }
+}
+
+.questionList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.questionCountMsg {
+  color: var(--brownColor400);
+  font-size: 20px;
+  font-style: normal;
+  line-height: 25px;
+
+  @media (max-width: 767px) {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,63 @@
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 1;
+}
+
+.profileImage {
+  width: 136px;
+  border-radius: 50%;
+
+  @media (max-width: 767px) {
+    width: 104px;
+  }
+}
+
+.profileUserName {
+  font-size: 32px;
+  font-family: Pretendard, sans-serif;
+
+  @media (max-width: 767px) {
+    font-size: 24px;
+  }
+}
+
+.shareButtonBox {
+  display: flex;
+  gap: 12px;
+}
+
+.shareButton {
+  width: 40px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.toast {
+  background: var(--grayscaleColor600);
+  color: var(--grayscaleColor100);
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 12px 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  position: fixed;
+  bottom: 60px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 1010;
+
+  @media (max-width: 767px) {
+    bottom: 90px;
+  }
+}
+
+.toast.show {
+  opacity: 1;
+}

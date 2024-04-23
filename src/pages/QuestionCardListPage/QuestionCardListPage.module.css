@@ -1,0 +1,157 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 0;
+  background-color: var(--grayscaleColor200);
+  overflow-x: hidden;
+}
+
+.contentContainer {
+  width: 100%;
+  max-width: 940px;
+}
+
+.titleAndSortBox {
+  display: flex;
+  flex-direction: column;
+  margin: 46px 0 30px;
+  gap: 12px;
+}
+
+.title {
+  color: #000;
+  margin: 0 auto;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Pretendard;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.sortMenu {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.selectSortButton {
+  display: flex;
+  padding: 8px 12px;
+  text-align: center;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #000;
+  background: var(--grayscaleColor100);
+}
+
+.selectSortButton img {
+  width: 14px;
+  height: 14px;
+}
+
+.alignButtons {
+  position: absolute;
+  top: 38px;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--grayscaleColor300);
+  background: var(--grayscaleColor100);
+  box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
+}
+
+.alignButton {
+  background: none;
+  border: none;
+  color: var(--grayscaleColor500);
+  font-family: Pretendard;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.alignButton:hover {
+  color: var(--blueColor);
+}
+
+.listAndPaginationBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loadingBox {
+  width: 100%;
+  max-width: 940px;
+  height: 394px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+/* 태블릿 사이즈 */
+@media (max-width: 1200px) {
+  .pageContainer {
+    padding: 40px 32px;
+  }
+  .titleBox {
+    display: flex;
+    justify-content: space-between;
+    margin: 47px 0 0;
+  }
+}
+
+@media (max-width: 870px) {
+  .pageContainer {
+    padding: 5vh 32px 10vh;
+  }
+  .titleBox {
+    display: flex;
+    justify-content: space-between;
+    margin: 47px 0 30px;
+  }
+}
+
+/* 모바일 사이즈 */
+@media (max-width: 767px) {
+  .pageContainer {
+    padding: 40px 24px;
+    align-items: center;
+  }
+
+  .titleAndSortBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 52px 0 18px;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .loadingBox {
+    height: 767.94px;
+  }
+}

@@ -1,0 +1,83 @@
+.kebabIcon {
+  width: 26px;
+  height: 26px;
+}
+
+.dropdownContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.dropdownList {
+  position: absolute;
+  top: 26px;
+  right: 0;
+  width: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid var(--grayscaleColor300);
+  box-shadow: 0px 4px 4px 0px rgba(140, 140, 140, 0.25);
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 4px 0;
+}
+
+.dropdownElement {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 16px;
+  gap: 8px;
+  color: var(--grayscaleColor500);
+  background-color: #fff;
+
+  &:hover {
+    background-color: var(--grayscaleColor200);
+    color: var(--grayscaleColor600);
+
+    cursor: pointer;
+
+    .dropdownElementEditIcon {
+      background-image: url(../../assets/images/icon/FeedEditIconOnHover.svg);
+    }
+    .dropdownElementDeleteIcon {
+      background-image: url(../../assets/images/icon/FeedDeleteIconOnHover.svg);
+    }
+    .dropdownElementRejectIcon {
+      background-image: url(../../assets/images/icon/FeedRejectIconOnHover.svg);
+    }
+  }
+}
+
+.dropdownElementEditIcon,
+.dropdownElementDeleteIcon,
+.dropdownElementRejectIcon {
+  width: 14px;
+  height: 14px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.dropdownElementEditIcon {
+  background-position-y: -1px;
+  background-image: url(../../assets/images/icon/FeedEditIcon.svg);
+}
+
+.dropdownElementDeleteIcon {
+  background-position-y: 0.5px;
+  background-image: url(../../assets/images/icon/FeedDeleteIcon.svg);
+}
+
+.dropdownElementRejectIcon {
+  background-position-y: -1px;
+  background-image: url(../../assets/images/icon/FeedRejectIcon.svg);
+}
+
+.dropdownElementText {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+}
