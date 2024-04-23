@@ -5,13 +5,13 @@ const filter = new Filter();
 
 export const checkNameValidity = (value) => {
   if (filter.isProfane(value)) {
-    throw new Error("비속어가 포함되어 있습니다.");
+    throw new Error("비속어가 포함되어 있어요.");
   }
   if (!value) {
-    throw new Error("이름이 비어 있습니다.");
+    throw new Error("이름이 비어 있어요.");
   }
   if (value.length > 30) {
-    throw new Error("이름의 너무 길어요.");
+    throw new Error("이름이 너무 길어요.");
   }
 };
 
