@@ -137,6 +137,10 @@ button {
   cursor: pointer;
 }
 
+input {
+  font-family: inherit;
+}
+
 body:lang(ko) {
   font-family: Pretendard, Helvetica, Arial, sans-serif;
   font-size: 16px;
